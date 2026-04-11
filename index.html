@@ -3,204 +3,326 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>P.L. UTEBO - Prontuario Completo</title>
+    <title>P.L. UTEBO - Prontuario</title>
     <style>
-        :root { 
-            --bg: #ffffff; --header-blue: #01579b; --text: #263238; --border: #eceff1;
-            /* Pestañas */
+        :root {
             --c-l: #e8f5e9; --c-l-t: #2e7d32;
             --c-g: #fff3e0; --c-g-t: #ef6c00;
             --c-mg: #ffebee; --c-mg-t: #c62828;
-            --c-blue: #e3f2fd; --c-purple: #f3e5f5;
         }
-        body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding-bottom: 50px; }
-        
-        .header { background: #ffffff; padding: 30px 15px; text-align: center; border-bottom: 2px solid var(--border); position: sticky; top: 0; z-index: 1000; }
-        .header img { width: 140px; height: auto; display: block; margin: 0 auto 10px; }
-        .header h1 { font-size: 1.3em; margin: 0; color: var(--header-blue); text-transform: uppercase; font-weight: 900; }
+        * { box-sizing: border-box; }
+        body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f4f6f8; color: #263238; margin: 0; padding-bottom: 60px; }
 
-        .search-area { padding: 15px; background: #ffffff; position: sticky; top: 215px; z-index: 999; }
-        #search { width: 100%; padding: 14px; background: #f8fafc; border: 1px solid #cfd8dc; border-radius: 12px; font-size: 1.1em; outline: none; box-sizing: border-box; }
+        .header { background: #fff; padding: 16px 15px 12px; text-align: center; border-bottom: 2px solid #e0e0e0; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 8px rgba(0,0,0,0.07); }
+        .header img { width: 80px; height: auto; display: block; margin: 0 auto 8px; }
+        .header h1 { font-size: 1.1em; margin: 0 0 2px; color: #01579b; text-transform: uppercase; font-weight: 900; letter-spacing: 0.03em; }
+        .header p { font-size: 0.7em; color: #78909c; margin: 0; text-transform: uppercase; letter-spacing: 0.06em; }
 
-        .filters { display: flex; gap: 8px; overflow-x: auto; padding: 0 15px 10px; background: #ffffff; position: sticky; top: 295px; z-index: 998; scrollbar-width: none; }
-        .filter-btn { padding: 10px 18px; border-radius: 20px; border: 1px solid #cfd8dc; font-size: 0.75em; white-space: nowrap; cursor: pointer; font-weight: bold; color: #546e7a; transition: 0.2s; }
-        
-        .f-all { background: #f5f5f5; } .f-all.active { background: #cfd8dc; }
-        .f-l { background: var(--c-l); color: var(--c-l-t); } .f-l.active { background: #c8e6c9; }
-        .f-g { background: var(--c-g); color: var(--c-g-t); } .f-g.active { background: #ffe0b2; }
-        .f-mg { background: var(--c-mg); color: var(--c-mg-t); } .f-mg.active { background: #ffcdd2; }
-        .f-cat { background: var(--c-blue); } .f-cat.active { background: #bbdefb; }
+        .search-area { padding: 10px 14px 8px; background: #fff; border-bottom: 1px solid #eceff1; position: sticky; top: 148px; z-index: 999; }
+        #search { width: 100%; padding: 12px 16px; background: #f5f7fa; border: 1.5px solid #cfd8dc; border-radius: 30px; font-size: 1em; outline: none; -webkit-appearance: none; }
+        #search:focus { border-color: #01579b; }
+        #count { font-size: 0.74em; color: #90a4ae; text-align: center; margin-top: 5px; min-height: 16px; }
 
-        .container { padding: 0 15px 100px; }
-        .section-label { color: var(--header-blue); font-size: 0.85em; font-weight: 900; margin: 25px 0 12px; text-transform: uppercase; border-left: 5px solid var(--header-blue); padding-left: 12px; }
-        .card { background: #ffffff; border-radius: 15px; padding: 18px; margin-bottom: 12px; border: 1px solid #eceff1; box-shadow: 0 3px 6px rgba(0,0,0,0.03); }
-        .card-desc { font-size: 0.95em; margin-bottom: 12px; font-weight: 600; text-transform: uppercase; line-height: 1.4; }
-        .card-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #f5f5f5; padding-top: 12px; }
-        .badge { font-size: 0.75em; font-weight: 800; padding: 4px 10px; border-radius: 6px; }
-        
-        .L { background: var(--c-l); color: var(--c-l-t); } 
-        .G { background: var(--c-g); color: var(--c-g-t); } 
-        .MG { background: var(--c-mg); color: var(--c-mg-t); }
-        
-        .cod-text { font-size: 1.3em; color: #263238; font-weight: 800; }
-        .pts-text { background: #e1f5fe; color: #0288d1; padding: 4px 8px; border-radius: 4px; font-size: 0.75em; font-weight: bold; margin-right: 5px; }
+        .filters { display: flex; gap: 7px; overflow-x: auto; padding: 8px 14px; background: #fff; border-bottom: 1px solid #eceff1; position: sticky; top: 218px; z-index: 998; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+        .filters::-webkit-scrollbar { display: none; }
+        .fb { padding: 8px 15px; border-radius: 20px; border: 1.5px solid transparent; font-size: 0.74em; white-space: nowrap; cursor: pointer; font-weight: 800; letter-spacing: 0.04em; -webkit-tap-highlight-color: transparent; transition: opacity 0.15s; }
+        .fb:not(.active) { opacity: 0.7; }
+
+        .f-todas  { background:#e3f2fd; color:#1565c0; border-color:#90caf9; }
+        .f-leve   { background:#e8f5e9; color:#2e7d32; border-color:#a5d6a7; }
+        .f-grave  { background:#fff3e0; color:#e65100; border-color:#ffcc80; }
+        .f-mgrave { background:#ffebee; color:#b71c1c; border-color:#ef9a9a; }
+        .f-est    { background:#f3e5f5; color:#6a1b9a; border-color:#ce93d8; }
+        .f-circ   { background:#e8eaf6; color:#283593; border-color:#9fa8da; }
+        .f-alc    { background:#fce4ec; color:#880e4f; border-color:#f48fb1; }
+        .f-vmp    { background:#e0f7fa; color:#00695c; border-color:#80deea; }
+        .f-cond   { background:#fff8e1; color:#f57f17; border-color:#ffe082; }
+
+        .f-todas.active  { background:#1565c0; color:#fff; border-color:#1565c0; opacity:1; }
+        .f-leve.active   { background:#2e7d32; color:#fff; border-color:#2e7d32; opacity:1; }
+        .f-grave.active  { background:#e65100; color:#fff; border-color:#e65100; opacity:1; }
+        .f-mgrave.active { background:#b71c1c; color:#fff; border-color:#b71c1c; opacity:1; }
+        .f-est.active    { background:#6a1b9a; color:#fff; border-color:#6a1b9a; opacity:1; }
+        .f-circ.active   { background:#283593; color:#fff; border-color:#283593; opacity:1; }
+        .f-alc.active    { background:#880e4f; color:#fff; border-color:#880e4f; opacity:1; }
+        .f-vmp.active    { background:#00695c; color:#fff; border-color:#00695c; opacity:1; }
+        .f-cond.active   { background:#f57f17; color:#fff; border-color:#f57f17; opacity:1; }
+
+        .container { padding: 0 14px 80px; max-width: 700px; margin: 0 auto; }
+        .section-label { color: #01579b; font-size: 0.82em; font-weight: 900; margin: 20px 0 10px; text-transform: uppercase; border-left: 4px solid #01579b; padding-left: 10px; letter-spacing: 0.06em; }
+        .card { background: #fff; border-radius: 12px; padding: 16px; margin-bottom: 10px; border: 2px solid #eceff1; box-shadow: 0 2px 5px rgba(0,0,0,0.04); }
+        .card.L  { border-color: #66bb6a; }
+        .card.G  { border-color: #ffa726; }
+        .card.MG { border-color: #ef5350; }
+        .card.ND { border-color: #b0bec5; }
+        .card-desc { font-size: 0.97em; margin-bottom: 12px; font-weight: 600; text-transform: uppercase; line-height: 1.45; color: #263238; }
+        .card-footer { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; border-top: 1px solid #f5f5f5; padding-top: 10px; }
+        .badge { font-size: 0.74em; font-weight: 800; padding: 4px 11px; border-radius: 6px; letter-spacing: 0.05em; }
+        .badge.L  { background: var(--c-l);  color: var(--c-l-t); }
+        .badge.G  { background: var(--c-g);  color: var(--c-g-t); }
+        .badge.MG { background: var(--c-mg); color: var(--c-mg-t); }
+        .badge.ND { background: #f5f5f5; color: #90a4ae; }
+        .cod { font-size: 1.05em; color: #263238; font-weight: 800; margin-left: auto; }
+        .pts { background: #e1f5fe; color: #0277bd; padding: 4px 9px; border-radius: 5px; font-size: 0.74em; font-weight: 800; }
+        .eur { background: #fce4ec; color: #c62828; padding: 4px 9px; border-radius: 5px; font-size: 0.74em; font-weight: 800; }
+        #empty { display:none; text-align:center; padding:60px 20px; color:#b0bec5; }
+        #empty div { font-size:2.5em; margin-bottom:10px; }
     </style>
 </head>
 <body>
 
 <div class="header">
-    <img src="escudo_utebo.png" alt="Escudo Policía Local Utebo">
-    <h1>Policía Local de Utebo</h1>
+    <img src="data:image/png;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCABsAF4DASIAAhEBAxEB/8QAHAABAAIDAQEBAAAAAAAAAAAAAAYHAgUIAwQB/8QANhAAAQMEAQMCBAYBAQkAAAAAAQIDBAAFBhEhBxIxE1EUIkFhCBYjMkJxgVI1VWJykbGywfD/xAAbAQABBQEBAAAAAAAAAAAAAAAAAgQFBgcDAf/EADMRAAEEAQIEBAQDCQAAAAAAAAEAAgMRBBIhBQYxURNBYXEiIzKxBxXRJEJSgZGhweHw/9oADAMBAAIRAxEAPwDsulKUISlKUISlYuLQhClrUEpSCVE8AAVTFz69R4+VW61xsRvsiNJQ8VuCMe9eiPRU0PC0r7knf0C07+tdI4nyfSEh8jWfUrppWoxC/Rskx+Nd4zTrAdBDjDo04y4k9q21D6KSoEH+q2+xXMijRSgbFhKUpQvUpSlCEpSlCEqqupV1v19vkzErXIFqt8drc6cFpUt4KR3eiEnRRsA/qA8HVS7K89xfGJohXmeuO8WvVOo7ikoR7qWE9qQTxyRzXNOW9TJOcZJfFYdJ02z6bkd2Q0hlSUpB3rjkg+O4n7UmaR+PEZw2wK9tyBaVBG3JnZBrDS41v/lS6/XvqRAaumL2K4wTYiyBAu02WpclpJIVyfmKwBtHI+nmvC1zWiuyT27rCmfl6G0xKeC0pS72lGzyfl32Dz4/zVfZxHF5t1tmDIBHD6EsuBTq1JdVySVADjR3wRWWA/l+Lh1xiSZjSVPBSZIeSErBA57Bvka5H/wqrZfMk78bxYwB8VEAb+5Nkeu3U7K1Q8rwMxvHfI5zrAoA7C91LrNknUfH2LvIxO72XIY06aH2GnllPwwK1uLQhP7SVFWu7uNSxk5PiCnMlsV3dvoS2l29QZMkESltx1qdeDqu4tgKKAEJAB7fFUFhlmYcvkVbN5LLS3FOoZUFIW4ltQI7tcDfnydCpbeskvduRf7s3NRIsrEdcdltToWsLIAKRscp71HZUCOCBupNnMDzkCAtDiQLoVdkADqd/b+ZBTXi3LEWE55imtrRq3sVv09T+hXYVplpn2yLOQNJkModA9goA/8AuvpqoenfXLCLpiUJ2TcpnxUdpDU0mCslKwhPe6oNpPa33K13EAb4HirdSdjY8GpuSN0ZpwpVpj2vFgr9pSlIS0oToUoaEKobAwq73rI7/dGllqTJcgNokSS+yGUHtUy6jw2CeQR43ya5z619NJPTrJWMmx5t5VkckJ/S2e+Ks8+mojygjej4I4rffiFzi6YT1vk3HCslj7caSJ0RltJbCxwpDyQNLJ9zyPcVlfetdmzbpjcrJOhqtN6W2gNtJJWw9paSQ2fKffsVx7GpR0cscRkAtpG49KTXEbDlZceO80dQF+58lrxmlpEv1rdaIEllTAStDzzccd3kkhae4nnXmv1N+n3OXEkR7LGQYTZcUxGukfsUhPJKhonXvyKgGOWV+9XRMBpbbS/r6hI+2vHmpFittftN/v1vkj9Vm1ykr14321leVw7BxtYabeBdG+h28iO629/CsPD1ND9bwL3vp08iApPNyKaqO58RicGN87TzjjU1lZ7FKBSSntPCuANf96iOV2S95/1CjY/j1tdjx2gUEuIU0yz26Lri96CQnuA3rnjW9it47zAlk/7rtX/mippjWeY5gcnKZt+kuhb1yc+GjMt97r5SQT2g/KNbHKjocHRNOeV3Nh4kwxsGoggddvhab3J717KlcycPjGE92ogAjby/d733Vi4X04sGO4Q5h8KK7KRMbC5igotSLgv6OOLHLLIP7RsE64+oVNOi1yn3HAozdzUt6XAdcgOylSPXTLWyrsU8legSkqCtbG+K426k9ccrzBTlst7/AOXrI8vS2GHCpx4H+Tzv7l8eQNDXGjXbnTZy1OYJZTZbhFuEFERDbcmM2lDbpSNKUEpACeQeNDRrRsqGSJgMnUlULGljkcRH0CkNKUpgnqVEur1zl2jALjMgTvg5YSlDLgR3KKlKACU+yjvQJ4BO6ltaTOrEvJcVnWREsxTKb7PU7Aof0R7HwdaOvBFKYQHAlJeCWmlRmW/h4xvIn13V1/MYFwkAKeW+4zLJVr6neyfvuqyzj8P0rErQ/kMHJPjGYRSssyLeppxXzADRClJ8n7Vu+rvVnqJgORKxtWNY3bkIQBHkC3qWl9A47kd6zsf3z71V9z6mdScvjPwpNxdft4AXLahwW220o2OVlCBob15NSrmZRx3HUNNH7Lhw92N+Ywt0/Frb9wrox2A1KjxbrerHEj3NLIUs9iS5sDhWhsg/3Xnhdmh5Bb5tyki7vfESn2B8IkdpbV52O3gnf91X2BusWt9rJLpew62lopDDUspfBBHyFB/cD7Dip/YcoslhhuQnbddZaHi5NYdiKSlPoKUFb9+NDe/qkf5zHl3BgizJ45qdYGmxsKJ1Aar6beau/MmPk4krfCc4ts7t1AD077Kv4TzjiciaWolEcQmGgrW0oS8kJH30PrW+f6XzupN/uqYt2j25qBcpBdU4yt1Su8o12hP/ACnyRWrcZQh3IZLRPpzEQZSARylK3woD/pqvLMr9m2Nz7pdMTkz40ZF0kic6wyHGk8o7PU2CB/LW/vUhgOjfzDeLQbbq7fQ1e8WDhwL9oBJpt97+X1Vg4/8Ahcx9C0ru18yC4gfuRFiNR0n/ACtSjVlYNak4R1Es2LWxd5t9mk2p8oi3CX8Ul9xpSdBsBRDJSlSidaCu4DWxuuZbN+IbqHEW208ix3QrUEpTItaO5ZJ0APT7STXVXSqyZJPuMLOMlgQbDNdtpjLtkRhSFHuWFfrdylcgjaQnR+Y93sL3lidg+c6ws/xjC4/KbSs6lKwedaZSFPOobSTra1ADf+ai1IrOhpShC4p/E9GayK/XPJ1xru45DdMINso72IqUK0FPFXKO7yEgAHz3Gq4sfUPKLfhcvFW4sNzH3iG1ufDALbVsK33pA2eP5dx14rtbKcNyIZPNuuMuW8sXBjUhm4PurbS+OA6GtFKiBxokCuUY9i6i451QOEqjwJ82Q+qe7GQtKGeUq/UUpIHZoEkfQVYcWaGfHOPIBXXrv9io8OkxMlmQzqCPawbUMgTXIklqXFeCXGz3IWCODUvw65TbteLzMnyVyXlWiSCtR3x2+B7V55lY/wAsSWJWa4WYSJC+31WHkraWsBSjoIUFa+dvYJB0PNaJKbWceW7jTN/RcpriI6Q0wosvNemPVbBGyVd4J0N/LxULmcpx5cR8OQajQsgbC99wStDyPxHZOHNlxadVWHb/AN2jY+/9VNlrQIEva0/7MtX8v+NNeeS9Tb5hFzvsTFxBXKl3B8yHXkeoWUjt7dDxs/N5BHHioxYXMVk3lm0WXGp15ubs8/DMufKpbfafk+ZRTtPPCknZAJOvlrZdR7HmOL4VEVccVtsC2OtmCt5Kw88fmDqFOlJ7QvklKgPBUK5cM5Qx8DMZNJNqryoDqAO7j5dtyfRVrifNUmdiuibFpvzu/wCH0HZaLpvjbfUDJ5iLi1dkqeR665ttiIU1EWVAlx5I7QloDe+0gjyAdaru7pLehe8JiPcqMVS4frBxTiJAaPaHkLUAVpWkBQV9/rVL9FMD6pW/pUi1JkWeOxLUHbe+mQpuRDaWEKK0uNpPeFAqBQrRHB37dDWC1xLJZYdogIWiJDZSyylThWUoSNAdyuTx71J8UymzybdB0A/7zUHhxFgvuvupSlRSfJSlKEIaqXqK4/jmcO5LcLQ5ItMiMmMZcdBccZSkFakFCUk9qikbWToAaq2qweabeaW062lxtaSlaFDYUD5BH1FLY7SbSXt1BcbfiFs2V57cxccctztyx6zQ1KXOaUC066VbdKP9R2daH+mtt03YVZsI6ZBaFturuL8laVDRBJf8j+kCusmGWmGUMsNoaaQNJQhICUj2AHiqgyTotMuF2t0iBmtwhxIkxbiY5aQr0GFBekNkj9wLi/mVvhX2FPmZYcwRu2A/QpmcYtf4g3J/0uXZmF5ojqzfpWIWWZMesV3LySynlP6x7CN+Rsc68De66MyLIIOVWX8vWe1qvM+6xhqGnhEUqStxHquaKW3GXW1AJVokECrbwjHlY7aVx5E9dxmyH1yJUpbYR6rizskJHCR9hW2jwYceS/JjxGGX5BBfcQ2EqdI8FRHnX3pM2Z4hFjp0SocXwwaPVYWVl6PZ4bEgIDzbCEuBCQlPcEgHQHAG/avrpSmCeBKUpQhKUpQhKUpQhKUpQhKUpQhKUpQhKUpQhf/Z" alt="Escudo">
+    <h1>Polic&iacute;a Local de Utebo</h1>
+    <p>Prontuario de infracciones de tr&aacute;fico</p>
 </div>
 
 <div class="search-area">
-    <input type="text" id="search" placeholder="🔍 Buscar artículo o palabra..." onkeyup="filterApp()">
+    <input type="text" id="search" placeholder="&#x1F50D; Buscar infracci&oacute;n, c&oacute;digo..." oninput="filtrar()" onkeyup="filtrar()" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+    <div id="count"></div>
 </div>
 
 <div class="filters">
-    <div class="filter-btn f-all active" onclick="setCategory('all', this)">TODAS</div>
-    <div class="filter-btn f-l" onclick="setCategory('L', this)">LEVES</div>
-    <div class="filter-btn f-g" onclick="setCategory('G', this)">GRAVES</div>
-    <div class="filter-btn f-mg" onclick="setCategory('MG', this)">M.GRAVES</div>
-    <div class="filter-btn f-cat" onclick="setCategory('est', this)">ESTAC.</div>
-    <div class="filter-btn f-cat" onclick="setCategory('circ', this)">CIRC.</div>
-    <div class="filter-btn f-cat" onclick="setCategory('vmp', this)">VMP</div>
+    <div class="fb f-todas active" onclick="setCat('all',this)">TODAS</div>
+    <div class="fb f-leve"   onclick="setCat('L',this)">LEVES</div>
+    <div class="fb f-grave"  onclick="setCat('G',this)">GRAVES</div>
+    <div class="fb f-mgrave" onclick="setCat('MG',this)">M.GRAVES</div>
+    <div class="fb f-est"    onclick="setCat('est',this)">ESTAC.</div>
+    <div class="fb f-circ"   onclick="setCat('circ',this)">CIRCULAC.</div>
+    <div class="fb f-alc"    onclick="setCat('alc',this)">ALCOHOL</div>
+    <div class="fb f-vmp"    onclick="setCat('vmp',this)">VMP</div>
+    <div class="fb f-cond"   onclick="setCat('cond',this)">CONDUCTORES</div>
 </div>
 
-<div class="container" id="list">
-    <div class="section-label est">Estacionamientos</div>
-    <div class="card est G" data-key="vado salida inmueble personas vehiculos">
-        <div class="card-desc">VADO OBSTACULIZANDO SALIDA DE PERSONAS O VEHÍCULOS</div>
-        <div class="card-footer"><span class="badge G">GRAVE</span><span class="cod-text">91-2C</span></div>
+<div class="container" id="lista">
+
+    <!-- ESTACIONAMIENTOS -->
+    <div class="section-label" data-sec="est">🅿️ Estacionamientos</div>
+
+    <div class="card est G" data-k="vado obstaculizando salida personas animales vehiculos inmueble">
+        <div class="card-desc">🚧 Estacionar en vado obstaculizando la utilizaci&oacute;n normal de paso o salida de personas, animales o veh&iacute;culos a un inmueble</div>
+        <div class="card-footer"><span class="badge G">GRAVE</span><span class="cod">91-2C</span></div>
     </div>
-    <div class="card est L" data-key="vado señalizado">
-        <div class="card-desc">ESTACIONAR EN VADO SEÑALIZADO</div>
-        <div class="card-footer"><span class="badge L">LEVE</span><span class="cod-text">94-2F-5Y</span></div>
+    <div class="card est L" data-k="vado senalizado">
+        <div class="card-desc">🚧 Estacionar en vado se&ntilde;alizado</div>
+        <div class="card-footer"><span class="badge L">LEVE</span><span class="cod">94-2F-5Y</span></div>
     </div>
-    <div class="card est G" data-key="acera paseo peatones zona">
-        <div class="card-desc">ESTACIONAR SOBRE ACERA, PASEO O ZONA DE PEATONES</div>
-        <div class="card-footer"><span class="badge G">GRAVE</span><span class="cod-text">94-2E-5X</span></div>
+    <div class="card est G" data-k="acera paseo zonas paso peatones">
+        <div class="card-desc">🚶 Estacionar sobre acera, paseo y dem&aacute;s zonas destinadas al paso de peatones</div>
+        <div class="card-footer"><span class="badge G">GRAVE</span><span class="cod">94-2E-5X</span></div>
     </div>
-    <div class="card est G" data-key="paso peatones">
-        <div class="card-desc">ESTACIONAR EN PASO PARA PEATONES</div>
-        <div class="card-footer"><span class="badge G">GRAVE</span><span class="cod-text">94-2A-5R</span></div>
+    <div class="card est G" data-k="paso peatones zona senalizada">
+        <div class="card-desc">🦓 Estacionar en zona se&ntilde;alizada como paso para peatones</div>
+        <div class="card-footer"><span class="badge G">GRAVE</span><span class="cod">94-2A-5R</span></div>
     </div>
-    <div class="card est G" data-key="doble fila">
-        <div class="card-desc">ESTACIONAR EN DOBLE FILA</div>
-        <div class="card-footer"><span class="badge G">GRAVE</span><span class="cod-text">94-2G-5Z</span></div>
+    <div class="card est G" data-k="doble fila">
+        <div class="card-desc">🚗🚗 Estacionar en doble fila</div>
+        <div class="card-footer"><span class="badge G">GRAVE</span><span class="cod">94-2G-5Z</span></div>
     </div>
-    <div class="card est G" data-key="carga descarga horario uso">
-        <div class="card-desc">CARGA Y DESCARGA EN HORARIO DE USO</div>
-        <div class="card-footer"><span class="badge G">GRAVE</span><span class="cod-text">91-2-5G</span></div>
+    <div class="card est G" data-k="discapacidad exclusivo">
+        <div class="card-desc">♿ Estacionar en zona se&ntilde;alizada para uso exclusivo de personas con discapacidad</div>
+        <div class="card-footer"><span class="badge G">GRAVE</span><span class="cod">94-2A-5Q</span></div>
     </div>
-    <div class="card est L" data-key="carga descarga fuera horario">
-        <div class="card-desc">CARGA Y DESCARGA FUERA DE HORARIO</div>
-        <div class="card-footer"><span class="badge L">LEVE</span><span class="cod-text">94-2-5U</span></div>
+    <div class="card est G" data-k="carga descarga horario utilizacion">
+        <div class="card-desc">📦 Estacionar en carga y descarga durante sus horas de utilizaci&oacute;n</div>
+        <div class="card-footer"><span class="badge G">GRAVE</span><span class="cod">91-2-5G</span></div>
     </div>
-    <div class="card est G" data-key="discapacidad minusvalidos">
-        <div class="card-desc">ESTACIONAR EN ZONA EXCLUSIVA DISCAPACIDAD</div>
-        <div class="card-footer"><span class="badge G">GRAVE</span><span class="cod-text">94-2A-5Q</span></div>
+    <div class="card est L" data-k="carga descarga fuera horario">
+        <div class="card-desc">📦 Estacionar en carga y descarga</div>
+        <div class="card-footer"><span class="badge L">LEVE</span><span class="cod">94-2C-5U</span></div>
     </div>
-    <div class="card est L" data-key="prohibido señal r-308 r-307">
-        <div class="card-desc">ESTACIONAR EN LUGAR PROHIBIDO POR SEÑAL</div>
-        <div class="card-footer"><span class="badge L">LEVE</span><span class="cod-text">94-2-5W</span></div>
+    <div class="card est L" data-k="carril reservado circulacion usuarios carriles bici doble fila calzada">
+        <div class="card-desc">🚲 Estacionar en carril o parte de la v&iacute;a reservado exclusivamente para la circulaci&oacute;n de determinados usuarios (carriles calzada sin obstaculizar, dobles filas, carriles bici...)</div>
+        <div class="card-footer"><span class="badge L">LEVE</span><span class="cod">94-2A-5G</span></div>
+    </div>
+    <div class="card est L" data-k="carril reservado servicio motos coches electricos bicis">
+        <div class="card-desc">🛵 Estacionar en un carril o parte de la v&iacute;a reservada exclusivamente para el servicio de determinados usuarios (motos, coches el&eacute;ctricos, bicis...)</div>
+        <div class="card-footer"><span class="badge L">LEVE</span><span class="cod">94-2A-5H</span></div>
+    </div>
+    <div class="card est L" data-k="zona excluida circulacion linea continua isleta cebreado">
+        <div class="card-desc">⛔ Entrar en zona excluida de la circulaci&oacute;n enmarcada por una l&iacute;nea continua sin raz&oacute;n justificada (isleta / cebreado)</div>
+        <div class="card-footer"><span class="badge L">LEVE</span><span class="cod">147-2D-5A</span></div>
     </div>
 
-    <div class="section-label circ">Circulación y Comportamiento</div>
-    <div class="card circ MG" data-key="temeraria peligro">
-        <div class="card-desc">CONDUCCIÓN TEMERARIA</div>
-        <div class="card-footer"><span class="badge MG">M.GRAVE</span><span class="pts-text">6 PTOS</span><span class="cod-text">3-1-5A</span></div>
+    <!-- CIRCULACION -->
+    <div class="section-label" data-sec="circ">🚗 Circulaci&oacute;n</div>
+
+    <div class="card circ MG" data-k="temeraria peligro">
+        <div class="card-desc">💀 Conducir de forma temeraria</div>
+        <div class="card-footer"><span class="badge MG">M.GRAVE</span><span class="pts">6 PTOS</span><span class="cod">3-1-5A</span></div>
     </div>
-    <div class="card circ G" data-key="negligente riesgo">
-        <div class="card-desc">CONDUCCIÓN NEGLIGENTE</div>
-        <div class="card-footer"><span class="badge G">GRAVE</span><span class="cod-text">3-1-5D</span></div>
+    <div class="card circ L" data-k="diligencia precaucion distraccion dano propio ajeno">
+        <div class="card-desc">⚠️ Conducir sin la diligencia, precauci&oacute;n y no distracci&oacute;n necesaria para evitar todo da&ntilde;o propio o ajeno</div>
+        <div class="card-footer"><span class="badge L">LEVE</span><span class="cod">3-1-5C</span></div>
     </div>
-    <div class="card circ G" data-key="movil telefono manual">
-        <div class="card-desc">USO MANUAL DEL TELÉFONO MÓVIL</div>
-        <div class="card-footer"><span class="badge G">GRAVE</span><span class="pts-text">6 PTOS</span><span class="cod-text">18-2-5B</span></div>
+    <div class="card circ G" data-k="negligente riesgo peligro ocupantes via">
+        <div class="card-desc">⚠️ Conducir de forma negligente creando una situaci&oacute;n de riesgo o peligro para s&iacute; mismo, los dem&aacute;s ocupantes del veh&iacute;culo o al resto de usuarios de la v&iacute;a</div>
+        <div class="card-footer"><span class="badge G">GRAVE</span><span class="cod">3-1-5D</span></div>
     </div>
-    <div class="card circ G" data-key="cascos auriculares">
-        <div class="card-desc">USO DE CASCOS O AURICULARES CONECTADOS</div>
-        <div class="card-footer"><span class="badge G">GRAVE</span><span class="pts-text">3 PTOS</span><span class="cod-text">18-2-5A</span></div>
+    <div class="card circ G" data-k="carga arrastrar caer desplazarse peligrosa estabilidad accesorios">
+        <div class="card-desc">📦 Circular con carga que pueda arrastrar, caer, desplazarse de manera peligrosa o comprometer la estabilidad del veh&iacute;culo, sin los accesorios que garanticen la adecuada protecci&oacute;n</div>
+        <div class="card-footer"><span class="badge G">GRAVE</span><span class="cod">14-1A-5A</span></div>
     </div>
-    <div class="card circ G" data-key="cinturon seguridad">
-        <div class="card-desc">NO UTILIZAR EL CINTURÓN DE SEGURIDAD</div>
-        <div class="card-footer"><span class="badge G">GRAVE</span><span class="pts-text">4 PTOS</span><span class="cod-text">117-1-5E</span></div>
+    <div class="card circ L" data-k="objetos animal transportado colocacion interfieran conduccion">
+        <div class="card-desc">🐶 Conducir sin cuidar la adecuada colocaci&oacute;n de los objetos o alg&uacute;n animal transportado para que no interfieran la conducci&oacute;n</div>
+        <div class="card-footer"><span class="badge L">LEVE</span><span class="cod">18-1-5E</span></div>
     </div>
-    <div class="card circ G" data-key="prioridad señales stop ceda">
-        <div class="card-desc">NO RESPETAR PRIORIDAD (STOP O CEDA EL PASO)</div>
-        <div class="card-footer"><span class="badge G">GRAVE</span><span class="pts-text">4 PTOS</span><span class="cod-text">151-2</span></div>
+    <div class="card circ G" data-k="telefono movil manual dispositivo atencion conduccion">
+        <div class="card-desc">📱 Conducir utilizando manualmente el tel&eacute;fono m&oacute;vil o cualquier otro dispositivo incompatible con la obligatoria atenci&oacute;n permanente a la conducci&oacute;n</div>
+        <div class="card-footer"><span class="badge G">GRAVE</span><span class="pts">3-6 PTOS</span><span class="cod">18-2-5B</span></div>
     </div>
-    <div class="card circ MG" data-key="sentido contrario">
-        <div class="card-desc">CIRCULAR EN SENTIDO CONTRARIO</div>
-        <div class="card-footer"><span class="badge MG">M.GRAVE</span><span class="pts-text">6 PTOS</span><span class="cod-text">37-1-5A</span></div>
+    <div class="card circ G" data-k="cascos auriculares sonido musica receptores reproductores">
+        <div class="card-desc">🎧 Conducir utilizando cascos o auriculares conectados a aparatos receptores o reproductores de sonido</div>
+        <div class="card-footer"><span class="badge G">GRAVE</span><span class="pts">3 PTOS</span><span class="cod">18-2-5A</span></div>
+    </div>
+    <div class="card circ G" data-k="cinturon seguridad uso abrochado">
+        <div class="card-desc">🪢 No hacer uso del cintur&oacute;n de seguridad, correctamente abrochado</div>
+        <div class="card-footer"><span class="badge G">GRAVE</span><span class="pts">4 PTOS</span><span class="cod">117-1-5E</span></div>
+    </div>
+    <div class="card circ L" data-k="acera zona peatonal bici vmp">
+        <div class="card-desc">🚶 Circular con el veh&iacute;culo por la acera o zona peatonal (tambi&eacute;n VMP y bicis)</div>
+        <div class="card-footer"><span class="badge L">LEVE</span><span class="cod">121-5-5B</span></div>
+    </div>
+    <div class="card circ L" data-k="senal prohibicion restriccion no obedecer leve">
+        <div class="card-desc">🚫 No obedecer se&ntilde;al de prohibici&oacute;n o restricci&oacute;n (Leve)</div>
+        <div class="card-footer"><span class="badge L">LEVE</span><span class="cod">154-2D-5B</span></div>
+    </div>
+    <div class="card circ G" data-k="senal prohibicion restriccion no obedecer grave">
+        <div class="card-desc">🚫 No obedecer se&ntilde;al de prohibici&oacute;n o restricci&oacute;n (Grave)</div>
+        <div class="card-footer"><span class="badge G">GRAVE</span><span class="cod">145-2D-5A</span></div>
+    </div>
+    <div class="card circ L" data-k="senal obligacion no obedecer leve">
+        <div class="card-desc">🔵 No obedecer se&ntilde;al de obligaci&oacute;n (Leve)</div>
+        <div class="card-footer"><span class="badge L">LEVE</span><span class="cod">145-2E-5B</span></div>
+    </div>
+    <div class="card circ G" data-k="senal obligacion no obedecer grave">
+        <div class="card-desc">🔵 No obedecer se&ntilde;al de obligaci&oacute;n (Grave)</div>
+        <div class="card-footer"><span class="badge G">GRAVE</span><span class="cod">145-2E-5A</span></div>
     </div>
 
-    <div class="section-label alc">Alcohol y Drogas</div>
-    <div class="card alc MG" data-key="drogas positivo presencia organismo">
-        <div class="card-desc">PRESENCIA DE DROGAS EN EL ORGANISMO</div>
-        <div class="card-footer"><span class="badge MG">M.GRAVE</span><span class="pts-text">6 PTOS / 1000€</span><span class="cod-text">14-1-5A</span></div>
+    <!-- ALCOHOL Y DROGAS -->
+    <div class="section-label" data-sec="alc">🍺 Alcohol y Drogas</div>
+
+    <div class="card alc MG" data-k="drogas positivo presencia organismo">
+        <div class="card-desc">💊 Circular con el veh&iacute;culo teniendo presencia de drogas en el organismo</div>
+        <div class="card-footer"><span class="badge MG">M.GRAVE</span><span class="pts">6 PTOS</span><span class="cod">14-1-5A / LSV</span></div>
     </div>
-    <div class="card alc MG" data-key="alcohol tasa 0.25 0.50">
-        <div class="card-desc">ALCOHOL AIRE ESPIRADO (>0.25 HASTA 0.50 MG/L)</div>
-        <div class="card-footer"><span class="badge MG">M.GRAVE</span><span class="pts-text">6 PTOS / 500€</span><span class="cod-text">20-1-5E</span></div>
+    <div class="card alc MG" data-k="alcohol tasa 0.25 mg aire espirado">
+        <div class="card-desc">🍷 Circular con una tasa de alcohol en aire espirado superior a 0,25 mg/l</div>
+        <div class="card-footer"><span class="badge MG">M.GRAVE</span><span class="pts">6 PTOS</span><span class="cod">20-1-5E</span></div>
     </div>
-    <div class="card alc MG" data-key="alcohol tasa superior 0.50">
-        <div class="card-desc">ALCOHOL AIRE ESPIRADO (>0.50 MG/L)</div>
-        <div class="card-footer"><span class="badge MG">M.GRAVE</span><span class="pts-text">6 PTOS / 1000€</span><span class="cod-text">20-1-5A</span></div>
+    <div class="card alc MG" data-k="alcohol tasa superior 0.50 mg espirado">
+        <div class="card-desc">🍷 Circular con una tasa de alcohol en aire espirado superior a 0,25 mg/l, sobrepasando los 0,50 mg/l</div>
+        <div class="card-footer"><span class="badge MG">M.GRAVE</span><span class="pts">6 PTOS</span><span class="cod">20-1-5I</span></div>
     </div>
 
-    <div class="section-label vmp">VMP y Documentación</div>
-    <div class="card vmp MG" data-key="seguro vmp falta soa patinete">
-        <div class="card-desc">VMP SIN SEGURO OBLIGATORIO</div>
-        <div class="card-footer"><span class="badge MG">M.GRAVE</span><span class="pts-text">800€</span><span class="cod-text">02-1-5N</span></div>
+    <!-- VMP -->
+    <div class="section-label" data-sec="vmp">🛴 VMP</div>
+
+    <div class="card vmp G" data-k="vmp plazas ocupantes exceso 50 por ciento">
+        <div class="card-desc">👥 Conducir con un veh&iacute;culo ocupado por un n&uacute;mero de personas que exceda del 50% de plazas autorizadas, excluido el conductor</div>
+        <div class="card-footer"><span class="badge G">GRAVE</span><span class="cod">9-1-5G</span></div>
     </div>
-    <div class="card vmp G" data-key="itv inspeccion tecnica caducada">
-        <div class="card-desc">NO HABER SOMETIDO EL VEHÍCULO A LA ITV</div>
-        <div class="card-footer"><span class="badge G">GRAVE</span><span class="cod-text">10-1-5A</span></div>
+    <div class="card vmp ND" data-k="vmp travesia tuneles urbanos circular">
+        <div class="card-desc">🚇 Circular por traves&iacute;a o t&uacute;neles urbanos con VMP</div>
+        <div class="card-footer"><span class="badge ND">—</span><span class="cod">38-4-5A</span></div>
     </div>
-    <div class="card vmp MG" data-key="seguro turismo coche falta soa">
-        <div class="card-desc">TURISMO SIN SEGURO OBLIGATORIO</div>
-        <div class="card-footer"><span class="badge MG">M.GRAVE</span><span class="pts-text">1500€</span><span class="cod-text">2-1-5H</span></div>
+    <div class="card vmp MG" data-k="vmp seguro soa responsabilidad civil propietario 800">
+        <div class="card-desc">📋 Circular el veh&iacute;culo sin que conste que su propietario tenga suscrito y mantenga en vigor un contrato de seguro que cubra la responsabilidad civil de su circulaci&oacute;n (VMP)</div>
+        <div class="card-footer"><span class="badge MG">M.GRAVE</span><span class="eur">800 EUR</span><span class="cod">02-1-5N / SOA</span></div>
     </div>
-    <div class="card vmp G" data-key="permiso caducado vigencia">
-        <div class="card-desc">CONDUCIR CON PERMISO CADUCADO</div>
-        <div class="card-footer"><span class="badge G">GRAVE</span><span class="cod-text">12-4-5B</span></div>
+    <div class="card vmp MG" data-k="vmp seguro soa incumplir obligacion propietario 610">
+        <div class="card-desc">📋 Incumplir el propietario del veh&iacute;culo la obligaci&oacute;n de mantener en vigor un contrato de seguro que cubra la responsabilidad civil de su circulaci&oacute;n (VMP)</div>
+        <div class="card-footer"><span class="badge MG">M.GRAVE</span><span class="eur">610 EUR</span><span class="cod">2-1-5O / SOA</span></div>
     </div>
-    <div class="card vmp G" data-key="vmp plazas ocupantes exceso">
-        <div class="card-desc">VMP CON EXCESO DE OCUPANTES (>50%)</div>
-        <div class="card-footer"><span class="badge G">GRAVE</span><span class="cod-text">9-1-5G</span></div>
+    <div class="card vmp G" data-k="vmp placa registro etiqueta identificativa inscripciones reglamentarias">
+        <div class="card-desc">🏷️ Circular con un veh&iacute;culo que no lleve las placas o inscripciones reglamentarias — sin placa de registro o etiqueta identificativa</div>
+        <div class="card-footer"><span class="badge G">GRAVE</span><span class="cod">8-1-5A / RGVEH</span></div>
     </div>
+
+    <!-- CONDUCTORES Y VEHICULOS -->
+    <div class="section-label" data-sec="cond">👮 Conductores y Veh&iacute;culos</div>
+
+    <div class="card cond G" data-k="matricula placa obstaculos lectura identificacion">
+        <div class="card-desc">🔤 Circular con un veh&iacute;culo cuyas placas de matr&iacute;cula presentan obst&aacute;culos que impiden o dificultan su lectura e identificaci&oacute;n</div>
+        <div class="card-footer"><span class="badge G">GRAVE</span><span class="cod">10-2-5A / LSV</span></div>
+    </div>
+    <div class="card cond G" data-k="autorizacion carece validez requisitos administrativos condena penal curso">
+        <div class="card-desc">📄 Conducir con una autorizaci&oacute;n que carece de validez por no haber cumplido los requisitos administrativos exigidos reglamentariamente en Espa&ntilde;a (conducir tras condena penal sin realizar curso)</div>
+        <div class="card-footer"><span class="badge G">GRAVE</span><span class="cod">1-1-5D / RGCOND</span></div>
+    </div>
+    <div class="card cond G" data-k="permiso licencia restricciones limitaciones gafas dia noche menciones adaptaciones">
+        <div class="card-desc">👓 Conducir incumpliendo las menciones, adaptaciones, restricciones u otras limitaciones que figuran en su permiso o licencia de conducci&oacute;n (gafas, conducir solo de d&iacute;a...)</div>
+        <div class="card-footer"><span class="badge G">GRAVE</span><span class="cod">3-1-5A / RGCOND</span></div>
+    </div>
+    <div class="card cond G" data-k="permiso licencia caducado vigencia vencida">
+        <div class="card-desc">📅 Conducir con un permiso o licencia de conducci&oacute;n cuya vigencia ha vencido (caducado)</div>
+        <div class="card-footer"><span class="badge G">GRAVE</span><span class="cod">12-4-5B / RGCOND</span></div>
+    </div>
+    <div class="card cond G" data-k="itv inspeccion tecnica periodica">
+        <div class="card-desc">🔧 No haber sometido el veh&iacute;culo a la inspecci&oacute;n t&eacute;cnica peri&oacute;dica establecida reglamentariamente (ITV)</div>
+        <div class="card-footer"><span class="badge G">GRAVE</span><span class="cod">10-1-5A / RGVEH</span></div>
+    </div>
+    <div class="card cond MG" data-k="turismo seguro soa responsabilidad civil 1500">
+        <div class="card-desc">📋 Circular el veh&iacute;culo sin que conste que su propietario tenga suscrito y mantenga en vigor un contrato de seguro que cubra la responsabilidad civil de su circulaci&oacute;n (turismos)</div>
+        <div class="card-footer"><span class="badge MG">M.GRAVE</span><span class="eur">1.500 EUR</span><span class="cod">2-1-5H / SOA</span></div>
+    </div>
+    <div class="card cond MG" data-k="turismo seguro soa incumplir propietario 500">
+        <div class="card-desc">📋 Incumplir el propietario del veh&iacute;culo la obligaci&oacute;n de mantener en vigor un contrato de seguro que cubra la responsabilidad civil de su circulaci&oacute;n (turismos)</div>
+        <div class="card-footer"><span class="badge MG">M.GRAVE</span><span class="eur">500 EUR</span><span class="cod">2-1-5L / SOA</span></div>
+    </div>
+
+</div>
+
+<div id="empty" style="display:none;text-align:center;padding:60px 20px;color:#b0bec5;">
+    <div style="font-size:2.5em;margin-bottom:10px;">&#x1F50D;</div>
+    <p style="font-weight:bold;margin:0 0 4px;color:#90a4ae;">Sin resultados</p>
+    <p style="margin:0;font-size:0.9em;">Prueba con otras palabras</p>
 </div>
 
 <script>
-    function filterApp() {
-        let val = document.getElementById('search').value.toLowerCase();
-        let cards = document.querySelectorAll('.card');
-        cards.forEach(c => {
-            let searchable = c.innerText.toLowerCase() + " " + c.getAttribute('data-key');
-            c.style.display = searchable.includes(val) ? "block" : "none";
-        });
-        updateLabels();
-    }
+function filtrar() {
+    var val = document.getElementById('search').value.toLowerCase();
+    var cards = document.querySelectorAll('.card');
+    var tot = 0;
+    cards.forEach(function(c) {
+        var txt = (c.innerText + ' ' + (c.getAttribute('data-k') || '')).toLowerCase();
+        var show = txt.indexOf(val) >= 0;
+        c.style.display = show ? 'block' : 'none';
+        if (show) tot++;
+    });
+    actualizarSecciones();
+    document.getElementById('empty').style.display = tot === 0 ? 'block' : 'none';
+    document.getElementById('count').innerHTML = val ? ('<b>' + tot + '</b> resultado' + (tot !== 1 ? 's' : '')) : '';
+}
 
-    function setCategory(cat, btn) {
-        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        document.querySelectorAll('.card').forEach(el => {
-            if (cat === 'all') el.style.display = "block";
-            else el.style.display = el.classList.contains(cat) ? "block" : "none";
-        });
-        updateLabels();
-    }
+function setCat(cat, btn) {
+    document.querySelectorAll('.fb').forEach(function(b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+    document.querySelectorAll('.card').forEach(function(c) {
+        if (cat === 'all') { c.style.display = 'block'; return; }
+        if (cat === 'L' || cat === 'G' || cat === 'MG') {
+            c.style.display = c.classList.contains(cat) ? 'block' : 'none';
+        } else {
+            c.style.display = c.classList.contains(cat) ? 'block' : 'none';
+        }
+    });
+    actualizarSecciones();
+    document.getElementById('empty').style.display = 'none';
+    document.getElementById('search').value = '';
+    document.getElementById('count').innerHTML = '';
+}
 
-    function updateLabels() {
-        document.querySelectorAll('.section-label').forEach(label => {
-            let cat = label.classList[1];
-            let visible = document.querySelectorAll('.card.' + cat + '[style="display: block;"]');
-            label.style.display = (visible.length > 0 || document.getElementById('search').value === '') ? "block" : "none";
+function actualizarSecciones() {
+    document.querySelectorAll('.section-label').forEach(function(label) {
+        var sec = label.getAttribute('data-sec');
+        var hayAlguno = false;
+        document.querySelectorAll('.card.' + sec).forEach(function(c) {
+            if (c.style.display !== 'none') hayAlguno = true;
         });
-    }
+        label.style.display = hayAlguno ? 'block' : 'none';
+    });
+}
 </script>
 </body>
 </html>
