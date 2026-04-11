@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>P.L. UTEBO - Prontuario Completo</title>
+    <style>
+        :root { 
+            --bg: #ffffff; --header-blue: #01579b; --text: #263238; --border: #eceff1;
+            /* Pestañas */
+            --c-l: #e8f5e9; --c-l-t: #2e7d32;
+            --c-g: #fff3e0; --c-g-t: #ef6c00;
+            --c-mg: #ffebee; --c-mg-t: #c62828;
+            --c-blue: #e3f2fd; --c-purple: #f3e5f5;
+        }
+        body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding-bottom: 50px; }
+        
+        .header { background: #ffffff; padding: 30px 15px; text-align: center; border-bottom: 2px solid var(--border); position: sticky; top: 0; z-index: 1000; }
+        .header img { width: 140px; height: auto; display: block; margin: 0 auto 10px; }
+        .header h1 { font-size: 1.3em; margin: 0; color: var(--header-blue); text-transform: uppercase; font-weight: 900; }
+
+        .search-area { padding: 15px; background: #ffffff; position: sticky; top: 215px; z-index: 999; }
+        #search { width: 100%; padding: 14px; background: #f8fafc; border: 1px solid #cfd8dc; border-radius: 12px; font-size: 1.1em; outline: none; box-sizing: border-box; }
+
+        .filters { display: flex; gap: 8px; overflow-x: auto; padding: 0 15px 10px; background: #ffffff; position: sticky; top: 295px; z-index: 998; scrollbar-width: none; }
+        .filter-btn { padding: 10px 18px; border-radius: 20px; border: 1px solid #cfd8dc; font-size: 0.75em; white-space: nowrap; cursor: pointer; font-weight: bold; color: #546e7a; transition: 0.2s; }
+        
+        .f-all { background: #f5f5f5; } .f-all.active { background: #cfd8dc; }
+        .f-l { background: var(--c-l); color: var(--c-l-t); } .f-l.active { background: #c8e6c9; }
+        .f-g { background: var(--c-g); color: var(--c-g-t); } .f-g.active { background: #ffe0b2; }
+        .f-mg { background: var(--c-mg); color: var(--c-mg-t); } .f-mg.active { background: #ffcdd2; }
+        .f-cat { background: var(--c-blue); } .f-cat.active { background: #bbdefb; }
+
+        .container { padding: 0 15px 100px; }
+        .section-label { color: var(--header-blue); font-size: 0.85em; font-weight: 900; margin: 25px 0 12px; text-transform: uppercase; border-left: 5px solid var(--header-blue); padding-left: 12px; }
+        .card { background: #ffffff; border-radius: 15px; padding: 18px; margin-bottom: 12px; border: 1px solid #eceff1; box-shadow: 0 3px 6px rgba(0,0,0,0.03); }
+        .card-desc { font-size: 0.95em; margin-bottom: 12px; font-weight: 600; text-transform: uppercase; line-height: 1.4; }
+        .card-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #f5f5f5; padding-top: 12px; }
+        .badge { font-size: 0.75em; font-weight: 800; padding: 4px 10px; border-radius: 6px; }
+        
+        .L { background: var(--c-l); color: var(--c-l-t); } 
+        .G { background: var(--c-g); color: var(--c-g-t); } 
+        .MG { background: var(--c-mg); color: var(--c-mg-t); }
+        
+        .cod-text { font-size: 1.3em; color: #263238; font-weight: 800; }
+        .pts-text { background: #e1f5fe; color: #0288d1; padding: 4px 8px; border-radius: 4px; font-size: 0.75em; font-weight: bold; margin-right: 5px; }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <img src="escudo_utebo.png" alt="Escudo Policía Local Utebo">
+    <h1>Policía Local de Utebo</h1>
+</div>
+
+<div class="search-area">
+    <input type="text" id="search" placeholder="🔍 Buscar artículo o palabra..." onkeyup="filterApp()">
+</div>
+
+<div class="filters">
+    <div class="filter-btn f-all active" onclick="setCategory('all', this)">TODAS</div>
+    <div class="filter-btn f-l" onclick="setCategory('L', this)">LEVES</div>
+    <div class="filter-btn f-g" onclick="setCategory('G', this)">GRAVES</div>
+    <div class="filter-btn f-mg" onclick="setCategory('MG', this)">M.GRAVES</div>
+    <div class="filter-btn f-cat" onclick="setCategory('est', this)">ESTAC.</div>
+    <div class="filter-btn f-cat" onclick="setCategory('circ', this)">CIRC.</div>
+    <div class="filter-btn f-cat" onclick="setCategory('vmp', this)">VMP</div>
+</div>
+
+<div class="container" id="list">
+    <div class="section-label est">Estacionamientos</div>
+    <div class="card est G" data-key="vado salida inmueble personas vehiculos">
+        <div class="card-desc">VADO OBSTACULIZANDO SALIDA DE PERSONAS O VEHÍCULOS</div>
+        <div class="card-footer"><span class="badge G">GRAVE</span><span class="cod-text">91-2C</span></div>
+    </div>
+    <div class="card est L" data-key="vado señalizado">
+        <div class="card-desc">ESTACIONAR EN VADO SEÑALIZADO</div>
+        <div class="card-footer"><span class="badge L">LEVE</span><span class="cod-text">94-2F-5Y</span></div>
+    </div>
+    <div class="card est G" data-key="acera paseo peatones zona">
+        <div class="card-desc">ESTACIONAR SOBRE ACERA, PASEO O ZONA DE PEATONES</div>
+        <div class="card-footer"><span class="badge G">GRAVE</span><span class="cod-text">94-2E-5X</span></div>
+    </div>
+    <div class="card est G" data-key="paso peatones">
+        <div class="card-desc">ESTACIONAR EN PASO PARA PEATONES</div>
+        <div class="card-footer"><span class="badge G">GRAVE</span><span class="cod-text">94-2A-5R</span></div>
+    </div>
+    <div class="card est G" data-key="doble fila">
+        <div class="card-desc">ESTACIONAR EN DOBLE FILA</div>
+        <div class="card-footer"><span class="badge G">GRAVE</span><span class="cod-text">94-2G-5Z</span></div>
+    </div>
+    <div class="card est G" data-key="carga descarga horario uso">
+        <div class="card-desc">CARGA Y DESCARGA EN HORARIO DE USO</div>
+        <div class="card-footer"><span class="badge G">GRAVE</span><span class="cod-text">91-2-5G</span></div>
+    </div>
+    <div class="card est L" data-key="carga descarga fuera horario">
+        <div class="card-desc">CARGA Y DESCARGA FUERA DE HORARIO</div>
+        <div class="card-footer"><span class="badge L">LEVE</span><span class="cod-text">94-2-5U</span></div>
+    </div>
+    <div class="card est G" data-key="discapacidad minusvalidos">
+        <div class="card-desc">ESTACIONAR EN ZONA EXCLUSIVA DISCAPACIDAD</div>
+        <div class="card-footer"><span class="badge G">GRAVE</span><span class="cod-text">94-2A-5Q</span></div>
+    </div>
+    <div class="card est L" data-key="prohibido señal r-308 r-307">
+        <div class="card-desc">ESTACIONAR EN LUGAR PROHIBIDO POR SEÑAL</div>
+        <div class="card-footer"><span class="badge L">LEVE</span><span class="cod-text">94-2-5W</span></div>
+    </div>
+
+    <div class="section-label circ">Circulación y Comportamiento</div>
+    <div class="card circ MG" data-key="temeraria peligro">
+        <div class="card-desc">CONDUCCIÓN TEMERARIA</div>
+        <div class="card-footer"><span class="badge MG">M.GRAVE</span><span class="pts-text">6 PTOS</span><span class="cod-text">3-1-5A</span></div>
+    </div>
+    <div class="card circ G" data-key="negligente riesgo">
+        <div class="card-desc">CONDUCCIÓN NEGLIGENTE</div>
+        <div class="card-footer"><span class="badge G">GRAVE</span><span class="cod-text">3-1-5D</span></div>
+    </div>
+    <div class="card circ G" data-key="movil telefono manual">
+        <div class="card-desc">USO MANUAL DEL TELÉFONO MÓVIL</div>
+        <div class="card-footer"><span class="badge G">GRAVE</span><span class="pts-text">6 PTOS</span><span class="cod-text">18-2-5B</span></div>
+    </div>
+    <div class="card circ G" data-key="cascos auriculares">
+        <div class="card-desc">USO DE CASCOS O AURICULARES CONECTADOS</div>
+        <div class="card-footer"><span class="badge G">GRAVE</span><span class="pts-text">3 PTOS</span><span class="cod-text">18-2-5A</span></div>
+    </div>
+    <div class="card circ G" data-key="cinturon seguridad">
+        <div class="card-desc">NO UTILIZAR EL CINTURÓN DE SEGURIDAD</div>
+        <div class="card-footer"><span class="badge G">GRAVE</span><span class="pts-text">4 PTOS</span><span class="cod-text">117-1-5E</span></div>
+    </div>
+    <div class="card circ G" data-key="prioridad señales stop ceda">
+        <div class="card-desc">NO RESPETAR PRIORIDAD (STOP O CEDA EL PASO)</div>
+        <div class="card-footer"><span class="badge G">GRAVE</span><span class="pts-text">4 PTOS</span><span class="cod-text">151-2</span></div>
+    </div>
+    <div class="card circ MG" data-key="sentido contrario">
+        <div class="card-desc">CIRCULAR EN SENTIDO CONTRARIO</div>
+        <div class="card-footer"><span class="badge MG">M.GRAVE</span><span class="pts-text">6 PTOS</span><span class="cod-text">37-1-5A</span></div>
+    </div>
+
+    <div class="section-label alc">Alcohol y Drogas</div>
+    <div class="card alc MG" data-key="drogas positivo presencia organismo">
+        <div class="card-desc">PRESENCIA DE DROGAS EN EL ORGANISMO</div>
+        <div class="card-footer"><span class="badge MG">M.GRAVE</span><span class="pts-text">6 PTOS / 1000€</span><span class="cod-text">14-1-5A</span></div>
+    </div>
+    <div class="card alc MG" data-key="alcohol tasa 0.25 0.50">
+        <div class="card-desc">ALCOHOL AIRE ESPIRADO (>0.25 HASTA 0.50 MG/L)</div>
+        <div class="card-footer"><span class="badge MG">M.GRAVE</span><span class="pts-text">6 PTOS / 500€</span><span class="cod-text">20-1-5E</span></div>
+    </div>
+    <div class="card alc MG" data-key="alcohol tasa superior 0.50">
+        <div class="card-desc">ALCOHOL AIRE ESPIRADO (>0.50 MG/L)</div>
+        <div class="card-footer"><span class="badge MG">M.GRAVE</span><span class="pts-text">6 PTOS / 1000€</span><span class="cod-text">20-1-5A</span></div>
+    </div>
+
+    <div class="section-label vmp">VMP y Documentación</div>
+    <div class="card vmp MG" data-key="seguro vmp falta soa patinete">
+        <div class="card-desc">VMP SIN SEGURO OBLIGATORIO</div>
+        <div class="card-footer"><span class="badge MG">M.GRAVE</span><span class="pts-text">800€</span><span class="cod-text">02-1-5N</span></div>
+    </div>
+    <div class="card vmp G" data-key="itv inspeccion tecnica caducada">
+        <div class="card-desc">NO HABER SOMETIDO EL VEHÍCULO A LA ITV</div>
+        <div class="card-footer"><span class="badge G">GRAVE</span><span class="cod-text">10-1-5A</span></div>
+    </div>
+    <div class="card vmp MG" data-key="seguro turismo coche falta soa">
+        <div class="card-desc">TURISMO SIN SEGURO OBLIGATORIO</div>
+        <div class="card-footer"><span class="badge MG">M.GRAVE</span><span class="pts-text">1500€</span><span class="cod-text">2-1-5H</span></div>
+    </div>
+    <div class="card vmp G" data-key="permiso caducado vigencia">
+        <div class="card-desc">CONDUCIR CON PERMISO CADUCADO</div>
+        <div class="card-footer"><span class="badge G">GRAVE</span><span class="cod-text">12-4-5B</span></div>
+    </div>
+    <div class="card vmp G" data-key="vmp plazas ocupantes exceso">
+        <div class="card-desc">VMP CON EXCESO DE OCUPANTES (>50%)</div>
+        <div class="card-footer"><span class="badge G">GRAVE</span><span class="cod-text">9-1-5G</span></div>
+    </div>
+</div>
+
+<script>
+    function filterApp() {
+        let val = document.getElementById('search').value.toLowerCase();
+        let cards = document.querySelectorAll('.card');
+        cards.forEach(c => {
+            let searchable = c.innerText.toLowerCase() + " " + c.getAttribute('data-key');
+            c.style.display = searchable.includes(val) ? "block" : "none";
+        });
+        updateLabels();
+    }
+
+    function setCategory(cat, btn) {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        document.querySelectorAll('.card').forEach(el => {
+            if (cat === 'all') el.style.display = "block";
+            else el.style.display = el.classList.contains(cat) ? "block" : "none";
+        });
+        updateLabels();
+    }
+
+    function updateLabels() {
+        document.querySelectorAll('.section-label').forEach(label => {
+            let cat = label.classList[1];
+            let visible = document.querySelectorAll('.card.' + cat + '[style="display: block;"]');
+            label.style.display = (visible.length > 0 || document.getElementById('search').value === '') ? "block" : "none";
+        });
+    }
+</script>
+</body>
+</html>
