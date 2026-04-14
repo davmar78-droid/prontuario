@@ -1,328 +1,1827 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>P.L. UTEBO - Prontuario</title>
-    <style>
-        :root {
-            --c-l: #e8f5e9; --c-l-t: #2e7d32;
-            --c-g: #fff3e0; --c-g-t: #ef6c00;
-            --c-mg: #ffebee; --c-mg-t: #c62828;
-        }
-        * { box-sizing: border-box; }
-        body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f4f6f8; color: #263238; margin: 0; padding-bottom: 60px; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>P.L. Utebo — Prontuario</title>
+<style>
+:root {
+  --azul: #1a3a6a; --azul2: #2c5098; --dorado: #c8a84b;
+  --leve-bg: #e8f5e9; --leve-b: #81c784;
+  --grave-bg: #fff3e0; --grave-b: #ffb74d;
+  --mg-bg: #ffebee; --mg-b: #ef9a9a;
+  --fondo: #f4f6fb; --card: #fff; --texto: #1a1a2e; --sub: #546e7a; --borde: #dde3ef;
+}
+* { box-sizing:border-box; margin:0; padding:0; }
+body { font-family:'Segoe UI',system-ui,sans-serif; background:var(--fondo); color:var(--texto); padding-bottom:60px; font-size:14px; line-height:1.5; }
 
-        .header { background: #fff; padding: 16px 15px 12px; text-align: center; border-bottom: 2px solid #e0e0e0; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 8px rgba(0,0,0,0.07); }
-        .header img { width: 80px; height: auto; display: block; margin: 0 auto 8px; }
-        .header h1 { font-size: 1.1em; margin: 0 0 2px; color: #01579b; text-transform: uppercase; font-weight: 900; letter-spacing: 0.03em; }
-        .header p { font-size: 0.7em; color: #78909c; margin: 0; text-transform: uppercase; letter-spacing: 0.06em; }
+/* HEADER */
+header { background:linear-gradient(135deg,#1a2a4a,#2c4a7c); color:#fff; padding:14px 16px; display:flex; align-items:center; gap:14px; position:sticky; top:0; z-index:100; box-shadow:0 2px 10px rgba(0,0,0,0.3); }
+header img { width:58px; height:auto; flex-shrink:0; border-radius:4px; }
+.hi h1 { font-size:16px; font-weight:900; letter-spacing:.04em; text-transform:uppercase; }
+.hi p { font-size:11px; opacity:.8; margin-top:2px; text-transform:uppercase; letter-spacing:.05em; }
 
-        .search-area { padding: 10px 14px 8px; background: #fff; border-bottom: 1px solid #eceff1; position: sticky; top: 148px; z-index: 999; }
-        #search { width: 100%; padding: 12px 16px; background: #f5f7fa; border: 1.5px solid #cfd8dc; border-radius: 30px; font-size: 1em; outline: none; -webkit-appearance: none; }
-        #search:focus { border-color: #01579b; }
-        #count { font-size: 0.74em; color: #90a4ae; text-align: center; margin-top: 5px; min-height: 16px; }
+/* BUSCADOR */
+.buscador-wrap { background:#1a2a4a; padding:10px 14px 12px; position:sticky; top:90px; z-index:99; }
+#buscador { width:100%; padding:10px 16px; border-radius:30px; border:1.5px solid #3a6bb5; background:#fff; font-size:15px; outline:none; color:#1a1a2e; -webkit-appearance:none; }
+#buscador:focus { border-color:#c8a84b; }
+#count { color:#aac4f0; font-size:12px; margin-top:5px; text-align:right; min-height:16px; }
 
-        .filters { display: flex; gap: 7px; overflow-x: auto; padding: 8px 14px; background: #fff; border-bottom: 1px solid #eceff1; position: sticky; top: 218px; z-index: 998; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
-        .filters::-webkit-scrollbar { display: none; }
-        .fb { padding: 8px 15px; border-radius: 20px; border: 1.5px solid transparent; font-size: 0.74em; white-space: nowrap; cursor: pointer; font-weight: 800; letter-spacing: 0.04em; -webkit-tap-highlight-color: transparent; transition: opacity 0.15s; }
-        .fb:not(.active) { opacity: 0.7; }
+/* PESTAÑAS CATEGORÍA */
+.tabs-wrap { background:#fff; border-bottom:2px solid var(--borde); overflow-x:auto; white-space:nowrap; scrollbar-width:none; position:sticky; top:160px; z-index:98; }
+.tabs-wrap::-webkit-scrollbar { display:none; }
+.tabs { display:inline-flex; padding:0 8px; }
+.tab { display:inline-block; padding:10px 15px; cursor:pointer; font-weight:700; font-size:12px; color:#546e7a; border-bottom:3px solid transparent; white-space:nowrap; -webkit-tap-highlight-color:transparent; }
+.tab.activo { color:#1a2a4a; border-bottom-color:#c8a84b; }
 
-        .f-todas  { background:#e3f2fd; color:#1565c0; border-color:#90caf9; }
-        .f-leve   { background:#e8f5e9; color:#2e7d32; border-color:#a5d6a7; }
-        .f-grave  { background:#fff3e0; color:#e65100; border-color:#ffcc80; }
-        .f-mgrave { background:#ffebee; color:#b71c1c; border-color:#ef9a9a; }
-        .f-est    { background:#f3e5f5; color:#6a1b9a; border-color:#ce93d8; }
-        .f-circ   { background:#e8eaf6; color:#283593; border-color:#9fa8da; }
-        .f-alc    { background:#fce4ec; color:#880e4f; border-color:#f48fb1; }
-        .f-vmp    { background:#e0f7fa; color:#00695c; border-color:#80deea; }
-        .f-cond   { background:#fff8e1; color:#f57f17; border-color:#ffe082; }
+/* FILTROS GRAVEDAD */
+.grav-wrap { display:flex; gap:7px; padding:7px 12px; background:#f0f2f8; border-bottom:1px solid var(--borde); overflow-x:auto; scrollbar-width:none; position:sticky; top:206px; z-index:97; }
+.grav-wrap::-webkit-scrollbar { display:none; }
+.gf { padding:6px 13px; border-radius:20px; border:1.5px solid transparent; font-size:11px; white-space:nowrap; cursor:pointer; font-weight:800; letter-spacing:.04em; -webkit-tap-highlight-color:transparent; flex-shrink:0; opacity:.7; transition:all .15s; }
+.gf.activo { opacity:1; }
+.gf-todas { background:#e3f2fd; color:#1565c0; border-color:#90caf9; }
+.gf-leve  { background:#e8f5e9; color:#2e7d32; border-color:#a5d6a7; }
+.gf-grave { background:#fff3e0; color:#e65100; border-color:#ffcc80; }
+.gf-mg    { background:#ffebee; color:#b71c1c; border-color:#ef9a9a; }
+.gf-todas.activo { background:#1565c0; color:#fff; border-color:#1565c0; }
+.gf-leve.activo  { background:#2e7d32; color:#fff; border-color:#2e7d32; }
+.gf-grave.activo { background:#e65100; color:#fff; border-color:#e65100; }
+.gf-mg.activo    { background:#b71c1c; color:#fff; border-color:#b71c1c; }
 
-        .f-todas.active  { background:#1565c0; color:#fff; border-color:#1565c0; opacity:1; }
-        .f-leve.active   { background:#2e7d32; color:#fff; border-color:#2e7d32; opacity:1; }
-        .f-grave.active  { background:#e65100; color:#fff; border-color:#e65100; opacity:1; }
-        .f-mgrave.active { background:#b71c1c; color:#fff; border-color:#b71c1c; opacity:1; }
-        .f-est.active    { background:#6a1b9a; color:#fff; border-color:#6a1b9a; opacity:1; }
-        .f-circ.active   { background:#283593; color:#fff; border-color:#283593; opacity:1; }
-        .f-alc.active    { background:#880e4f; color:#fff; border-color:#880e4f; opacity:1; }
-        .f-vmp.active    { background:#00695c; color:#fff; border-color:#00695c; opacity:1; }
-        .f-cond.active   { background:#f57f17; color:#fff; border-color:#f57f17; opacity:1; }
+/* CONTENIDO */
+.contenido { padding:10px 12px 80px; max-width:900px; margin:0 auto; }
 
-        .container { padding: 0 14px 80px; max-width: 700px; margin: 0 auto; }
-        .section-label { color: #01579b; font-size: 0.82em; font-weight: 900; margin: 20px 0 10px; text-transform: uppercase; border-left: 4px solid #01579b; padding-left: 10px; letter-spacing: 0.06em; }
-        .card { background: #fff; border-radius: 12px; padding: 16px; margin-bottom: 10px; border: 2px solid #eceff1; box-shadow: 0 2px 5px rgba(0,0,0,0.04); }
-        .card.L  { border-color: #66bb6a; }
-        .card.G  { border-color: #ffa726; }
-        .card.MG { border-color: #ef5350; }
-        .card.ND { border-color: #b0bec5; }
-        .card-desc { font-size: 0.97em; margin-bottom: 12px; font-weight: 600; text-transform: uppercase; line-height: 1.45; color: #263238; }
-        .card-footer { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; border-top: 1px solid #f5f5f5; padding-top: 10px; }
-        .badge { font-size: 0.74em; font-weight: 800; padding: 4px 11px; border-radius: 6px; letter-spacing: 0.05em; }
-        .badge.L  { background: var(--c-l);  color: var(--c-l-t); }
-        .badge.G  { background: var(--c-g);  color: var(--c-g-t); }
-        .badge.MG { background: var(--c-mg); color: var(--c-mg-t); }
-        .badge.ND { background: #f5f5f5; color: #90a4ae; }
-        .cod { font-size: 1.05em; color: #263238; font-weight: 800; margin-left: auto; }
-        .pts { background: #e1f5fe; color: #0277bd; padding: 4px 9px; border-radius: 5px; font-size: 0.74em; font-weight: 800; }
-        .eur { background: #fce4ec; color: #c62828; padding: 4px 9px; border-radius: 5px; font-size: 0.74em; font-weight: 800; }
-        #empty { display:none; text-align:center; padding:60px 20px; color:#b0bec5; }
-        #empty div { font-size:2.5em; margin-bottom:10px; }
-    </style>
+/* SUBSECCIÓN */
+.subseccion-titulo { font-size:11px; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:#2c4a7c; padding:7px 12px 4px; border-left:3px solid #c8a84b; background:rgba(26,42,74,.05); margin-bottom:5px; border-radius:0 4px 4px 0; margin-top:12px; }
+.ley-titulo { font-size:10px; font-weight:700; color:#fff; background:#2c4a7c; padding:3px 9px; border-radius:4px; display:inline-block; margin:7px 0 4px; letter-spacing:.5px; text-transform:uppercase; }
+
+/* TARJETAS nuevo sistema */
+.tarjeta { background:var(--card); border-radius:10px; border-left:4px solid var(--borde); padding:10px 12px; margin-bottom:6px; box-shadow:0 1px 4px rgba(0,0,0,.06); cursor:pointer; -webkit-tap-highlight-color:transparent; }
+.tarjeta.leve { border-left-color:var(--leve-b); background:var(--leve-bg); }
+.tarjeta.grave { border-left-color:var(--grave-b); background:var(--grave-bg); }
+.tarjeta.muy-grave { border-left-color:var(--mg-b); background:var(--mg-bg); }
+.tarjeta-cabecera { display:flex; align-items:flex-start; gap:8px; justify-content:space-between; }
+.tarjeta-descripcion { font-size:13px; font-weight:600; flex:1; line-height:1.4; }
+.badges { display:flex; flex-direction:column; gap:3px; align-items:flex-end; flex-shrink:0; }
+.badge { font-size:11px; font-weight:700; padding:3px 9px; border-radius:10px; white-space:nowrap; }
+.badge-leve    { background:#c8ecd0; color:#1a5c25; border:1px solid #a0d8ac; }
+.badge-grave   { background:#fde8cc; color:#9a3d00; border:1px solid #f8c88a; }
+.badge-muy-grave { background:#fdd8d8; color:#8b1010; border:1px solid #f4a0a0; }
+.badge-art { background:#dce8f8; color:#1a3a6a; border:1px solid #a8c4e8; font-size:12px; font-weight:800; }
+.tarjeta-nota { font-size:11px; color:var(--sub); margin-top:6px; padding-top:6px; border-top:1px dashed rgba(0,0,0,.1); display:none; line-height:1.5; }
+.tarjeta.expandida .tarjeta-nota { display:block; }
+
+/* TARJETAS sistema tráfico (card/badge L G MG / cod / pts / eur) */
+.card { background:var(--card); border-radius:10px; border-left:4px solid var(--borde); padding:10px 12px; margin-bottom:6px; box-shadow:0 1px 4px rgba(0,0,0,.06); cursor:pointer; -webkit-tap-highlight-color:transparent; }
+.card.L   { border-left-color:var(--leve-b);  background:var(--leve-bg); }
+.card.G   { border-left-color:var(--grave-b); background:var(--grave-bg); }
+.card.MG  { border-left-color:var(--mg-b);    background:var(--mg-bg); }
+.card.ND  { border-left-color:#b0bec5; }
+.card-desc { font-size:13px; font-weight:600; margin-bottom:9px; line-height:1.4; text-transform:uppercase; }
+.card-footer { display:flex; align-items:center; flex-wrap:wrap; gap:6px; border-top:1px solid rgba(0,0,0,.07); padding-top:8px; }
+.badge.L  { background:#c8ecd0; color:#1a5c25; border:1px solid #a0d8ac; }
+.badge.G  { background:#fde8cc; color:#9a3d00; border:1px solid #f8c88a; }
+.badge.MG { background:#fdd8d8; color:#8b1010; border:1px solid #f4a0a0; }
+.badge.ND { background:#f5f5f5; color:#90a4ae; }
+.cod { font-size:12px; font-weight:800; margin-left:auto; background:#dce8f8; color:#1a3a6a; padding:3px 9px; border-radius:5px; border:1px solid #a8c4e8; }
+.pts { background:#e1f5fe; color:#0277bd; padding:3px 8px; border-radius:5px; font-size:11px; font-weight:800; }
+.eur { background:#fce4ec; color:#c62828; padding:3px 8px; border-radius:5px; font-size:11px; font-weight:800; }
+
+/* SIN RESULTADOS */
+.sin-resultados { display:none; text-align:center; padding:40px 20px; color:var(--sub); font-size:14px; }
+.sin-resultados.visible { display:block; }
+
+/* LEYENDA */
+.leyenda { display:flex; gap:12px; padding:8px 12px; background:#fff; border-radius:8px; margin-bottom:10px; box-shadow:0 1px 4px rgba(0,0,0,.06); flex-wrap:wrap; font-size:11px; font-weight:600; color:#546e7a; align-items:center; }
+.leyenda-dot { width:11px; height:11px; border-radius:3px; flex-shrink:0; }
+</style>
 </head>
 <body>
 
-<div class="header">
-    <img src="data:image/png;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCABsAF4DASIAAhEBAxEB/8QAHAABAAIDAQEBAAAAAAAAAAAAAAYHAgUIAwQB/8QANhAAAQMEAQMCBAYBAQkAAAAAAQIDBAAFBhEhBxIxE1EUIkFhCBYjMkJxgVI1VWJykbGywfD/xAAbAQABBQEBAAAAAAAAAAAAAAAAAgQFBgcDAf/EADMRAAEEAQIEBAQDCQAAAAAAAAEAAgMRBBIhBQYxURNBYXEiIzKxBxXRJEJSgZGhweHw/9oADAMBAAIRAxEAPwDsulKUISlKUISlYuLQhClrUEpSCVE8AAVTFz69R4+VW61xsRvsiNJQ8VuCMe9eiPRU0PC0r7knf0C07+tdI4nyfSEh8jWfUrppWoxC/Rskx+Nd4zTrAdBDjDo04y4k9q21D6KSoEH+q2+xXMijRSgbFhKUpQvUpSlCEpSlCEqqupV1v19vkzErXIFqt8drc6cFpUt4KR3eiEnRRsA/qA8HVS7K89xfGJohXmeuO8WvVOo7ikoR7qWE9qQTxyRzXNOW9TJOcZJfFYdJ02z6bkd2Q0hlSUpB3rjkg+O4n7UmaR+PEZw2wK9tyBaVBG3JnZBrDS41v/lS6/XvqRAaumL2K4wTYiyBAu02WpclpJIVyfmKwBtHI+nmvC1zWiuyT27rCmfl6G0xKeC0pS72lGzyfl32Dz4/zVfZxHF5t1tmDIBHD6EsuBTq1JdVySVADjR3wRWWA/l+Lh1xiSZjSVPBSZIeSErBA57Bvka5H/wqrZfMk78bxYwB8VEAb+5Nkeu3U7K1Q8rwMxvHfI5zrAoA7C91LrNknUfH2LvIxO72XIY06aH2GnllPwwK1uLQhP7SVFWu7uNSxk5PiCnMlsV3dvoS2l29QZMkESltx1qdeDqu4tgKKAEJAB7fFUFhlmYcvkVbN5LLS3FOoZUFIW4ltQI7tcDfnydCpbeskvduRf7s3NRIsrEdcdltToWsLIAKRscp71HZUCOCBupNnMDzkCAtDiQLoVdkADqd/b+ZBTXi3LEWE55imtrRq3sVv09T+hXYVplpn2yLOQNJkModA9goA/8AuvpqoenfXLCLpiUJ2TcpnxUdpDU0mCslKwhPe6oNpPa33K13EAb4HirdSdjY8GpuSN0ZpwpVpj2vFgr9pSlIS0oToUoaEKobAwq73rI7/dGllqTJcgNokSS+yGUHtUy6jw2CeQR43ya5z619NJPTrJWMmx5t5VkckJ/S2e+Ks8+mojygjej4I4rffiFzi6YT1vk3HCslj7caSJ0RltJbCxwpDyQNLJ9zyPcVlfetdmzbpjcrJOhqtN6W2gNtJJWw9paSQ2fKffsVx7GpR0cscRkAtpG49KTXEbDlZceO80dQF+58lrxmlpEv1rdaIEllTAStDzzccd3kkhae4nnXmv1N+n3OXEkR7LGQYTZcUxGukfsUhPJKhonXvyKgGOWV+9XRMBpbbS/r6hI+2vHmpFittftN/v1vkj9Vm1ykr14321leVw7BxtYabeBdG+h28iO629/CsPD1ND9bwL3vp08iApPNyKaqO58RicGN87TzjjU1lZ7FKBSSntPCuANf96iOV2S95/1CjY/j1tdjx2gUEuIU0yz26Lri96CQnuA3rnjW9it47zAlk/7rtX/mippjWeY5gcnKZt+kuhb1yc+GjMt97r5SQT2g/KNbHKjocHRNOeV3Nh4kwxsGoggddvhab3J717KlcycPjGE92ogAjby/d733Vi4X04sGO4Q5h8KK7KRMbC5igotSLgv6OOLHLLIP7RsE64+oVNOi1yn3HAozdzUt6XAdcgOylSPXTLWyrsU8legSkqCtbG+K426k9ccrzBTlst7/AOXrI8vS2GHCpx4H+Tzv7l8eQNDXGjXbnTZy1OYJZTZbhFuEFERDbcmM2lDbpSNKUEpACeQeNDRrRsqGSJgMnUlULGljkcRH0CkNKUpgnqVEur1zl2jALjMgTvg5YSlDLgR3KKlKACU+yjvQJ4BO6ltaTOrEvJcVnWREsxTKb7PU7Aof0R7HwdaOvBFKYQHAlJeCWmlRmW/h4xvIn13V1/MYFwkAKeW+4zLJVr6neyfvuqyzj8P0rErQ/kMHJPjGYRSssyLeppxXzADRClJ8n7Vu+rvVnqJgORKxtWNY3bkIQBHkC3qWl9A47kd6zsf3z71V9z6mdScvjPwpNxdft4AXLahwW220o2OVlCBob15NSrmZRx3HUNNH7Lhw92N+Ywt0/Frb9wrox2A1KjxbrerHEj3NLIUs9iS5sDhWhsg/3Xnhdmh5Bb5tyki7vfESn2B8IkdpbV52O3gnf91X2BusWt9rJLpew62lopDDUspfBBHyFB/cD7Dip/YcoslhhuQnbddZaHi5NYdiKSlPoKUFb9+NDe/qkf5zHl3BgizJ45qdYGmxsKJ1Aar6beau/MmPk4krfCc4ts7t1AD077Kv4TzjiciaWolEcQmGgrW0oS8kJH30PrW+f6XzupN/uqYt2j25qBcpBdU4yt1Su8o12hP/ACnyRWrcZQh3IZLRPpzEQZSARylK3woD/pqvLMr9m2Nz7pdMTkz40ZF0kic6wyHGk8o7PU2CB/LW/vUhgOjfzDeLQbbq7fQ1e8WDhwL9oBJpt97+X1Vg4/8Ahcx9C0ru18yC4gfuRFiNR0n/ACtSjVlYNak4R1Es2LWxd5t9mk2p8oi3CX8Ul9xpSdBsBRDJSlSidaCu4DWxuuZbN+IbqHEW208ix3QrUEpTItaO5ZJ0APT7STXVXSqyZJPuMLOMlgQbDNdtpjLtkRhSFHuWFfrdylcgjaQnR+Y93sL3lidg+c6ws/xjC4/KbSs6lKwedaZSFPOobSTra1ADf+ai1IrOhpShC4p/E9GayK/XPJ1xru45DdMINso72IqUK0FPFXKO7yEgAHz3Gq4sfUPKLfhcvFW4sNzH3iG1ufDALbVsK33pA2eP5dx14rtbKcNyIZPNuuMuW8sXBjUhm4PurbS+OA6GtFKiBxokCuUY9i6i451QOEqjwJ82Q+qe7GQtKGeUq/UUpIHZoEkfQVYcWaGfHOPIBXXrv9io8OkxMlmQzqCPawbUMgTXIklqXFeCXGz3IWCODUvw65TbteLzMnyVyXlWiSCtR3x2+B7V55lY/wAsSWJWa4WYSJC+31WHkraWsBSjoIUFa+dvYJB0PNaJKbWceW7jTN/RcpriI6Q0wosvNemPVbBGyVd4J0N/LxULmcpx5cR8OQajQsgbC99wStDyPxHZOHNlxadVWHb/AN2jY+/9VNlrQIEva0/7MtX8v+NNeeS9Tb5hFzvsTFxBXKl3B8yHXkeoWUjt7dDxs/N5BHHioxYXMVk3lm0WXGp15ubs8/DMufKpbfafk+ZRTtPPCknZAJOvlrZdR7HmOL4VEVccVtsC2OtmCt5Kw88fmDqFOlJ7QvklKgPBUK5cM5Qx8DMZNJNqryoDqAO7j5dtyfRVrifNUmdiuibFpvzu/wCH0HZaLpvjbfUDJ5iLi1dkqeR665ttiIU1EWVAlx5I7QloDe+0gjyAdaru7pLehe8JiPcqMVS4frBxTiJAaPaHkLUAVpWkBQV9/rVL9FMD6pW/pUi1JkWeOxLUHbe+mQpuRDaWEKK0uNpPeFAqBQrRHB37dDWC1xLJZYdogIWiJDZSyylThWUoSNAdyuTx71J8UymzybdB0A/7zUHhxFgvuvupSlRSfJSlKEIaqXqK4/jmcO5LcLQ5ItMiMmMZcdBccZSkFakFCUk9qikbWToAaq2qweabeaW062lxtaSlaFDYUD5BH1FLY7SbSXt1BcbfiFs2V57cxccctztyx6zQ1KXOaUC066VbdKP9R2daH+mtt03YVZsI6ZBaFturuL8laVDRBJf8j+kCusmGWmGUMsNoaaQNJQhICUj2AHiqgyTotMuF2t0iBmtwhxIkxbiY5aQr0GFBekNkj9wLi/mVvhX2FPmZYcwRu2A/QpmcYtf4g3J/0uXZmF5ojqzfpWIWWZMesV3LySynlP6x7CN+Rsc68De66MyLIIOVWX8vWe1qvM+6xhqGnhEUqStxHquaKW3GXW1AJVokECrbwjHlY7aVx5E9dxmyH1yJUpbYR6rizskJHCR9hW2jwYceS/JjxGGX5BBfcQ2EqdI8FRHnX3pM2Z4hFjp0SocXwwaPVYWVl6PZ4bEgIDzbCEuBCQlPcEgHQHAG/avrpSmCeBKUpQhKUpQhKUpQhKUpQhKUpQhKUpQhKUpQhf/Z" alt="Escudo">
-    <h1>Polic&iacute;a Local de Utebo</h1>
-    <p>Prontuario de infracciones de tr&aacute;fico</p>
+<header>
+  <img src="data:image/png;base64,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" alt="Escudo">
+  <div class="hi">
+    <h1>Policía Local de Utebo</h1>
+    <p>Prontuario de Infracciones</p>
+  </div>
+</header>
+
+<div class="buscador-wrap">
+  <input type="text" id="buscador" placeholder="🔍 Buscar infracción, artículo, código..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+  <div id="count"></div>
 </div>
 
-<div class="search-area">
-    <input type="text" id="search" placeholder="&#x1F50D; Buscar infracci&oacute;n, c&oacute;digo..." oninput="filtrar()" onkeyup="filtrar()" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
-    <div id="count"></div>
+<div class="tabs-wrap">
+  <div class="tabs">
+    <div class="tab activo" data-tab="todas">📋 TODAS</div>
+    <div class="tab" data-tab="trafico">🚗 TRÁFICO</div>
+    <div class="tab" data-tab="urbanismo">🏗️ URBANISMO</div>
+    <div class="tab" data-tab="medioambiente">🌿 M. AMBIENTE</div>
+    <div class="tab" data-tab="espectaculos">🎭 ESPECTÁCULOS</div>
+    <div class="tab" data-tab="consumo">🛒 CONSUMO</div>
+    <div class="tab" data-tab="seguridad">🔒 SEG. CIUDADANA</div>
+  </div>
 </div>
 
-<div class="filters">
-    <div class="fb f-todas active" onclick="setCat('all',this)">TODAS</div>
-    <div class="fb f-leve"   onclick="setCat('L',this)">LEVES</div>
-    <div class="fb f-grave"  onclick="setCat('G',this)">GRAVES</div>
-    <div class="fb f-mgrave" onclick="setCat('MG',this)">M.GRAVES</div>
-    <div class="fb f-est"    onclick="setCat('est',this)">ESTAC.</div>
-    <div class="fb f-circ"   onclick="setCat('circ',this)">CIRCULAC.</div>
-    <div class="fb f-alc"    onclick="setCat('alc',this)">ALCOHOL</div>
-    <div class="fb f-vmp"    onclick="setCat('vmp',this)">VMP</div>
-    <div class="fb f-cond"   onclick="setCat('cond',this)">CONDUCTORES</div>
+<div class="grav-wrap">
+  <div class="gf gf-todas activo" data-grav="all">TODAS</div>
+  <div class="gf gf-leve" data-grav="L">🟢 LEVES</div>
+  <div class="gf gf-grave" data-grav="G">🟠 GRAVES</div>
+  <div class="gf gf-mg" data-grav="MG">🔴 MUY GRAVES</div>
 </div>
 
-<div class="container" id="lista">
+<div class="contenido">
+  <div class="leyenda">
+    <div style="display:flex;align-items:center;gap:4px;"><div class="leyenda-dot" style="background:#81c784"></div>Leve</div>
+    <div style="display:flex;align-items:center;gap:4px;"><div class="leyenda-dot" style="background:#ffb74d"></div>Grave</div>
+    <div style="display:flex;align-items:center;gap:4px;"><div class="leyenda-dot" style="background:#ef9a9a"></div>Muy Grave</div>
+    <span>💡 Toca una tarjeta para más info</span>
+  </div>
+  <div class="sin-resultados" id="sinResultados">😕 Sin resultados para esa búsqueda.</div>
+
+  <!-- ===================== TRÁFICO ===================== -->
+  <div class="subseccion-titulo" data-cat="trafico" style="font-size:12px;background:#e8eaf6;color:#1a237e;border-left-color:#5c6bc0;">🚗 TRÁFICO Y SEGURIDAD VIAL</div>
+
+  <div class="subseccion" data-cat="trafico">
 
     <!-- ESTACIONAMIENTOS -->
-    <div class="section-label" data-sec="est">🅿️ Estacionamientos</div>
+    <div class="section-label-trafico" style="font-size:.75em;font-weight:800;color:#283593;padding:6px 10px 3px;border-left:3px solid #9fa8da;background:#eef0fb;border-radius:0 4px 4px 0;margin:8px 0 4px;text-transform:uppercase;letter-spacing:.05em;">🅿️ Estacionamientos</div>
+    <div class="card est G trafico" data-k="vado obstaculizando salida personas animales vehiculos inmueble estacionar"><div class="card-desc">🚧 Estacionar en vado obstaculizando la utilización normal de paso o salida de personas, animales o vehículos a un inmueble</div><div class="card-footer"><span class="badge G">GRAVE</span><span class="cod">91-2C</span></div></div>
+    <div class="card est L trafico" data-k="vado senalizado"><div class="card-desc">🚧 Estacionar en vado señalizado</div><div class="card-footer"><span class="badge L">LEVE</span><span class="cod">94-2F-5Y</span></div></div>
+    <div class="card est G trafico" data-k="acera paseo zonas paso peatones"><div class="card-desc">🚶 Estacionar sobre acera, paseo y demás zonas destinadas al paso de peatones</div><div class="card-footer"><span class="badge G">GRAVE</span><span class="cod">94-2E-5X</span></div></div>
+    <div class="card est G trafico" data-k="paso peatones zona senalizada"><div class="card-desc">🦓 Estacionar en zona señalizada como paso para peatones</div><div class="card-footer"><span class="badge G">GRAVE</span><span class="cod">94-2A-5R</span></div></div>
+    <div class="card est G trafico" data-k="doble fila"><div class="card-desc">🚗🚗 Estacionar en doble fila</div><div class="card-footer"><span class="badge G">GRAVE</span><span class="cod">94-2G-5Z</span></div></div>
+    <div class="card est G trafico" data-k="discapacidad exclusivo"><div class="card-desc">♿ Estacionar en zona señalizada para uso exclusivo de personas con discapacidad</div><div class="card-footer"><span class="badge G">GRAVE</span><span class="cod">94-2A-5Q</span></div></div>
+    <div class="card est G trafico" data-k="carga descarga horario utilizacion"><div class="card-desc">📦 Estacionar en carga y descarga durante sus horas de utilización</div><div class="card-footer"><span class="badge G">GRAVE</span><span class="cod">91-2-5G</span></div></div>
+    <div class="card est L trafico" data-k="carga descarga fuera horario"><div class="card-desc">📦 Estacionar en carga y descarga (fuera de horario)</div><div class="card-footer"><span class="badge L">LEVE</span><span class="cod">94-2C-5U</span></div></div>
+    <div class="card est L trafico" data-k="carril reservado circulacion usuarios carriles bici doble fila calzada"><div class="card-desc">🚲 Estacionar en carril o parte de la vía reservado para determinados usuarios (carriles calzada, dobles filas, carriles bici...)</div><div class="card-footer"><span class="badge L">LEVE</span><span class="cod">94-2A-5G</span></div></div>
+    <div class="card est L trafico" data-k="carril reservado servicio motos coches electricos bicis"><div class="card-desc">🛵 Estacionar en carril reservado para el servicio de determinados usuarios (motos, coches eléctricos, bicis...)</div><div class="card-footer"><span class="badge L">LEVE</span><span class="cod">94-2A-5H</span></div></div>
+    <div class="card est L trafico" data-k="zona excluida circulacion linea continua isleta cebreado"><div class="card-desc">⛔ Entrar en zona excluida de la circulación enmarcada por línea continua (isleta / cebreado)</div><div class="card-footer"><span class="badge L">LEVE</span><span class="cod">147-2D-5A</span></div></div>
 
-    <div class="card est G" data-k="vado obstaculizando salida personas animales vehiculos inmueble">
-        <div class="card-desc">🚧 Estacionar en vado obstaculizando la utilizaci&oacute;n normal de paso o salida de personas, animales o veh&iacute;culos a un inmueble</div>
-        <div class="card-footer"><span class="badge G">GRAVE</span><span class="cod">91-2C</span></div>
-    </div>
-    <div class="card est L" data-k="vado senalizado">
-        <div class="card-desc">🚧 Estacionar en vado se&ntilde;alizado</div>
-        <div class="card-footer"><span class="badge L">LEVE</span><span class="cod">94-2F-5Y</span></div>
-    </div>
-    <div class="card est G" data-k="acera paseo zonas paso peatones">
-        <div class="card-desc">🚶 Estacionar sobre acera, paseo y dem&aacute;s zonas destinadas al paso de peatones</div>
-        <div class="card-footer"><span class="badge G">GRAVE</span><span class="cod">94-2E-5X</span></div>
-    </div>
-    <div class="card est G" data-k="paso peatones zona senalizada">
-        <div class="card-desc">🦓 Estacionar en zona se&ntilde;alizada como paso para peatones</div>
-        <div class="card-footer"><span class="badge G">GRAVE</span><span class="cod">94-2A-5R</span></div>
-    </div>
-    <div class="card est G" data-k="doble fila">
-        <div class="card-desc">🚗🚗 Estacionar en doble fila</div>
-        <div class="card-footer"><span class="badge G">GRAVE</span><span class="cod">94-2G-5Z</span></div>
-    </div>
-    <div class="card est G" data-k="discapacidad exclusivo">
-        <div class="card-desc">♿ Estacionar en zona se&ntilde;alizada para uso exclusivo de personas con discapacidad</div>
-        <div class="card-footer"><span class="badge G">GRAVE</span><span class="cod">94-2A-5Q</span></div>
-    </div>
-    <div class="card est G" data-k="carga descarga horario utilizacion">
-        <div class="card-desc">📦 Estacionar en carga y descarga durante sus horas de utilizaci&oacute;n</div>
-        <div class="card-footer"><span class="badge G">GRAVE</span><span class="cod">91-2-5G</span></div>
-    </div>
-    <div class="card est L" data-k="carga descarga fuera horario">
-        <div class="card-desc">📦 Estacionar en carga y descarga</div>
-        <div class="card-footer"><span class="badge L">LEVE</span><span class="cod">94-2C-5U</span></div>
-    </div>
-    <div class="card est L" data-k="carril reservado circulacion usuarios carriles bici doble fila calzada">
-        <div class="card-desc">🚲 Estacionar en carril o parte de la v&iacute;a reservado exclusivamente para la circulaci&oacute;n de determinados usuarios (carriles calzada sin obstaculizar, dobles filas, carriles bici...)</div>
-        <div class="card-footer"><span class="badge L">LEVE</span><span class="cod">94-2A-5G</span></div>
-    </div>
-    <div class="card est L" data-k="carril reservado servicio motos coches electricos bicis">
-        <div class="card-desc">🛵 Estacionar en un carril o parte de la v&iacute;a reservada exclusivamente para el servicio de determinados usuarios (motos, coches el&eacute;ctricos, bicis...)</div>
-        <div class="card-footer"><span class="badge L">LEVE</span><span class="cod">94-2A-5H</span></div>
-    </div>
-    <div class="card est L" data-k="zona excluida circulacion linea continua isleta cebreado">
-        <div class="card-desc">⛔ Entrar en zona excluida de la circulaci&oacute;n enmarcada por una l&iacute;nea continua sin raz&oacute;n justificada (isleta / cebreado)</div>
-        <div class="card-footer"><span class="badge L">LEVE</span><span class="cod">147-2D-5A</span></div>
-    </div>
-
-    <!-- CIRCULACION -->
-    <div class="section-label" data-sec="circ">🚗 Circulaci&oacute;n</div>
-
-    <div class="card circ MG" data-k="temeraria peligro">
-        <div class="card-desc">💀 Conducir de forma temeraria</div>
-        <div class="card-footer"><span class="badge MG">M.GRAVE</span><span class="pts">6 PTOS</span><span class="cod">3-1-5A</span></div>
-    </div>
-    <div class="card circ L" data-k="diligencia precaucion distraccion dano propio ajeno">
-        <div class="card-desc">⚠️ Conducir sin la diligencia, precauci&oacute;n y no distracci&oacute;n necesaria para evitar todo da&ntilde;o propio o ajeno</div>
-        <div class="card-footer"><span class="badge L">LEVE</span><span class="cod">3-1-5C</span></div>
-    </div>
-    <div class="card circ G" data-k="negligente riesgo peligro ocupantes via">
-        <div class="card-desc">⚠️ Conducir de forma negligente creando una situaci&oacute;n de riesgo o peligro para s&iacute; mismo, los dem&aacute;s ocupantes del veh&iacute;culo o al resto de usuarios de la v&iacute;a</div>
-        <div class="card-footer"><span class="badge G">GRAVE</span><span class="cod">3-1-5D</span></div>
-    </div>
-    <div class="card circ G" data-k="carga arrastrar caer desplazarse peligrosa estabilidad accesorios">
-        <div class="card-desc">📦 Circular con carga que pueda arrastrar, caer, desplazarse de manera peligrosa o comprometer la estabilidad del veh&iacute;culo, sin los accesorios que garanticen la adecuada protecci&oacute;n</div>
-        <div class="card-footer"><span class="badge G">GRAVE</span><span class="cod">14-1A-5A</span></div>
-    </div>
-    <div class="card circ L" data-k="objetos animal transportado colocacion interfieran conduccion">
-        <div class="card-desc">🐶 Conducir sin cuidar la adecuada colocaci&oacute;n de los objetos o alg&uacute;n animal transportado para que no interfieran la conducci&oacute;n</div>
-        <div class="card-footer"><span class="badge L">LEVE</span><span class="cod">18-1-5E</span></div>
-    </div>
-    <div class="card circ G" data-k="telefono movil manual dispositivo atencion conduccion">
-        <div class="card-desc">📱 Conducir utilizando manualmente el tel&eacute;fono m&oacute;vil o cualquier otro dispositivo incompatible con la obligatoria atenci&oacute;n permanente a la conducci&oacute;n</div>
-        <div class="card-footer"><span class="badge G">GRAVE</span><span class="pts">3-6 PTOS</span><span class="cod">18-2-5B</span></div>
-    </div>
-    <div class="card circ G" data-k="cascos auriculares sonido musica receptores reproductores">
-        <div class="card-desc">🎧 Conducir utilizando cascos o auriculares conectados a aparatos receptores o reproductores de sonido</div>
-        <div class="card-footer"><span class="badge G">GRAVE</span><span class="pts">3 PTOS</span><span class="cod">18-2-5A</span></div>
-    </div>
-    <div class="card circ G" data-k="cinturon seguridad uso abrochado">
-        <div class="card-desc">🪢 No hacer uso del cintur&oacute;n de seguridad, correctamente abrochado</div>
-        <div class="card-footer"><span class="badge G">GRAVE</span><span class="pts">4 PTOS</span><span class="cod">117-1-5E</span></div>
-    </div>
-    <div class="card circ L" data-k="acera zona peatonal bici vmp">
-        <div class="card-desc">🚶 Circular con el veh&iacute;culo por la acera o zona peatonal (tambi&eacute;n VMP y bicis)</div>
-        <div class="card-footer"><span class="badge L">LEVE</span><span class="cod">121-5-5B</span></div>
-    </div>
-    <div class="card circ L" data-k="senal prohibicion restriccion no obedecer leve">
-        <div class="card-desc">🚫 No obedecer se&ntilde;al de prohibici&oacute;n o restricci&oacute;n (Leve)</div>
-        <div class="card-footer"><span class="badge L">LEVE</span><span class="cod">154-2D-5B</span></div>
-    </div>
-    <div class="card circ G" data-k="senal prohibicion restriccion no obedecer grave">
-        <div class="card-desc">🚫 No obedecer se&ntilde;al de prohibici&oacute;n o restricci&oacute;n (Grave)</div>
-        <div class="card-footer"><span class="badge G">GRAVE</span><span class="cod">145-2D-5A</span></div>
-    </div>
-    <div class="card circ L" data-k="senal obligacion no obedecer leve">
-        <div class="card-desc">🔵 No obedecer se&ntilde;al de obligaci&oacute;n (Leve)</div>
-        <div class="card-footer"><span class="badge L">LEVE</span><span class="cod">145-2E-5B</span></div>
-    </div>
-    <div class="card circ G" data-k="senal obligacion no obedecer grave">
-        <div class="card-desc">🔵 No obedecer se&ntilde;al de obligaci&oacute;n (Grave)</div>
-        <div class="card-footer"><span class="badge G">GRAVE</span><span class="cod">145-2E-5A</span></div>
-    </div>
+    <!-- CIRCULACIÓN -->
+    <div class="section-label-trafico" style="font-size:.75em;font-weight:800;color:#004d40;padding:6px 10px 3px;border-left:3px solid #80cbc4;background:#e0f7f4;border-radius:0 4px 4px 0;margin:8px 0 4px;text-transform:uppercase;letter-spacing:.05em;">🚗 Circulación</div>
+    <div class="card circ MG trafico" data-k="temeraria peligro"><div class="card-desc">💀 Conducir de forma temeraria</div><div class="card-footer"><span class="badge MG">M.GRAVE</span><span class="pts">6 PTOS</span><span class="cod">3-1-5A</span></div></div>
+    <div class="card circ L trafico" data-k="diligencia precaucion distraccion dano propio ajeno"><div class="card-desc">⚠️ Conducir sin la diligencia, precaución y no distracción necesaria para evitar todo daño propio o ajeno</div><div class="card-footer"><span class="badge L">LEVE</span><span class="cod">3-1-5C</span></div></div>
+    <div class="card circ G trafico" data-k="negligente riesgo peligro ocupantes via"><div class="card-desc">⚠️ Conducir de forma negligente creando riesgo o peligro para sí mismo, los ocupantes del vehículo o el resto de usuarios de la vía</div><div class="card-footer"><span class="badge G">GRAVE</span><span class="cod">3-1-5D</span></div></div>
+    <div class="card circ G trafico" data-k="carga arrastrar caer desplazarse peligrosa estabilidad accesorios"><div class="card-desc">📦 Circular con carga que pueda arrastrar, caer, desplazarse peligrosamente o comprometer la estabilidad del vehículo, sin los accesorios adecuados</div><div class="card-footer"><span class="badge G">GRAVE</span><span class="cod">14-1A-5A</span></div></div>
+    <div class="card circ L trafico" data-k="objetos animal transportado colocacion interfieran conduccion"><div class="card-desc">🐶 Conducir sin cuidar la adecuada colocación de los objetos o animales transportados para que no interfieran la conducción</div><div class="card-footer"><span class="badge L">LEVE</span><span class="cod">18-1-5E</span></div></div>
+    <div class="card circ G trafico" data-k="telefono movil manual dispositivo atencion conduccion"><div class="card-desc">📱 Conducir utilizando manualmente el teléfono móvil o cualquier dispositivo incompatible con la atención permanente a la conducción</div><div class="card-footer"><span class="badge G">GRAVE</span><span class="pts">3-6 PTOS</span><span class="cod">18-2-5B</span></div></div>
+    <div class="card circ G trafico" data-k="cascos auriculares sonido musica receptores reproductores"><div class="card-desc">🎧 Conducir utilizando cascos o auriculares conectados a aparatos receptores o reproductores de sonido</div><div class="card-footer"><span class="badge G">GRAVE</span><span class="pts">3 PTOS</span><span class="cod">18-2-5A</span></div></div>
+    <div class="card circ G trafico" data-k="cinturon seguridad uso abrochado"><div class="card-desc">🪢 No hacer uso del cinturón de seguridad, correctamente abrochado</div><div class="card-footer"><span class="badge G">GRAVE</span><span class="pts">4 PTOS</span><span class="cod">117-1-5E</span></div></div>
+    <div class="card circ L trafico" data-k="acera zona peatonal bici vmp"><div class="card-desc">🚶 Circular con el vehículo por la acera o zona peatonal (también VMP y bicis)</div><div class="card-footer"><span class="badge L">LEVE</span><span class="cod">121-5-5B</span></div></div>
+    <div class="card circ L trafico" data-k="senal prohibicion restriccion no obedecer leve"><div class="card-desc">🚫 No obedecer señal de prohibición o restricción (Leve)</div><div class="card-footer"><span class="badge L">LEVE</span><span class="cod">154-2D-5B</span></div></div>
+    <div class="card circ G trafico" data-k="senal prohibicion restriccion no obedecer grave"><div class="card-desc">🚫 No obedecer señal de prohibición o restricción (Grave)</div><div class="card-footer"><span class="badge G">GRAVE</span><span class="cod">145-2D-5A</span></div></div>
+    <div class="card circ L trafico" data-k="senal obligacion no obedecer leve"><div class="card-desc">🔵 No obedecer señal de obligación (Leve)</div><div class="card-footer"><span class="badge L">LEVE</span><span class="cod">145-2E-5B</span></div></div>
+    <div class="card circ G trafico" data-k="senal obligacion no obedecer grave"><div class="card-desc">🔵 No obedecer señal de obligación (Grave)</div><div class="card-footer"><span class="badge G">GRAVE</span><span class="cod">145-2E-5A</span></div></div>
 
     <!-- ALCOHOL Y DROGAS -->
-    <div class="section-label" data-sec="alc">🍺 Alcohol y Drogas</div>
-
-    <div class="card alc MG" data-k="drogas positivo presencia organismo">
-        <div class="card-desc">💊 Circular con el veh&iacute;culo teniendo presencia de drogas en el organismo</div>
-        <div class="card-footer"><span class="badge MG">M.GRAVE</span><span class="pts">6 PTOS</span><span class="cod">14-1-5A / LSV</span></div>
-    </div>
-    <div class="card alc MG" data-k="alcohol tasa 0.25 mg aire espirado">
-        <div class="card-desc">🍷 Circular con una tasa de alcohol en aire espirado superior a 0,25 mg/l</div>
-        <div class="card-footer"><span class="badge MG">M.GRAVE</span><span class="pts">6 PTOS</span><span class="cod">20-1-5E</span></div>
-    </div>
-    <div class="card alc MG" data-k="alcohol tasa superior 0.50 mg espirado">
-        <div class="card-desc">🍷 Circular con una tasa de alcohol en aire espirado superior a 0,25 mg/l, sobrepasando los 0,50 mg/l</div>
-        <div class="card-footer"><span class="badge MG">M.GRAVE</span><span class="pts">6 PTOS</span><span class="cod">20-1-5I</span></div>
-    </div>
+    <div class="section-label-trafico" style="font-size:.75em;font-weight:800;color:#880e4f;padding:6px 10px 3px;border-left:3px solid #f48fb1;background:#fce4ec;border-radius:0 4px 4px 0;margin:8px 0 4px;text-transform:uppercase;letter-spacing:.05em;">🍺 Alcohol y Drogas</div>
+    <div class="card alc MG trafico" data-k="drogas positivo presencia organismo"><div class="card-desc">💊 Circular con el vehículo teniendo presencia de drogas en el organismo</div><div class="card-footer"><span class="badge MG">M.GRAVE</span><span class="pts">6 PTOS</span><span class="cod">14-1-5A / LSV</span></div></div>
+    <div class="card alc MG trafico" data-k="alcohol tasa 0.25 mg aire espirado"><div class="card-desc">🍷 Circular con tasa de alcohol en aire espirado superior a 0,25 mg/l</div><div class="card-footer"><span class="badge MG">M.GRAVE</span><span class="pts">6 PTOS</span><span class="cod">20-1-5E</span></div></div>
+    <div class="card alc MG trafico" data-k="alcohol tasa superior 0.50 mg espirado"><div class="card-desc">🍷 Circular con tasa de alcohol superior a 0,25 mg/l, sobrepasando los 0,50 mg/l en aire espirado</div><div class="card-footer"><span class="badge MG">M.GRAVE</span><span class="pts">6 PTOS</span><span class="cod">20-1-5I</span></div></div>
 
     <!-- VMP -->
-    <div class="section-label" data-sec="vmp">🛴 VMP</div>
+    <div class="section-label-trafico" style="font-size:.75em;font-weight:800;color:#00695c;padding:6px 10px 3px;border-left:3px solid #80deea;background:#e0f7fa;border-radius:0 4px 4px 0;margin:8px 0 4px;text-transform:uppercase;letter-spacing:.05em;">🛴 VMP</div>
+    <div class="card vmp G trafico" data-k="vmp plazas ocupantes exceso 50 por ciento"><div class="card-desc">👥 Conducir con VMP ocupado por un número de personas que exceda del 50% de plazas autorizadas, excluido el conductor</div><div class="card-footer"><span class="badge G">GRAVE</span><span class="cod">9-1-5G</span></div></div>
+    <div class="card vmp ND trafico" data-k="vmp travesia tuneles urbanos circular"><div class="card-desc">🚇 Circular por travesía o túneles urbanos con VMP</div><div class="card-footer"><span class="badge ND">—</span><span class="cod">38-4-5A</span></div></div>
+    <div class="card vmp MG trafico" data-k="vmp seguro soa responsabilidad civil propietario 800"><div class="card-desc">📋 Circular el VMP sin que conste que su propietario tenga suscrito y mantenga en vigor un contrato de seguro de RC</div><div class="card-footer"><span class="badge MG">M.GRAVE</span><span class="eur">800 EUR</span><span class="cod">02-1-5N / SOA</span></div></div>
+    <div class="card vmp MG trafico" data-k="vmp seguro soa incumplir obligacion propietario 610"><div class="card-desc">📋 Incumplir el propietario del VMP la obligación de mantener en vigor un contrato de seguro de RC</div><div class="card-footer"><span class="badge MG">M.GRAVE</span><span class="eur">610 EUR</span><span class="cod">2-1-5O / SOA</span></div></div>
+    <div class="card vmp G trafico" data-k="vmp placa registro etiqueta identificativa inscripciones reglamentarias"><div class="card-desc">🏷️ Circular con VMP que no lleve las placas o inscripciones reglamentarias — sin placa de registro o etiqueta identificativa</div><div class="card-footer"><span class="badge G">GRAVE</span><span class="cod">8-1-5A / RGVEH</span></div></div>
 
-    <div class="card vmp G" data-k="vmp plazas ocupantes exceso 50 por ciento">
-        <div class="card-desc">👥 Conducir con un veh&iacute;culo ocupado por un n&uacute;mero de personas que exceda del 50% de plazas autorizadas, excluido el conductor</div>
-        <div class="card-footer"><span class="badge G">GRAVE</span><span class="cod">9-1-5G</span></div>
-    </div>
-    <div class="card vmp ND" data-k="vmp travesia tuneles urbanos circular">
-        <div class="card-desc">🚇 Circular por traves&iacute;a o t&uacute;neles urbanos con VMP</div>
-        <div class="card-footer"><span class="badge ND">—</span><span class="cod">38-4-5A</span></div>
-    </div>
-    <div class="card vmp MG" data-k="vmp seguro soa responsabilidad civil propietario 800">
-        <div class="card-desc">📋 Circular el veh&iacute;culo sin que conste que su propietario tenga suscrito y mantenga en vigor un contrato de seguro que cubra la responsabilidad civil de su circulaci&oacute;n (VMP)</div>
-        <div class="card-footer"><span class="badge MG">M.GRAVE</span><span class="eur">800 EUR</span><span class="cod">02-1-5N / SOA</span></div>
-    </div>
-    <div class="card vmp MG" data-k="vmp seguro soa incumplir obligacion propietario 610">
-        <div class="card-desc">📋 Incumplir el propietario del veh&iacute;culo la obligaci&oacute;n de mantener en vigor un contrato de seguro que cubra la responsabilidad civil de su circulaci&oacute;n (VMP)</div>
-        <div class="card-footer"><span class="badge MG">M.GRAVE</span><span class="eur">610 EUR</span><span class="cod">2-1-5O / SOA</span></div>
-    </div>
-    <div class="card vmp G" data-k="vmp placa registro etiqueta identificativa inscripciones reglamentarias">
-        <div class="card-desc">🏷️ Circular con un veh&iacute;culo que no lleve las placas o inscripciones reglamentarias — sin placa de registro o etiqueta identificativa</div>
-        <div class="card-footer"><span class="badge G">GRAVE</span><span class="cod">8-1-5A / RGVEH</span></div>
+    <!-- CONDUCTORES Y VEHÍCULOS -->
+    <div class="section-label-trafico" style="font-size:.75em;font-weight:800;color:#e65100;padding:6px 10px 3px;border-left:3px solid #ffcc80;background:#fff3e0;border-radius:0 4px 4px 0;margin:8px 0 4px;text-transform:uppercase;letter-spacing:.05em;">👮 Conductores y Vehículos</div>
+    <div class="card cond G trafico" data-k="matricula placa obstaculos lectura identificacion"><div class="card-desc">🔤 Circular con vehículo cuyas placas de matrícula presentan obstáculos que impiden o dificultan su lectura e identificación</div><div class="card-footer"><span class="badge G">GRAVE</span><span class="cod">10-2-5A / LSV</span></div></div>
+    <div class="card cond G trafico" data-k="autorizacion carece validez requisitos administrativos condena penal curso"><div class="card-desc">📄 Conducir con autorización que carece de validez por no haber cumplido los requisitos administrativos (conducir tras condena penal sin realizar curso)</div><div class="card-footer"><span class="badge G">GRAVE</span><span class="cod">1-1-5D / RGCOND</span></div></div>
+    <div class="card cond G trafico" data-k="permiso licencia restricciones limitaciones gafas dia noche menciones adaptaciones"><div class="card-desc">👓 Conducir incumpliendo las menciones, adaptaciones, restricciones u otras limitaciones que figuran en su permiso o licencia (gafas, conducir solo de día...)</div><div class="card-footer"><span class="badge G">GRAVE</span><span class="cod">3-1-5A / RGCOND</span></div></div>
+    <div class="card cond G trafico" data-k="permiso licencia caducado vigencia vencida"><div class="card-desc">📅 Conducir con permiso o licencia de conducción cuya vigencia ha vencido (caducado)</div><div class="card-footer"><span class="badge G">GRAVE</span><span class="cod">12-4-5B / RGCOND</span></div></div>
+    <div class="card cond G trafico" data-k="itv inspeccion tecnica periodica"><div class="card-desc">🔧 No haber sometido el vehículo a la inspección técnica periódica reglamentaria (ITV)</div><div class="card-footer"><span class="badge G">GRAVE</span><span class="cod">10-1-5A / RGVEH</span></div></div>
+    <div class="card cond MG trafico" data-k="turismo seguro soa responsabilidad civil 1500"><div class="card-desc">📋 Circular el vehículo sin que conste que su propietario tenga suscrito y mantenga en vigor un contrato de seguro de RC (turismos)</div><div class="card-footer"><span class="badge MG">M.GRAVE</span><span class="eur">1.500 EUR</span><span class="cod">2-1-5H / SOA</span></div></div>
+    <div class="card cond MG trafico" data-k="turismo seguro soa incumplir propietario 500"><div class="card-desc">📋 Incumplir el propietario del vehículo la obligación de mantener en vigor un contrato de seguro de RC (turismos)</div><div class="card-footer"><span class="badge MG">M.GRAVE</span><span class="eur">500 EUR</span><span class="cod">2-1-5L / SOA</span></div></div>
+  </div>
+
+  <!-- URBANISMO -->
+    <div class="subseccion" data-cat="urbanismo">
+      <div class="subseccion-titulo">🏗️ URBANISMO</div>
+
+      <div class="ley-titulo">DL 1/2014 – TRLUA (Texto Refundido Ley Urbanismo Aragón)</div>
+      <div class="tarjeta grave" data-texto="Realización de actos de edificación o uso del suelo sin título habilitante, o contraviniendo sus condiciones, cuando sean legalizables o tengan escasa entidad">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🏚️ Obras/uso suelo sin título habilitante (legalizable o escasa entidad)</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 277.b.1</span></div>
+        </div>
+        <div class="tarjeta-nota">Cuando los actos sean legalizables por ser conformes al ordenamiento urbanístico o tengan escasa entidad. Indicar en el boletín la descripción de los actos.</div>
+      </div>
+
+      <div class="tarjeta grave" data-texto="Venta o suministro de bebidas alcohólicas careciendo de licencia específica en establecimiento comercial no destinado al consumo inmediato">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🍺 Venta alcohol sin licencia específica en comercio (no consumo inmediato)</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 277.b.2</span></div>
+        </div>
+        <div class="tarjeta-nota">Disp. Adicional 1ª, LEP. Establecimiento comercial que carece de licencia específica de venta de alcohol.</div>
+      </div>
+
+      <div class="tarjeta leve" data-texto="Incumplimiento de determinaciones de normas urbanísticas u ordenanzas de edificación, del proyecto de urbanización o de obras ordinarias, cuando por su escasa entidad no constituyan infracción grave o muy grave">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">📐 Incumplimiento normas urbanísticas / ordenanzas (escasa entidad)</div>
+          <div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 277.c</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta leve" data-texto="Incumplimiento del deber de conservación de edificaciones terrenos urbanizaciones carteles en adecuadas condiciones de seguridad salubridad ornato público y calidad ambiental cultural y turística">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🧱 Incumplimiento deber de conservación de edificaciones/terrenos</div>
+          <div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 277.d</span></div>
+        </div>
+        <div class="tarjeta-nota">Salvo que constituya infracción grave. En relación con el art. 254.1 TRLUA.</div>
+      </div>
+
+      <div class="tarjeta grave" data-texto="Retrasar o impedir por acción u omisión el ejercicio de las funciones de vigilancia del cumplimiento de la legalidad urbanística obstrucción labor inspectora">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🚫 Obstrucción a la labor inspectora urbanística</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 277.g</span></div>
+        </div>
+        <div class="tarjeta-nota">En relación con el art. 265.3 TRLUA.</div>
+      </div>
+
+      <div class="tarjeta muy-grave" data-texto="Incumplimiento de la orden de paralización o medidas cautelares por ejecución de actos sin título habilitante de naturaleza urbanística">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🛑 Incumplimiento paralización / medidas cautelares urbanísticas</div>
+          <div class="badges"><span class="badge badge-muy-grave">MUY GRAVE</span><span class="badge badge-art">Art. 278.h</span></div>
+        </div>
+      </div>
+
+      <div class="ley-titulo">LEY 11/2014 – LPPAA (Prevención y Protección Ambiental Aragón)</div>
+      <div class="tarjeta muy-grave" data-texto="Ejercer actividad sin autorización ambiental integrada o licencia ambiental de actividades clasificadas o con ella caducada o suspendida sin daño grave">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">⚗️ Actividad sin autorización ambiental integrada o licencia (sin daño grave)</div>
+          <div class="badges"><span class="badge badge-muy-grave">MUY GRAVE</span><span class="badge badge-art">Art. 105.a</span></div>
+        </div>
+        <div class="tarjeta-nota">Si hay deterioro o peligro grave, denunciar por Art. 104.a LPPAA.</div>
+      </div>
+
+      <div class="tarjeta muy-grave" data-texto="Incumplir condiciones de la autorización ambiental integrada o licencia ambiental sin daño o deterioro grave para el medio ambiente">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">⚗️ Incumplimiento condiciones autorización ambiental (sin daño grave)</div>
+          <div class="badges"><span class="badge badge-muy-grave">MUY GRAVE</span><span class="badge badge-art">Art. 105.b</span></div>
+        </div>
+        <div class="tarjeta-nota">Si hay deterioro o peligro grave, denunciar por Art. 104.b LPPAA.</div>
+      </div>
+
+      <div class="tarjeta grave" data-texto="Transmitir la titularidad de la autorización ambiental integrada o licencia ambiental sin comunicarlo al órgano competente">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">📄 Transmisión titularidad autorización ambiental sin comunicar</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 105.m</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta muy-grave" data-texto="Incumplir resoluciones de cierre o clausura de establecimientos con deterioro grave para el medio ambiente o peligro grave para la salud">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🔒 Incumplimiento resoluciones de cierre/clausura (daño grave MA o salud)</div>
+          <div class="badges"><span class="badge badge-muy-grave">MUY GRAVE</span><span class="badge badge-art">Art. 104.g</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta muy-grave" data-texto="Incumplir obligaciones derivadas de las medidas provisionales LPPAA">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">⛔ Incumplimiento medidas provisionales LPPAA</div>
+          <div class="badges"><span class="badge badge-muy-grave">MUY GRAVE</span><span class="badge badge-art">Art. 104.h</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta grave" data-texto="Ocultar datos, falsear, manipular o alterar maliciosamente la información exigida en procedimientos LPPAA">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">📝 Datos falsos u ocultación de información LPPAA</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 105.f</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta grave" data-texto="Impedir, retrasar u obstruir la actividad de inspección, control y vigilancia de la Administración LPPAA">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🚫 Obstrucción inspección/control LPPAA</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 105.g</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta grave" data-texto="Ejercer actividad incumpliendo obligaciones fijadas en disposiciones que hayan establecido exigencia de notificación y registro sin daño o deterioro grave">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">📋 Actividad sin notificación/registro (sin daño grave)</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 105.h</span></div>
+        </div>
+        <div class="tarjeta-nota">Si hay daño/deterioro grave → Art. 104.f LPPAA. Si no hay ningún tipo de daño → Art. 106.b LPPAA.</div>
+      </div>
+
+      <div class="tarjeta grave" data-texto="No someter la actividad a los controles periódicos preceptivos autorización ambiental integrada o licencia ambiental">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🔄 No someterse a controles periódicos preceptivos</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 105.i</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta grave" data-texto="Incumplir órdenes de suspensión de la ejecución del proyecto o actividad LPPAA">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">⛔ Incumplimiento órdenes de suspensión de actividad</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 105.j</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta grave" data-texto="No informar inmediatamente al órgano competente de circunstancia incidente o accidente que pudiera afectar de forma significativa al medio ambiente">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">⚠️ No comunicar accidentes/incidentes con afectación al M. Ambiente</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 105.l</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta leve" data-texto="No aportar los documentos solicitados por la Administración LPPAA">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">📄 No aportar documentos solicitados por la Administración</div>
+          <div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 106.a</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta leve" data-texto="Incumplir prescripciones establecidas en la LPPAA o omisión de actos obligatorios cuando no estén tipificadas como infracciones graves o muy graves">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">⚖️ Infracción genérica leve LPPAA (incumplimiento prescripciones)</div>
+          <div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 106.c</span></div>
+        </div>
+      </div>
     </div>
 
-    <!-- CONDUCTORES Y VEHICULOS -->
-    <div class="section-label" data-sec="cond">👮 Conductores y Veh&iacute;culos</div>
+    <!-- MEDIO AMBIENTE -->
+    <div class="subseccion" data-cat="medioambiente">
+      <div class="subseccion-titulo">🌿 MEDIO AMBIENTE</div>
 
-    <div class="card cond G" data-k="matricula placa obstaculos lectura identificacion">
-        <div class="card-desc">🔤 Circular con un veh&iacute;culo cuyas placas de matr&iacute;cula presentan obst&aacute;culos que impiden o dificultan su lectura e identificaci&oacute;n</div>
-        <div class="card-footer"><span class="badge G">GRAVE</span><span class="cod">10-2-5A / LSV</span></div>
-    </div>
-    <div class="card cond G" data-k="autorizacion carece validez requisitos administrativos condena penal curso">
-        <div class="card-desc">📄 Conducir con una autorizaci&oacute;n que carece de validez por no haber cumplido los requisitos administrativos exigidos reglamentariamente en Espa&ntilde;a (conducir tras condena penal sin realizar curso)</div>
-        <div class="card-footer"><span class="badge G">GRAVE</span><span class="cod">1-1-5D / RGCOND</span></div>
-    </div>
-    <div class="card cond G" data-k="permiso licencia restricciones limitaciones gafas dia noche menciones adaptaciones">
-        <div class="card-desc">👓 Conducir incumpliendo las menciones, adaptaciones, restricciones u otras limitaciones que figuran en su permiso o licencia de conducci&oacute;n (gafas, conducir solo de d&iacute;a...)</div>
-        <div class="card-footer"><span class="badge G">GRAVE</span><span class="cod">3-1-5A / RGCOND</span></div>
-    </div>
-    <div class="card cond G" data-k="permiso licencia caducado vigencia vencida">
-        <div class="card-desc">📅 Conducir con un permiso o licencia de conducci&oacute;n cuya vigencia ha vencido (caducado)</div>
-        <div class="card-footer"><span class="badge G">GRAVE</span><span class="cod">12-4-5B / RGCOND</span></div>
-    </div>
-    <div class="card cond G" data-k="itv inspeccion tecnica periodica">
-        <div class="card-desc">🔧 No haber sometido el veh&iacute;culo a la inspecci&oacute;n t&eacute;cnica peri&oacute;dica establecida reglamentariamente (ITV)</div>
-        <div class="card-footer"><span class="badge G">GRAVE</span><span class="cod">10-1-5A / RGVEH</span></div>
-    </div>
-    <div class="card cond MG" data-k="turismo seguro soa responsabilidad civil 1500">
-        <div class="card-desc">📋 Circular el veh&iacute;culo sin que conste que su propietario tenga suscrito y mantenga en vigor un contrato de seguro que cubra la responsabilidad civil de su circulaci&oacute;n (turismos)</div>
-        <div class="card-footer"><span class="badge MG">M.GRAVE</span><span class="eur">1.500 EUR</span><span class="cod">2-1-5H / SOA</span></div>
-    </div>
-    <div class="card cond MG" data-k="turismo seguro soa incumplir propietario 500">
-        <div class="card-desc">📋 Incumplir el propietario del veh&iacute;culo la obligaci&oacute;n de mantener en vigor un contrato de seguro que cubra la responsabilidad civil de su circulaci&oacute;n (turismos)</div>
-        <div class="card-footer"><span class="badge MG">M.GRAVE</span><span class="eur">500 EUR</span><span class="cod">2-1-5L / SOA</span></div>
+      <div class="ley-titulo">DL 1/2017 – LEY DE MONTES DE ARAGÓN (LMA)</div>
+      <div class="tarjeta grave" data-texto="Empleo de fuego en los montes y áreas colindantes en condiciones épocas lugares o en actividades no autorizadas incendios forestales">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🔥 Empleo de fuego en montes / zonas no autorizadas</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 119.e</span></div>
+        </div>
+        <div class="tarjeta-nota">Ver Orden vigente del Consejero en materia de prevención de incendios forestales en Aragón.</div>
+      </div>
+
+      <div class="tarjeta grave" data-texto="Incumplimiento de disposiciones que regulen el uso del fuego dictadas en materia de prevención y extinción de incendios forestales con independencia de que provoque o no un incendio forestal">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🔥 Incumplimiento normativa uso del fuego (prevención incendios)</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 119.f</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta grave" data-texto="Circulación con vehículos a motor atravesando terrenos de monte fuera de carreteras caminos pistas o infraestructuras utilizables sin autorización">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🚗 Circular con vehículo a motor por monte fuera de caminos/pistas</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 119.l</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta grave" data-texto="Realización de pruebas o competiciones deportivas y recorridos organizados con vehículos a motor sin autorización administrativa comunicación previa o sin cumplir requisitos">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🏎️ Pruebas/competiciones con vehículos a motor en monte sin autorización</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 119.m</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta grave" data-texto="Vertido no autorizado o abandono de residuos materiales o productos de cualquier naturaleza en terrenos forestales">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🗑️ Vertido/abandono de residuos en terrenos forestales</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 119.o</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta grave" data-texto="Obstrucción por acción u omisión de actuaciones de investigación inspección vigilancia y control de Administraciones públicas en materia de montes desobediencia a órdenes de agentes">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🚫 Obstrucción labor inspectora en materia de montes</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 119.q</span></div>
+        </div>
+        <div class="tarjeta-nota">Incluye la desobediencia a las órdenes e instrucciones de los agentes de la autoridad.</div>
+      </div>
+
+      <div class="tarjeta leve" data-texto="Incumplimiento total o parcial de otras obligaciones o prohibiciones previstas en la ley de montes de aragón">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">⚖️ Infracción genérica Ley de Montes de Aragón</div>
+          <div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 119.u</span></div>
+        </div>
+      </div>
+
+      <div class="ley-titulo">LEY 7/2022 – RESIDUOS Y SUELOS CONTAMINADOS (LRSC)</div>
+      <div class="tarjeta muy-grave" data-texto="Ejercicio de actividad sin preceptiva comunicación o autorización o con ella caducada o suspendida incumpliendo obligaciones cuando haya supuesto peligro grave o daño a la salud o al medio ambiente en espacios protegidos">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">☣️ Actividad residuos sin autorización con peligro grave/daño o en espacio protegido</div>
+          <div class="badges"><span class="badge badge-muy-grave">MUY GRAVE</span><span class="badge badge-art">Art. 108.2.a</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta grave" data-texto="Ejercicio de actividad sin preceptiva comunicación o autorización o con ella caducada sin que haya supuesto peligro grave o daño a la salud o al medio ambiente">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">♻️ Actividad residuos sin autorización (sin peligro grave ni daño)</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 108.3.a</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta muy-grave" data-texto="Abandono littering vertido y gestión incontrolada de residuos peligrosos">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">☣️ Abandono/vertido/gestión incontrolada de residuos PELIGROSOS</div>
+          <div class="badges"><span class="badge badge-muy-grave">MUY GRAVE</span><span class="badge badge-art">Art. 108.2.c</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta muy-grave" data-texto="Abandono littering vertido y gestión incontrolada de cualquier tipo de residuos cuando se haya puesto en peligro grave la salud o producido daño o deterioro grave para el medio ambiente o en espacios protegidos">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🗑️ Abandono/vertido residuos no peligrosos con daño grave o en espacio protegido</div>
+          <div class="badges"><span class="badge badge-muy-grave">MUY GRAVE</span><span class="badge badge-art">Art. 108.2.d</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta grave" data-texto="Abandono littering vertido y gestión incontrolada de cualquier tipo de residuos no peligrosos sin que se haya puesto en peligro grave la salud o producido daño o deterioro grave para el medio ambiente">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🗑️ Abandono/vertido/littering residuos NO peligrosos (sin daño grave)</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 108.3.c</span></div>
+        </div>
+        <div class="tarjeta-nota">Destino: Oficina Jurídica M. Ambiente (L1) si competencia municipal (Art. 111.1 y 3 LRSC). Resto: Dpto. Medio Ambiente y Turismo [A5].</div>
+      </div>
+
+      <div class="ley-titulo">LEY 50/1999 – ANIMALES POTENCIALMENTE PELIGROSOS (LAPP)</div>
+      <div class="tarjeta muy-grave" data-texto="Abandonar un animal potencialmente peligroso de cualquier especie o cualquier perro sin identificación o sin ir acompañado de persona">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🐕 Abandono de animal potencialmente peligroso</div>
+          <div class="badges"><span class="badge badge-muy-grave">MUY GRAVE</span><span class="badge badge-art">Art. 13.1.a</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta muy-grave" data-texto="Tener perros o animales potencialmente peligrosos sin licencia o sin seguro de responsabilidad civil">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🐕 Animal peligroso sin licencia / sin seguro RC</div>
+          <div class="badges"><span class="badge badge-muy-grave">MUY GRAVE</span><span class="badge badge-art">Art. 13.1.b</span></div>
+        </div>
+        <div class="tarjeta-nota">Denunciar cuando no se acredite el seguro de RC (cobertura mínima 120.000€). LO 1/2015 derivó a vía administrativa la actividad sin seguro obligatorio.</div>
+      </div>
+
+      <div class="tarjeta muy-grave" data-texto="Vender o transmitir por cualquier título un perro o animal potencialmente peligroso a quien carezca de licencia">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🐕 Venta/transmisión de animal peligroso a persona sin licencia</div>
+          <div class="badges"><span class="badge badge-muy-grave">MUY GRAVE</span><span class="badge badge-art">Art. 13.1.c</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta muy-grave" data-texto="Adiestrar animales para activar su agresividad o para finalidades prohibidas">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🐕 Adiestramiento animal para activar agresividad / fines prohibidos</div>
+          <div class="badges"><span class="badge badge-muy-grave">MUY GRAVE</span><span class="badge badge-art">Art. 13.1.d</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta muy-grave" data-texto="Adiestrar animales potencialmente peligrosos por quien carezca de certificado de capacitación">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🐕 Adiestramiento animal peligroso sin certificado de capacitación</div>
+          <div class="badges"><span class="badge badge-muy-grave">MUY GRAVE</span><span class="badge badge-art">Art. 13.1.e</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta muy-grave" data-texto="Organización y celebración de concursos ejercicios exhibiciones o espectáculos de animales potencialmente peligrosos para demostrar su agresividad">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🐕 Espectáculos/concursos con animales peligrosos para mostrar agresividad</div>
+          <div class="badges"><span class="badge badge-muy-grave">MUY GRAVE</span><span class="badge badge-art">Art. 13.1.f</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta grave" data-texto="Dejar suelto un animal potencialmente peligroso o no haber adoptado medidas necesarias para evitar su escapada o extravío">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🐕 Animal peligroso suelto o sin medidas para evitar escapada</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 13.2.a</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta grave" data-texto="Incumplir la obligación de identificar al animal potencialmente peligroso mediante microchip">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🐕 Animal peligroso sin identificación / microchip</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 13.2.b</span></div>
+        </div>
+        <div class="tarjeta-nota">Art. 9 RD 287/02: todo animal potencialmente peligroso canino debe identificarse con microchip.</div>
+      </div>
+
+      <div class="tarjeta grave" data-texto="Omitir la inscripción en el Registro de animales potencialmente peligrosos plazo máximo 3 meses desde nacimiento">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🐕 Animal peligroso sin inscripción en Registro</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 13.2.c</span></div>
+        </div>
+        <div class="tarjeta-nota">Plazo máximo para inscripción: 3 meses desde su nacimiento (Decreto 64/2006 Aragón).</div>
+      </div>
+
+      <div class="tarjeta grave" data-texto="Hallarse el perro potencialmente peligroso en lugares públicos sin bozal o no sujeto con cadena no extensible de menos de 2 metros un solo animal por persona">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🐕 Animal peligroso en espacio público sin bozal o sin correa (&lt;2m)</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 13.2.d</span></div>
+        </div>
+        <div class="tarjeta-nota">Art. 8.2 y 3 RD 287/02: bozal obligatorio + correa/cadena no extensible de menos de 2 metros. Máximo 1 animal por persona.</div>
+      </div>
+
+      <div class="tarjeta grave" data-texto="El transporte de animales potencialmente peligrosos con vulneración de lo dispuesto en la ley 50/1999">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🚗 Transporte indebido de animal potencialmente peligroso</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 13.2.e</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta grave" data-texto="Negativa o resistencia a suministrar datos o facilitar información requerida por autoridades competentes en materia de animales potencialmente peligrosos o suministro de información inexacta o documentación falsa">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🚫 Negativa a facilitar información / datos falsos (animales peligrosos)</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 13.2.f</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta leve" data-texto="Incumplimiento de cualquiera de las obligaciones establecidas en la ley de animales potencialmente peligrosos no comprendidas en apartados 1 y 2 del artículo 13">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🐕 Infracción leve genérica LAPP (no portar licencia, no comunicar pérdida en 48h…)</div>
+          <div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 13.4</span></div>
+        </div>
+        <div class="tarjeta-nota">Incluye: no portar licencia + certificado registro; animal en finca no atado; no comunicar sustracción/pérdida en 48h al Registro Municipal.</div>
+      </div>
+
+      <div class="ley-titulo">LEY 11/2003 – PROTECCIÓN ANIMAL DE ARAGÓN (LPAA)</div>
+      <div class="tarjeta leve" data-texto="Maltratar o agredir animales o someterlos a prácticas que produzcan daño o sufrimiento sin causarles lesiones deformidades defectos o la muerte">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🐾 Maltrato animal sin lesiones (LPAA)</div>
+          <div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 68.1</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta grave" data-texto="Maltratar o agredir animales causándoles lesiones deformidades o defectos">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🐾 Maltrato animal con lesiones / deformidades (LPAA)</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 69.1</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta muy-grave" data-texto="Maltratar o agredir animales causándoles la muerte">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🐾 Maltrato animal causando muerte (LPAA)</div>
+          <div class="badges"><span class="badge badge-muy-grave">MUY GRAVE</span><span class="badge badge-art">Art. 70.1</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta leve" data-texto="No facilitar alimentos y líquidos necesarios a los animales para subsistencia vida sana según necesidades cuando no se les cause trastornos graves o la muerte">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🐾 No proporcionar alimentación/agua adecuada a animales (sin muerte)</div>
+          <div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 68.2</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta leve" data-texto="Mantener animales en condiciones inadecuadas higiénico sanitarias impropias para cuidado y atención sin causarles lesiones enfermedades ni muerte">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🐾 Condiciones higiénicas inadecuadas para animales (sin lesiones)</div>
+          <div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 68.3</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta leve" data-texto="Entrega de animales como reclamo publicitario recompensa o regalo de compensación por otras adquisiciones">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🐾 Entrega animal como regalo/reclamo publicitario</div>
+          <div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 68.4</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta leve" data-texto="Negación de asistencia sanitaria por veterinarios en ejercicio a animales enfermos o heridos">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🐾 Veterinario niega asistencia sanitaria a animal enfermo/herido</div>
+          <div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 68.5</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta leve" data-texto="Venta o donación de animales a menores o incapacitados sin la autorización de quienes tengan patria potestad o tutela">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🐾 Venta/donación de animal a menor o incapacitado sin autorización tutor</div>
+          <div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 68.6</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta leve" data-texto="Tenencia de animales en lugares sin adecuada atención y vigilancia o sin medidas de seguridad para evitar agresiones entre animales o a personas">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🐾 Tenencia animal sin vigilancia adecuada / sin medidas de seguridad</div>
+          <div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 68.7</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta leve" data-texto="Mantener animales en condiciones ambientales y de manejo contrarias a la ley de protección animal de Aragón">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🐾 Condiciones ambientales y manejo contrarias a LPAA</div>
+          <div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 68.8</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta leve" data-texto="No vacunar no realizar tratamientos sanitarios obligatorios no poseer cartilla sanitaria o no tenerla diligenciada">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🐾 Sin vacunación / sin cartilla sanitaria / sin tratamientos obligatorios</div>
+          <div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 68.10</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta leve" data-texto="Llevar animales atados a vehículos en movimiento o estando sueltos hacerles marchar detrás de aquellos">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🐾 Llevar animal atado a vehículo en movimiento</div>
+          <div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 68.12</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta leve" data-texto="No censar o identificar reglamentariamente animales de compañía que deban estarlo">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🐾 Animal de compañía sin censar / sin identificación reglamentaria</div>
+          <div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 68.13</span></div>
+        </div>
+        <div class="tarjeta-nota">Decreto 64/2006 Aragón: obligación de identificar en los 3 primeros meses de vida.</div>
+      </div>
+
+      <div class="tarjeta leve" data-texto="No adoptar medidas para impedir que animales de compañía ensucien vías o espacios públicos o para eliminar deyecciones">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">💩 No recoger excrementos del animal en vía pública</div>
+          <div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 68.14</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta leve" data-texto="Utilización de sistemas de recogida y eliminación de cadáveres de animales de compañía contrarios a los establecidos en la legislación">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🐾 Eliminación/recogida cadáver de animal incumpliendo normativa</div>
+          <div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 68.15</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta leve" data-texto="Falta de comunicación a los registros administrativos de los animales de compañía de las altas bajas y cambios de propiedad">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🐾 No comunicar altas, bajas o cambios de propiedad de animales</div>
+          <div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 68.16</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta leve" data-texto="Incumplimiento de condiciones de circulación de animales de compañía previstas en la ley de protección animal de Aragón">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🐾 Incumplimiento condiciones de circulación de animales de compañía</div>
+          <div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 68.17</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta leve" data-texto="Acceso de animales de compañía sin autorización o sin bozal a medios de transporte públicos en que estén autorizados">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🐾 Animal de compañía en transporte público sin autorización/bozal</div>
+          <div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 68.18</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta leve" data-texto="Impedir el acceso a perros guía en instalaciones o establecimientos autorizados por la legislación vigente">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🦮 Impedir acceso a perro-guía en instalaciones</div>
+          <div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 68.19</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta leve" data-texto="Ejercer actividad de núcleo zoológico sin estar autorizado para ello">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🦁 Núcleo zoológico sin autorización</div>
+          <div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 68.20</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta leve" data-texto="Cría o venta de animales en deficiente estado sanitario o fuera de lugares autorizados o incumplimiento de obligaciones documentales del artículo 28">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🐾 Cría/venta animales en deficiente estado sanitario o fuera de lugares autorizados</div>
+          <div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 68.22</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta leve" data-texto="No comunicación de movimientos altas y bajas de animales en agrupaciones zoológicas de fauna silvestre">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🦁 No comunicar movimientos/altas/bajas en agrupación zoológica fauna silvestre</div>
+          <div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 68.23</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta leve" data-texto="Proliferación incontrolada de animales">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🐾 Proliferación incontrolada de animales</div>
+          <div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 68.24</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta leve" data-texto="Transporte de animales con vulneración de requisitos establecidos en la legislación sin trastornos graves lesiones ni muerte">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🚗 Transporte de animales incumpliendo requisitos (sin daño grave)</div>
+          <div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 68.25</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta grave" data-texto="El abandono de animales en espacios abiertos o cerrados o incumplir obligación de entrega a centros de recogida">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🐾 Abandono de animal (LPAA)</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 69.5</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta grave" data-texto="Impedir la libre inspección de animales y sus instalaciones a las autoridades competentes salvo animales en domicilio">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🚫 Impedir inspección de animales/instalaciones a autoridad</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 69.8</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta muy-grave" data-texto="Organización y celebración de peleas de perros de gallos o de cualquier animal entre sí o con el hombre">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🐓 Peleas de animales</div>
+          <div class="badges"><span class="badge badge-muy-grave">MUY GRAVE</span><span class="badge badge-art">Art. 70.2</span></div>
+        </div>
+      </div>
+
+      <div class="ley-titulo">LEY 7/2023 – BIENESTAR ANIMAL (LBA)</div>
+      <div class="tarjeta leve" data-texto="Conducta por acción u omisión sin provocar daños físicos ni alteraciones de comportamiento al animal que conlleve inobservancia de prohibiciones cuidados u obligaciones legales">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🐾 Infracción leve bienestar animal (LBA) — sin daño físico</div>
+          <div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 73</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta grave" data-texto="Incumplimiento obligaciones y prohibiciones LBA que implique daño o sufrimiento animal con secuelas permanentes graves o lesiones graves sin constituir delito">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🐾 Daño/sufrimiento animal con secuelas graves (LBA)</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 74.a</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta grave" data-texto="No cumplir las obligaciones de identificación del animal LBA">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🐾 Sin identificación animal (LBA)</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 74.b</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta grave" data-texto="Uso de métodos agresivos o violentos en la educación del animal LBA">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🐾 Métodos agresivos/violentos en educación animal (LBA)</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 74.c</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta grave" data-texto="Administración de sustancias que perjudiquen a los animales o alteren su comportamiento no prescritas por veterinarios LBA">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🐾 Administrar sustancias dañinas o alteradoras del comportamiento (LBA)</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 74.d</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta grave" data-texto="Practicar al animal mutilaciones o modificaciones corporales no autorizadas LBA">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🐾 Mutilaciones/modificaciones corporales no autorizadas (LBA)</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 74.e</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta grave" data-texto="Abandono de animal LBA grave">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🐾 Abandono de animal (LBA grave)</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 74.k</span></div>
+        </div>
+        <div class="tarjeta-nota">No se considera falta grave la falta de comunicación de pérdida/sustracción (es leve). Sí es grave no recoger el animal de residencias/establecimientos donde fue recogido, o abandonarlo en condiciones de riesgo.</div>
+      </div>
+
+      <div class="tarjeta grave" data-texto="Mantener de forma permanente perros o gatos en terrazas balcones azoteas trasteros sótanos patios y similares o vehículos LBA">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🐾 Perro/gato permanente en terraza, sótano, patio o vehículo (LBA)</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 74.o</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta muy-grave" data-texto="Muerte del animal incumplimiento de obligaciones y prohibiciones LBA o sacrificio no autorizado sin constituir delito">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🐾 Muerte del animal / sacrificio no autorizado (LBA)</div>
+          <div class="badges"><span class="badge badge-muy-grave">MUY GRAVE</span><span class="badge badge-art">Art. 75.a</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta muy-grave" data-texto="Adiestramiento y uso de animales para peleas y riñas con otros animales o personas LBA">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🐾 Adiestramiento/uso animales para peleas (LBA)</div>
+          <div class="badges"><span class="badge badge-muy-grave">MUY GRAVE</span><span class="badge badge-art">Art. 75.c</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta muy-grave" data-texto="Cría comercio o exposición de animales con fines comerciales por personas no autorizadas o venta de perros gatos y hurones en tiendas de animales LBA">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🐾 Cría/venta animales no autorizada / venta perros-gatos-hurones en tiendas (LBA)</div>
+          <div class="badges"><span class="badge badge-muy-grave">MUY GRAVE</span><span class="badge badge-art">Art. 75.f</span></div>
+        </div>
+      </div>
+
+      <div class="ley-titulo">LEY 42/2007 – PATRIMONIO NATURAL Y BIODIVERSIDAD (LPNB)</div>
+      <div class="tarjeta muy-grave" data-texto="Destrucción muerte deterioro recolección comercio intercambio captura naturalización no autorizada de especies catalogadas en peligro de extinción">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🦅 Captura/destrucción/comercio especie EN PELIGRO DE EXTINCIÓN</div>
+          <div class="badges"><span class="badge badge-muy-grave">MUY GRAVE</span><span class="badge badge-art">Art. 80.1.b</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta grave" data-texto="Destrucción muerte deterioro recolección posesión comercio intercambio captura naturalización no autorizada de especies catalogadas como vulnerables">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🦜 Captura/destrucción/comercio especie VULNERABLE</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 80.1.k</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta grave" data-texto="Captura persecución injustificada de especies fauna silvestre y arranque y corta de flora cuando sea necesaria autorización administrativa sin haberla obtenido">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🌿 Captura/persecución fauna silvestre o arranque flora sin autorización</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 80.1.m</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta grave" data-texto="Destrucción posesión comercio captura naturalización no autorizada de especies en régimen de protección especial no catalogadas">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🦎 Captura/destrucción/comercio especie en RÉGIMEN DE PROTECCIÓN ESPECIAL</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 80.1.n</span></div>
+        </div>
+      </div>
+
+      <div class="ley-titulo">LEY 1/2015 – CAZA DE ARAGÓN (LCA)</div>
+      <div class="tarjeta leve" data-texto="Cazar siendo poseedor de documentación preceptiva pero no llevándola consigo cuando no sea presentada ante autoridades en plazo de 15 días">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🦌 Caza sin llevar documentación (no presentada en 15 días)</div>
+          <div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 81.1</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta grave" data-texto="Cazar sin licencia con licencia con datos falsificados teniendo retirada la licencia o estando privado de obtenerla">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🦌 Caza sin licencia / licencia falsificada / licencia retirada</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 82.9</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta grave" data-texto="Incumplir requisitos para el ejercicio de la caza: sin licencia de caza vigente, sin DNI, sin permiso ni guía del arma, sin autorizaciones específicas, sin permiso del titular del terreno, sin seguro RC">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🦌 Caza incumpliendo requisitos del Art. 40 (sin licencia, sin DNI, sin guía arma, sin seguro…)</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 82.17</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta grave" data-texto="Cazar en zona expresamente prohibida salvo autorización del órgano competente">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🦌 Cazar en zona prohibida</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 82.8</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta grave" data-texto="Cazar en época de veda o en día no hábil o tenencia de especies cinegéticas muertas en época de veda sin justificar procedencia legítima">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🦌 Cazar en época de veda / día no hábil</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 82.21</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta grave" data-texto="Cazar fuera del período entre una hora antes de la salida del sol y una hora después de su puesta caza nocturna">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🦌 Cazar fuera del horario permitido (caza nocturna)</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 82.22</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta grave" data-texto="Dificultar la acción de los agentes de la autoridad en el ejercicio de sus funciones de caza">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🚫 Obstaculizar la labor de agentes de la autoridad (caza)</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 82.42</span></div>
+        </div>
+      </div>
+
+      <div class="ley-titulo">LEY 2/1999 – PESCA DE ARAGÓN (LPA)</div>
+      <div class="tarjeta leve" data-texto="Pescar habiendo obtenido documentación preceptiva pero no llevándola consigo cuando no sea presentada ante autoridades en 10 días hábiles">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🎣 Pescar sin llevar documentación (no presentada en 10 días)</div>
+          <div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 54.1</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta grave" data-texto="Pescar sin licencia o permiso de pesca en vigor">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🎣 Pescar sin licencia o permiso en vigor</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 55.1</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta leve" data-texto="Pescar en días no autorizados dentro de la temporada hábil de pesca">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🎣 Pescar en días no autorizados (temporada hábil)</div>
+          <div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 54.2</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta leve" data-texto="Pescar en horas no autorizadas con carácter general desde una hora antes de salida del sol hasta una hora después del ocaso">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🎣 Pescar fuera de horas autorizadas</div>
+          <div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 54.3</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta grave" data-texto="Pescar fuera de la temporada hábil o en época de veda">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🎣 Pescar en época de veda</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 55.6</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta leve" data-texto="Utilizar artes medios o cebos no autorizados en la pesca">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🎣 Usar artes/medios/cebos no autorizados en pesca</div>
+          <div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 54.4</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta grave" data-texto="Dificultar la acción de los agentes de la autoridad en la inspección y vigilancia de los escenarios de pesca o negarse a mostrar medios artes o recipientes">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🚫 Obstaculizar agentes de la autoridad en inspección de pesca</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 55.27</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta muy-grave" data-texto="Introducir en espacios acuáticos aparatos electrocutantes o paralizantes para especies acuícolas sin autorización especial">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">⚡ Aparatos electrocutantes/paralizantes en aguas sin autorización</div>
+          <div class="badges"><span class="badge badge-muy-grave">MUY GRAVE</span><span class="badge badge-art">Art. 56.1</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta muy-grave" data-texto="Pescar introduciendo en aguas productos químicos biológicos explosivos o aparatos capaces de producir muerte paralización aturdimiento o repulsión en especies acuícolas">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">☣️ Pescar con productos químicos/explosivos/biológicos</div>
+          <div class="badges"><span class="badge badge-muy-grave">MUY GRAVE</span><span class="badge badge-art">Art. 56.2</span></div>
+        </div>
+      </div>
     </div>
 
-</div>
+    <!-- ESPECTÁCULOS -->
+    <div class="subseccion" data-cat="espectaculos">
+      <div class="subseccion-titulo">🎭 ESPECTÁCULOS PÚBLICOS</div>
 
-<div id="empty" style="display:none;text-align:center;padding:60px 20px;color:#b0bec5;">
-    <div style="font-size:2.5em;margin-bottom:10px;">&#x1F50D;</div>
-    <p style="font-weight:bold;margin:0 0 4px;color:#90a4ae;">Sin resultados</p>
-    <p style="margin:0;font-size:0.9em;">Prueba con otras palabras</p>
-</div>
+      <div class="ley-titulo">LEY 11/2005 – ESPECTÁCULOS PÚBLICOS ARAGÓN (LEP)</div>
+      <div class="tarjeta grave" data-texto="Celebración de espectáculos públicos o actividades recreativas o apertura de establecimientos públicos sin la correspondiente licencia o autorización de funcionamiento o apertura">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🏠 Apertura establecimiento / espectáculo sin licencia o autorización</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 48.a — L2</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta grave" data-texto="Realizar sin autorización modificaciones sustanciales en establecimientos o instalaciones que supongan alteración de las condiciones de concesión de la licencia">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🔧 Modificaciones sustanciales en local sin autorización</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 48.b — L2</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta grave" data-texto="Dedicación de establecimientos recintos o instalaciones a actividades distintas de las autorizadas">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🔄 Actividad distinta a la autorizada en el local</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 48.c — L2</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta leve" data-texto="No comunicación a la Administración competente de los cambios de titularidad del establecimiento">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">📋 No comunicar cambio de titularidad del establecimiento</div>
+          <div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 47.a — L2</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta leve" data-texto="No exposición de la licencia o autorización en lugar visible al público del establecimiento">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">📋 Licencia/autorización no expuesta al público</div>
+          <div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 47.c — L2</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta grave" data-texto="Exceso de aforo permitido cuando no suponga un grave riesgo para la seguridad de las personas y bienes">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">👥 Exceso de aforo (sin grave riesgo)</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 48.e — L2</span></div>
+        </div>
+        <div class="tarjeta-nota">Como norma general se denunciará por este artículo independientemente del número de personas. Adjuntar Acta de recuento firmada por el responsable.</div>
+      </div>
+
+      <div class="tarjeta muy-grave" data-texto="Superación del aforo máximo autorizado cuando suponga un grave riesgo para la seguridad de las personas o bienes">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">👥 Exceso de aforo CON GRAVE RIESGO para personas/bienes</div>
+          <div class="badges"><span class="badge badge-muy-grave">MUY GRAVE</span><span class="badge badge-art">Art. 49.d — L2</span></div>
+        </div>
+        <div class="tarjeta-nota">Acompañar Acta de recuento + informe S-02 detallando circunstancias que justifican el grave riesgo.</div>
+      </div>
+
+      <div class="tarjeta grave" data-texto="Incumplimiento de condiciones de seguridad acústicas higiénicas y de sanidad establecidas en normativa vigente o en licencias o autorizaciones del establecimiento">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🔒 Incumplimiento condiciones seguridad/higiene/acústica del local</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 48.f — L2</span></div>
+        </div>
+        <div class="tarjeta-nota">Incluye: fallos evacuación, obstáculos en salidas, extintores defectuosos, falta higiene aseos, etc.</div>
+      </div>
+
+      <div class="tarjeta grave" data-texto="No presentar certificado de ignifugación de materiales combustibles del local">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🔥 Sin certificado de ignifugación de materiales del local</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 48.f — L2</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta grave" data-texto="Incumplimiento de la obligación de tener suscrito el contrato de seguros exigido por la ley de espectáculos públicos">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">📜 Sin seguro obligatorio de espectáculos públicos</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 48.q — L2</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta grave" data-texto="Carecer de placa identificativa en el exterior con nombre categoría número licencia aforo máximo nivel sonoro y horario de funcionamiento">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🪧 Sin placa identificativa en exterior (nombre, aforo, dB, horario…)</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 48.u — L2</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta muy-grave" data-texto="Desconectar o alterar el funcionamiento de los aparatos destinados al registro y control de decibelios en establecimientos">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🔊 Desconectar/alterar el limitador-registrador de dB</div>
+          <div class="badges"><span class="badge badge-muy-grave">MUY GRAVE</span><span class="badge badge-art">Art. 49.m — L2</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta grave" data-texto="Incumplimiento del horario de apertura y cierre del establecimiento espectáculo recreativo">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🕐 Incumplimiento de horario de apertura/cierre</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 48.j — L2</span></div>
+        </div>
+        <div class="tarjeta-nota">Horarios: Bares/cafeterías hasta 01:30 (02:30 V/S/vísp.); Pubs/bares música hasta 03:30 (04:30); Discotecas/salas fiesta hasta 05:30 (06:30). +30 min de cortesía sin servir ni música.</div>
+      </div>
+
+      <div class="tarjeta grave" data-texto="Incumplimiento de las medidas o servicios de vigilancia cuando sean obligatorios falta de servicio de admisión o vigilancia según corresponda">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">👮 Falta de servicio de admisión o vigilancia obligatorio</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 48.l — A1</span></div>
+        </div>
+        <div class="tarjeta-nota">Admisión obligatoria desde 250 personas de aforo (con alcohol) o 300 (sin alcohol). Seguridad privada obligatoria desde 500 personas.</div>
+      </div>
+
+      <div class="tarjeta grave" data-texto="El ejercicio del derecho de admisión de forma arbitraria discriminatoria o abusiva">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">⚖️ Ejercicio arbitrario / discriminatorio del derecho de admisión</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 48.h — A1</span></div>
+        </div>
+        <div class="tarjeta-nota">Si la discriminación es por origen racial → Art. 54.1.c LO 4/2000. Si hay vejaciones leves (LO 1/2015) → vía civil.</div>
+      </div>
+
+      <div class="tarjeta grave" data-texto="Falta de cartel claramente visible que prohíba la entrada de menores cuando proceda en el establecimiento">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🔞 Sin cartel visible de prohibición de entrada a menores</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 47.d — L2</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta muy-grave" data-texto="Permitir la entrada a menores de 18 años en establecimientos prohibidos discotecas pubs salas de fiesta">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🔞 Permitir entrada a MENORES de 18 años en local prohibido</div>
+          <div class="badges"><span class="badge badge-muy-grave">MUY GRAVE</span><span class="badge badge-art">Art. 48.ñ — A4</span></div>
+        </div>
+        <div class="tarjeta-nota">Denunciar por Ley Infancia Aragón 12/2001, Art. 96.3.r. Para locales de juego → Ley 2/2000, Art. 39.m.</div>
+      </div>
+
+      <div class="tarjeta muy-grave" data-texto="Negar acceso al establecimiento o recinto a los agentes de la autoridad o funcionarios inspectores autonómicos y locales que se encuentren en ejercicio de su cargo o negativa a colaborar con los mismos">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🚫 Negar acceso a agentes de la autoridad / negativa a colaborar</div>
+          <div class="badges"><span class="badge badge-muy-grave">MUY GRAVE</span><span class="badge badge-art">Art. 49.i — L2</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta grave" data-texto="Vender alcohol entre las 22:00 y las 8:00 horas en establecimientos de comercio menor que cuentan con licencia específica de venta de alcohol chinos">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🍺 Venta de alcohol entre 22:00 y 08:00 en comercio menor (tipo "chino")</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 47.g — L2</span></div>
+        </div>
+        <div class="tarjeta-nota">Denunciar por Art. 277.b TRLUA si carece de licencia específica o incumple condiciones.</div>
+      </div>
+
+      <div class="tarjeta muy-grave" data-texto="Permitir o tolerar actividades o acciones penalmente ilícitas especialmente en relación con el consumo o tráfico de drogas en local">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">💊 Tolerar consumo/tráfico de drogas en el local</div>
+          <div class="badges"><span class="badge badge-muy-grave">MUY GRAVE</span><span class="badge badge-art">Art. 49.a — E1</span></div>
+        </div>
+        <div class="tarjeta-nota">También denunciar por Art. 36.19 LO 4/2015 LOPSC.</div>
+      </div>
+
+      <div class="ley-titulo">LEY TURISMO DE ARAGÓN (LTA) — DL 1/2016</div>
+      <div class="tarjeta leve" data-texto="Falta de exhibición de anuncios o distintivos obligatorios o su exhibición sin respetar formalidades exigidas por la legislación turística precios servicios ofertados hojas de reclamaciones">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">📋 Sin exhibición de precios / distintivos / cartel Hojas de Reclamaciones (turismo)</div>
+          <div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 83.2 LTA</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta leve" data-texto="Incumplir obligaciones de información y respuesta a las reclamaciones de los turistas falta de hojas de reclamaciones o negativa a entregarlas hoteles bares cafeterías restaurantes">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">📋 Sin Hojas de Reclamaciones / negativa a entregarlas (actividades turísticas)</div>
+          <div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 83.9 LTA</span></div>
+        </div>
+        <div class="tarjeta-nota">Aplica a hoteles, bares, cafeterías, restaurantes y locales con música que además ofrezcan servicios de bebida y/o comida.</div>
+      </div>
+
+      <div class="tarjeta grave" data-texto="El ejercicio de actividades turísticas sin haber formalizado la declaración responsable o incumpliendo condiciones del órgano competente para apertura y clasificación del establecimiento">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🏨 Actividad turística sin declaración responsable / incumpliendo condiciones</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 84.1 LTA</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta muy-grave" data-texto="Negativa u obstrucción a la actuación de los inspectores turísticos que impida totalmente el ejercicio de sus funciones">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🚫 Obstrucción total a inspectores turísticos</div>
+          <div class="badges"><span class="badge badge-muy-grave">MUY GRAVE</span><span class="badge badge-art">Art. 85.3 LTA</span></div>
+        </div>
+      </div>
+
+      <div class="ley-titulo">LEY 3/2001 – DROGODEPENDENCIAS ARAGÓN (LDA)</div>
+      <div class="tarjeta grave" data-texto="Fumar en lugares prohibidos fuera de zonas habilitadas en establecimientos sanitarios centros docentes transport colectivo ascensores locales de alimentos">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🚬 Fumar en lugares prohibidos (LDA)</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 41.1.a LDA</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta grave" data-texto="Vender suministrar bebidas alcohólicas a menores de 18 años en establecimientos">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🍺 Venta/suministro de alcohol a MENORES de 18 años</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 41.2.b LDA</span></div>
+        </div>
+      </div>
+
+      <div class="ley-titulo">LEY 28/2005 – TABACO (LMST)</div>
+      <div class="tarjeta grave" data-texto="Fumar en lugares prohibidos o fuera de zonas habilitadas al efecto tabaco">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🚬 Fumar en lugares prohibidos (LMST)</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 19.2.a LMST</span></div>
+        </div>
+        <div class="tarjeta-nota">Lugares prohibidos: centros de trabajo, centros sanitarios, centros docentes, instalaciones deportivas, centros comerciales, bares/restaurantes cerrados, ascensores, salas de teatro/cine, etc.</div>
+      </div>
+
+      <div class="tarjeta grave" data-texto="Permitir fumar en lugares en los que existe prohibición de hacerlo tabaco">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🚬 Titular del establecimiento permite fumar donde está prohibido</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 19.3.b LMST</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta grave" data-texto="Venta o entrega de tabaco productos del tabaco a personas menores de dieciocho años o a través de máquina expendedora que no esté en establecimiento cerrado y a la vista de persona responsable">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🚬 Venta/entrega de tabaco a MENORES de 18 años</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 19.3.l LMST</span></div>
+        </div>
+      </div>
+
+      <div class="ley-titulo">LEY 2/2000 – JUEGO DE ARAGÓN (LJA)</div>
+      <div class="tarjeta muy-grave" data-texto="Organización celebración o explotación de juegos prohibidos no incluidos en el Catálogo o realizados sin autorización">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🎰 Juegos prohibidos / no autorizados / sin autorización</div>
+          <div class="badges"><span class="badge badge-muy-grave">MUY GRAVE</span><span class="badge badge-art">Art. 39.b.1 LJA</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta muy-grave" data-texto="Permitir o tolerar el acceso a los locales de juego a menores de edad o personas inscritas en el Registro del Juego de Prohibidos de Aragón">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🎰 Permitir acceso a menores o inscritos en Registro de Prohibidos</div>
+          <div class="badges"><span class="badge badge-muy-grave">MUY GRAVE</span><span class="badge badge-art">Art. 39.m.1 LJA</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta grave" data-texto="Resistencia obstrucción excusa o negativa a la función inspectora de control y vigilancia realizada por agentes de la autoridad en juego">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🚫 Obstrucción a inspección/control en materia de juego</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 39.s LJA</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta grave" data-texto="Permanecer abierto al público con actividad y máquinas de juego en funcionamiento fuera del horario de apertura y cierre autorizado">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🕐 Local de juego abierto fuera del horario autorizado</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 40.c LJA</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta leve" data-texto="No exhibir en los locales de juego y máquinas los documentos acreditativos de su autorización">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">📋 Local/máquina de juego sin exhibir documentos de autorización</div>
+          <div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 41.1.a LJA</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta leve" data-texto="Ausencia de libro o hojas de reclamaciones en locales autorizados para el juego y negativa a ponerlas a disposición">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">📋 Sin Hojas de Reclamaciones en local de juego</div>
+          <div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 41.1.c LJA</span></div>
+        </div>
+      </div>
+
+      <div class="ley-titulo">LEY 12/2001 – INFANCIA Y ADOLESCENCIA ARAGÓN (LIAA)</div>
+      <div class="tarjeta grave" data-texto="Permitir la entrada en los establecimientos locales prohibidos a menores bingos casinos locales de juego locales de boxeo locales de bebidas alcohólicas espectáculos violentos pornográficos salones recreativos en horario escolar">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🔞 Permitir entrada de menores a establecimientos prohibidos (LIAA)</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 96.3.r LIAA</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta grave" data-texto="Vender o suministrar a menores publicaciones con contenido pornográfico que fomenten violencia xenofobia discriminación sexual o medios audiovisuales prohibidos">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🔞 Venta/suministro a menores de publicaciones pornográficas/violentas</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 96.3.s LIAA</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONSUMO -->
+    <div class="subseccion" data-cat="consumo">
+      <div class="subseccion-titulo">🛒 CONSUMO</div>
+
+      <div class="ley-titulo">LEY 16/2006 – CONSUMIDORES Y USUARIOS ARAGÓN (LCUA)</div>
+      <div class="tarjeta muy-grave" data-texto="Venta de productos a precios superiores a los máximos legalmente establecidos o a los precios comunicados anunciados o presupuestados al consumidor o incumplimiento de disposiciones en materia de precios">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">💰 Precios superiores a los máximos/comunicados/anunciados</div>
+          <div class="badges"><span class="badge badge-muy-grave">MUY GRAVE</span><span class="badge badge-art">Art. 82.1.c LCUA</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta muy-grave" data-texto="No entrega de presupuesto previo documento acreditativo factura o comprobante de la venta o de la prestación de servicios en los casos preceptivos o cuando lo solicite el consumidor">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🧾 No emitir factura / presupuesto cuando es preceptivo o lo pide el consumidor</div>
+          <div class="badges"><span class="badge badge-muy-grave">MUY GRAVE</span><span class="badge badge-art">Art. 82.1.d LCUA</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta grave" data-texto="Contravención de disposiciones administrativas que prohíben la venta de ciertos productos bienes o servicios en determinados establecimientos o a determinadas personas">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🚫 Venta prohibida en determinados establecimientos o a determinadas personas</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 82.1.e LCUA (Art. 79.b)</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta grave" data-texto="Incumplimiento de disposiciones que regulan el marcado de precios etiquetado envasado embalaje transporte y publicidad sobre productos bienes y servicios">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🏷️ Incumplimiento marcado de precios / etiquetado / envasado</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 82.1.e LCUA (Art. 79.c)</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta grave" data-texto="Incumplimiento de normas relativas a documentación información libros o registros obligatorios para el adecuado régimen y funcionamiento de la empresa o como garantía para protección del consumidor hojas de reclamaciones">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">📋 Incumplimiento obligaciones documentales / Hojas de Reclamaciones (consumo)</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 82.1.e LCUA (Art. 79.e)</span></div>
+        </div>
+        <div class="tarjeta-nota">Incluye: tenencia, puesta a disposición y cartel informativo de hojas de reclamaciones.</div>
+      </div>
+
+      <div class="ley-titulo">LEY 4/2015 – COMERCIO DE ARAGÓN (LComA)</div>
+      <div class="tarjeta leve" data-texto="Falta de exhibición de la previa autorización licencia comunicación fianza o garantía en la forma establecida en la normativa comercial">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">📋 Sin exhibir autorización / licencia comercial</div>
+          <div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 49.a LComA</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta leve" data-texto="Incumplir la obligación de informar al público sobre los días y horas de apertura y cierre de los establecimientos comerciales o no hacerlo en lugar visible desde el exterior">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🕐 Sin información visible de horarios de apertura/cierre del comercio</div>
+          <div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 49.b LComA</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta grave" data-texto="Negativa obstrucción o resistencia a suministrar datos o facilitar información requerida por autoridades en ejercicio de funciones de inspección comercio">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🚫 Negativa / obstrucción a la inspección comercial</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 50.b LComA</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta grave" data-texto="Incumplimiento del régimen general de horarios de apertura establecidos en la normativa comercial aplicable domingos festivos 90 horas semanales">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🕐 Incumplimiento horarios comerciales (domingos, festivos, 90h/semana)</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 50.j LComA</span></div>
+        </div>
+        <div class="tarjeta-nota">Ley 7/2005 de horarios comerciales: máx. 90h/semana; 11 domingos y festivos al año. Excepciones: pequeño comercio (&lt;300m²), tiendas de conveniencia (&lt;500m², ≥18h/día), zonas de gran afluencia turística, etc.</div>
+      </div>
+    </div>
+
+    <!-- SEGURIDAD CIUDADANA -->
+    <div class="subseccion" data-cat="seguridad">
+      <div class="subseccion-titulo">🔒 SEGURIDAD CIUDADANA</div>
+
+      <div class="ley-titulo">LO 4/2015 – SEGURIDAD CIUDADANA (LOPSC)</div>
+      <div class="tarjeta muy-grave" data-texto="Portar exhibir o usar armas prohibidas siempre que no constituyan infracción penal bastones estoque puñales navajas automáticas munchacos tiragomas perfeccionados">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🔪 Porte/exhibición/uso de ARMAS PROHIBIDAS (no penal)</div>
+          <div class="badges"><span class="badge badge-muy-grave">MUY GRAVE</span><span class="badge badge-art">Art. 36.10.1 LOPSC</span></div>
+        </div>
+        <div class="tarjeta-nota">Incluir descripción del arma y documentar fotográficamente si es posible. Art. 4.1 Rgto. Armas: bastón-estoque, puñales, navajas automáticas, munchacos, defensas eléctricas/goma/extensibles, etc.</div>
+      </div>
+
+      <div class="tarjeta grave" data-texto="Portar exhibir o usar armas de modo negligente temerario o intimidatorio siempre que no constituya infracción penal uso indebido de armas">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">⚠️ Uso negligente, temerario o intimidatorio de armas (no penal)</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 36.10.2 LOPSC</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta grave" data-texto="Portar exhibir o usar armas fuera de los lugares habilitados para su uso aunque se tuviera licencia siempre que no constituya infracción penal">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🏹 Armas fuera de lugares habilitados (aunque haya licencia)</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 36.10.3 LOPSC</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta grave" data-texto="Fabricación reparación almacenamiento circulación comercio transporte adquisición de armas reglamentarias explosivos catalogados cartuchería artículos pirotécnicos careciendo de documentación o autorización cuando no constituya delito">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">💣 Armas/explosivos/cartuchería sin autorización / documentación (no delito)</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 36.12.1 LOPSC</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta grave" data-texto="Omisión insuficiencia o falta de eficacia de las medidas de seguridad o precauciones obligatorias en relación con armas reglamentarias explosivos catalogados cartuchería artículos pirotécnicos">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">⚠️ Omisión/insuficiencia medidas de seguridad en armas/explosivos</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 36.12.3 LOPSC</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta leve" data-texto="La exhibición de objetos peligrosos para la vida e integridad física de las personas con ánimo intimidatorio siempre que no constituya delito o infracción grave">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">⚠️ Exhibición de objetos peligrosos con ánimo intimidatorio</div>
+          <div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 37.2 LOPSC</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta muy-grave" data-texto="Reuniones o manifestaciones no comunicadas o prohibidas en infraestructuras o instalaciones que presten servicios básicos cuando se haya generado riesgo para la vida o integridad física de personas centrales nucleares puertos aeropuertos">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🚨 Manifestación no comunicada/prohibida en infraestructuras básicas con riesgo físico</div>
+          <div class="badges"><span class="badge badge-muy-grave">MUY GRAVE</span><span class="badge badge-art">Art. 35.1 LOPSC</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta muy-grave" data-texto="Perturbación grave de la seguridad ciudadana con ocasión de reuniones o manifestaciones frente a las sedes del Congreso de los Diputados el Senado y las asambleas legislativas de las comunidades autónomas cuando no constituya infracción penal">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🏛️ Perturbación grave frente al Congreso/Senado/Asambleas Legislativas</div>
+          <div class="badges"><span class="badge badge-muy-grave">MUY GRAVE</span><span class="badge badge-art">Art. 36.2 LOPSC</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta muy-grave" data-texto="Causar desórdenes en vías espacios o establecimientos públicos u obstaculizar la vía pública con mobiliario urbano vehículos contenedores neumáticos u otros objetos ocasionando alteración grave de la seguridad ciudadana">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🚧 Desórdenes / obstrucción de vía pública con alteración grave de seguridad ciudadana</div>
+          <div class="badges"><span class="badge badge-muy-grave">MUY GRAVE</span><span class="badge badge-art">Art. 36.3 LOPSC</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta muy-grave" data-texto="Actos de obstrucción que pretendan impedir a autoridad empleado público o corporación oficial el ejercicio legítimo de sus funciones el cumplimiento o ejecución de acuerdos o resoluciones administrativas o judiciales lanzamientos">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🚫 Obstrucción al ejercicio legítimo de funciones de autoridad (lanzamientos, etc.)</div>
+          <div class="badges"><span class="badge badge-muy-grave">MUY GRAVE</span><span class="badge badge-art">Art. 36.4 LOPSC</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta muy-grave" data-texto="Acciones y omisiones que impidan u obstaculicen el funcionamiento de los servicios de emergencia provocando o incrementando un riesgo para la vida o integridad de las personas o agravando las consecuencias del suceso">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🚑 Obstaculizar servicios de emergencia con riesgo para personas</div>
+          <div class="badges"><span class="badge badge-muy-grave">MUY GRAVE</span><span class="badge badge-art">Art. 36.5 LOPSC</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta grave" data-texto="Desobediencia o resistencia a la autoridad o a sus agentes en el ejercicio de sus funciones cuando no constituya delito">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">👮 Desobediencia / resistencia a la autoridad (no penal)</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 36.6.1 LOPSC</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta grave" data-texto="Negativa a identificarse a requerimiento de la autoridad o de sus agentes">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🪪 Negativa a identificarse a requerimiento de la autoridad</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 36.6.2 LOPSC</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta grave" data-texto="Alegación de datos falsos o inexactos en los procesos de identificación policial">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🪪 Datos falsos en identificación policial</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 36.6.3 LOPSC</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta muy-grave" data-texto="Perturbación de la seguridad ciudadana en actos públicos espectáculos deportivos o culturales solemnidades y oficios religiosos u otras reuniones numerosas cuando no sea infracción penal">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">⚠️ Perturbación seguridad ciudadana en actos públicos/espectáculos/oficios religiosos</div>
+          <div class="badges"><span class="badge badge-muy-grave">MUY GRAVE</span><span class="badge badge-art">Art. 36.1 LOPSC</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta muy-grave" data-texto="El consumo o la tenencia ilícitos de drogas tóxicas estupefacientes o sustancias psicotrópicas aunque no estuvieran destinadas al tráfico en lugares vías establecimientos públicos o transportes colectivos">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">💊 Consumo/tenencia ilícita de drogas en vía/establecimientos/transporte público</div>
+          <div class="badges"><span class="badge badge-muy-grave">MUY GRAVE</span><span class="badge badge-art">Art. 36.16.1 LOPSC</span></div>
+        </div>
+        <div class="tarjeta-nota">Rellenar acta de intervención cautelar. El género intervenido junto con las dos primeras copias del acta se entrega en el Cuartel de Palafox para remisión al Servicio de Inspección Farmacéutica.</div>
+      </div>
+
+      <div class="tarjeta grave" data-texto="Abandono de los instrumentos u otros efectos empleados en el consumo de drogas en lugares públicos vías establecimientos o transportes colectivos">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">💊 Abandono de útiles de consumo de drogas en lugar público</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 36.16.2 LOPSC</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta muy-grave" data-texto="Tolerancia del consumo ilegal o el tráfico de drogas en locales o establecimientos públicos o falta de diligencia para impedirlos por parte de propietarios administradores o encargados">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">💊 Titular del local tolera consumo/tráfico de drogas</div>
+          <div class="badges"><span class="badge badge-muy-grave">MUY GRAVE</span><span class="badge badge-art">Art. 36.19 LOPSC</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta grave" data-texto="Uso no autorizado de imágenes o datos personales de autoridades o miembros de las Fuerzas y Cuerpos de Seguridad que pueda poner en peligro su seguridad personal o familiar o instalaciones protegidas">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">📸 Uso no autorizado de imágenes de miembros de FFCCS que ponga en peligro su seguridad</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 36.23 LOPSC</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta leve" data-texto="Las faltas de respeto y consideración cuyo destinatario sea un miembro de las Fuerzas y Cuerpos de Seguridad en el ejercicio de sus funciones cuando no sea constitutivo de delito">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">👮 Faltas de respeto a miembros de FFCCS en ejercicio de funciones</div>
+          <div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 37.4 LOPSC</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta leve" data-texto="Realización o incitación a la realización de actos que atenten contra la libertad e indemnidad sexual o ejecutar actos de exhibición obscena cuando no constituya infracción penal">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🔞 Actos de exhibición obscena / atentados libertad sexual (no penal)</div>
+          <div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 37.5 LOPSC</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta leve" data-texto="Ocupación de cualquier inmueble vivienda o edificio ajenos o la permanencia en ellos contra la voluntad de su propietario arrendatario o titular cuando no sean constitutivas de infracción penal">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🏠 Ocupación de inmueble ajeno (no penal)</div>
+          <div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 37.7.1 LOPSC</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta leve" data-texto="Ocupación de la vía pública con infracción de lo dispuesto en la ley o contra la decisión adoptada por la autoridad competente venta ambulante no autorizada">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🛤️ Ocupación de vía pública no autorizada / venta ambulante ilegal</div>
+          <div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 37.7.2 LOPSC</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta leve" data-texto="Daños o deslucimiento de bienes muebles o inmuebles de uso o servicio público o bienes muebles o inmuebles privados en la vía pública cuando no constituyan infracción penal grafitis pintadas">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🎨 Daños / grafitis en bienes públicos o privados en vía pública (no penal)</div>
+          <div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 37.13 LOPSC</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta leve" data-texto="Dejar sueltos o en condiciones de causar daños animales feroces o dañinos">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🐕 Animales feroces/dañinos sueltos o en condiciones de causar daños</div>
+          <div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 37.16.1 LOPSC</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta leve" data-texto="Abandonar animales domésticos en condiciones en que pueda peligrar su vida">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🐕 Abandono de animales domésticos con riesgo para su vida (LOPSC)</div>
+          <div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 37.16.2 LOPSC</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta leve" data-texto="Consumo de bebidas alcohólicas en lugares vías establecimientos o transportes públicos cuando se perturbe gravemente la tranquilidad ciudadana botellón">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🍺 Botellón / consumo de alcohol en vía pública con perturbación grave</div>
+          <div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 37.17 LOPSC</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta grave" data-texto="Solicitud o aceptación por el demandante de servicios sexuales retribuidos en zonas de tránsito público en las proximidades de lugares destinados a menores como centros educativos parques infantiles o espacios de ocio accesibles a menores">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🚫 Demanda de prostitución en proximidad de centros de menores / parques infantiles</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 36.11.1 LOPSC</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta grave" data-texto="Solicitud o aceptación de servicios sexuales cuando por el lugar en que se realicen puedan generar un riesgo para la seguridad vial prostitución">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🚗 Demanda de prostitución con riesgo para la seguridad vial</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 36.11.2 LOPSC</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta grave" data-texto="El uso público e indebido de uniformes insignias o condecoraciones oficiales o réplicas de los mismos así como otros elementos del equipamiento de los cuerpos policiales o de los servicios de emergencia cuando no sea constitutivo de infracción penal">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">👮 Uso indebido de uniformes/insignias policiales o de emergencias</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 36.14 LOPSC</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta grave" data-texto="Proyección de haces de luz mediante cualquier tipo de dispositivo sobre pilotos o conductores de medios de transporte que puedan deslumbrarles o distraer su atención y provocar accidente puntero láser">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🔦 Haces de luz (láser) sobre conductores / pilotos de transporte</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 35.4 LOPSC</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta grave" data-texto="Proyección de haces de luz mediante cualquier tipo de dispositivo sobre miembros de las Fuerzas y Cuerpos de Seguridad para impedir o dificultar el ejercicio de sus funciones">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🔦 Haces de luz (láser) sobre miembros de FFCCS</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 37.6 LOPSC</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta leve" data-texto="Incumplimiento de la obligación de obtener la documentación personal legalmente exigida DNI">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🪪 Sin documentación personal legalmente exigida (sin DNI)</div>
+          <div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 37.10.1 LOPSC</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta leve" data-texto="Omisión negligente de la denuncia de sustracción o extravío de documentación personal legalmente exigida">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🪪 No denunciar pérdida/sustracción de documentación personal</div>
+          <div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 37.10.2 LOPSC</span></div>
+        </div>
+      </div>
+
+      <div class="ley-titulo">R.D. 137/1993 – REGLAMENTO DE ARMAS (RA)</div>
+      <div class="tarjeta grave" data-texto="Tenencia de armas de las Categorías 1ª 2ª 3ª 6ª y 7ª careciendo de su correspondiente guía de pertenencia">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🔫 Armas categorías 1ª-3ª-6ª-7ª sin guía de pertenencia</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 88 RA</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta grave" data-texto="Tenencia de armas por particulares sin tener las autorizaciones o licencias prevenidas al efecto o la alegación de datos falsos para su obtención">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🔫 Tenencia de armas sin licencia/autorización o con datos falsos</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 156.f RA</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta grave" data-texto="Tenencia de armas blancas de aire comprimido o de categorías 4ª a 7ª careciendo de la correspondiente autorización o licencia tarjeta de armas">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🔪 Armas blancas/aire comprimido (Cat. 4ª-7ª) sin autorización</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 157.a.1 RA</span></div>
+        </div>
+        <div class="tarjeta-nota">Destino: Oficina Jurídica Medio Ambiente y Movilidad (L1) si son armas de 4ª categoría.</div>
+      </div>
+
+      <div class="tarjeta grave" data-texto="Portar armas de fuego o de cualquier clase en establecimientos públicos y lugares de reunión concentración recreo o esparcimiento salvo en los lugares habilitados para su uso">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🔫 Portar armas en establecimientos públicos / lugares de reunión</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 156.i RA</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta grave" data-texto="Utilizar armas de fuego sin adoptar las medidas o precauciones necesarias para no causar peligro daño o molestias uso temerario negligente o bajo efectos de alcohol o drogas">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🔫 Armas sin precauciones para evitar daños (uso negligente/temerario/bajo efectos)</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 156.j.1 RA</span></div>
+        </div>
+        <div class="tarjeta-nota">Incluye: usar armas con cascos/auriculares, usar armas bajo efectos de alcohol/drogas, uso negligente o temerario (Art. 147.2 RA).</div>
+      </div>
+
+      <div class="tarjeta leve" data-texto="Infracción genérica leve del Reglamento de Armas no tipificada como muy grave ni grave llevar armas por vías públicas sin desmontar ni en caja durante transporte actividad armero sin autorización">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">⚖️ Infracción genérica leve Reglamento de Armas</div>
+          <div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 157.f RA</span></div>
+        </div>
+        <div class="tarjeta-nota">Incluye: armas por vía pública sin desmontar ni en funda durante transporte (Art. 149.1); actividad armero sin autorización (Art. 10.2); venta/tenencia sin punzones de prueba (Art. 30.1), etc.</div>
+      </div>
+
+      <div class="ley-titulo">RD 989/2015 – ARTÍCULOS PIROTÉCNICOS Y CARTUCHERÍA (RAPC)</div>
+      <div class="tarjeta grave" data-texto="Fabricación almacenamiento venta distribución adquisición tenencia o uso de materias reguladas incumpliendo normativa careciendo de documentación o autorizaciones necesarias o excediéndose de los límites autorizados pirotécnicos">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🎆 Artículos pirotécnicos: fabricación/venta/tenencia sin autorización o fuera de límites</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 196.1 RAPC</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta grave" data-texto="Venta de artículos pirotécnicos a consumidores sin respetar la unidad mínima de venta el envase prohibición de venta de unidades sueltas">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🎆 Venta de pirotécnicos en unidades sueltas (no en envase)</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 195.7 RAPC</span></div>
+        </div>
+        <div class="tarjeta-nota">Art. 120 RAPC: unidad mínima de venta es el envase. Prohibida la venta de unidades sueltas.</div>
+      </div>
+
+      <div class="tarjeta grave" data-texto="Venta de artículos pirotécnicos a consumidores que no posean la edad reglamentaria categoría F1 12 años F2 16 años F3 18 años T1 y P1 18 años">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🎆 Venta de pirotécnicos a menores sin la edad reglamentaria</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 195.7 RAPC</span></div>
+        </div>
+        <div class="tarjeta-nota">Edades mínimas: Cat. F1 → 12 años; Cat. F2 → 16 años; Cat. F3, T1, P1 → 18 años.</div>
+      </div>
+
+      <div class="tarjeta grave" data-texto="Negativa de acceso a las autoridades competentes o a sus agentes u obstaculización del ejercicio de las inspecciones o controles reglamentarios en talleres depósitos establecimientos relativos a artículos pirotécnicos">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🚫 Obstrucción a la inspección en materia de pirotecnia</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 196.7 RAPC</span></div>
+        </div>
+      </div>
+
+      <div class="ley-titulo">LEY 5/2014 – SEGURIDAD PRIVADA (LSP)</div>
+      <div class="tarjeta muy-grave" data-texto="Prestación de servicios de seguridad privada a terceros careciendo de autorización o sin haber presentado la declaración responsable">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🔐 Empresa de seguridad privada sin autorización / declaración responsable</div>
+          <div class="badges"><span class="badge badge-muy-grave">MUY GRAVE</span><span class="badge badge-art">Art. 57.1.a LSP</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta grave" data-texto="Prestación de servicios de seguridad privada con armas de fuego fuera de lo dispuesto en la ley de seguridad privada">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🔐 Seguridad privada con armas de fuego fuera de lo permitido</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 57.1.g LSP</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta grave" data-texto="Negativa a prestar auxilio o colaboración a las Fuerzas y Cuerpos de Seguridad en la investigación y persecución de actos delictivos o en la realización de las funciones inspectoras empresa seguridad privada">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🚫 Empresa seguridad privada: negativa a colaborar con FFCCS</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 57.1.h LSP</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta muy-grave" data-texto="El ejercicio de funciones de seguridad privada para terceros careciendo de la habilitación o acreditación necesaria personal de seguridad privada">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🔐 Personal de seguridad privada sin habilitación/acreditación</div>
+          <div class="badges"><span class="badge badge-muy-grave">MUY GRAVE</span><span class="badge badge-art">Art. 58.1.a LSP</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta grave" data-texto="El ejercicio abusivo de funciones del personal de seguridad privada en relación con los ciudadanos">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🔐 Ejercicio abusivo de funciones por vigilante de seguridad</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 58.1.h LSP</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta grave" data-texto="Negativa a prestar auxilio o colaboración a las Fuerzas y Cuerpos de Seguridad personal de seguridad privada en investigación y persecución de actos delictivos">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🚫 Vigilante de seguridad niega colaboración a FFCCS</div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 58.1.d LSP</span></div>
+        </div>
+      </div>
+
+      <div class="tarjeta leve" data-texto="Trato incorrecto o desconsiderado con los ciudadanos por parte del personal de seguridad privada">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-descripcion">🔐 Trato incorrecto / desconsiderado de vigilante con ciudadanos</div>
+          <div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 58.3.b LSP</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- fin sec-todas -->
+
+  <!-- Secciones filtradas (vacías — se rellenan dinámicamente) -->
+
+</div><!-- fin contenido -->
 
 <script>
-function filtrar() {
-    var val = document.getElementById('search').value.toLowerCase();
-    var cards = document.querySelectorAll('.card');
-    var tot = 0;
-    cards.forEach(function(c) {
-        var txt = (c.innerText + ' ' + (c.getAttribute('data-k') || '')).toLowerCase();
-        var show = txt.indexOf(val) >= 0;
-        c.style.display = show ? 'block' : 'none';
-        if (show) tot++;
-    });
-    actualizarSecciones();
-    document.getElementById('empty').style.display = tot === 0 ? 'block' : 'none';
-    document.getElementById('count').innerHTML = val ? ('<b>' + tot + '</b> resultado' + (tot !== 1 ? 's' : '')) : '';
-}
+  var catActiva = 'todas';
+  var gravActiva = 'all';
 
-function setCat(cat, btn) {
-    document.querySelectorAll('.fb').forEach(function(b) { b.classList.remove('active'); });
-    btn.classList.add('active');
-    document.querySelectorAll('.card').forEach(function(c) {
-        if (cat === 'all') { c.style.display = 'block'; return; }
-        if (cat === 'L' || cat === 'G' || cat === 'MG') {
-            c.style.display = c.classList.contains(cat) ? 'block' : 'none';
+  function norm(s) {
+    return (s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+  }
+
+  function getGravClass(el) {
+    // tarjeta system uses class leve/grave/muy-grave
+    // card system uses class L/G/MG
+    if (el.classList.contains('leve') || el.classList.contains('L')) return 'L';
+    if (el.classList.contains('grave') || el.classList.contains('G')) return 'G';
+    if (el.classList.contains('muy-grave') || el.classList.contains('MG')) return 'MG';
+    return 'ND';
+  }
+
+  function getCatClass(el) {
+    var cats = ['trafico','est','circ','alc','vmp','cond','urbanismo','medioambiente','espectaculos','consumo','seguridad'];
+    for (var i=0; i<cats.length; i++) {
+      if (el.classList.contains(cats[i])) return cats[i];
+    }
+    // for tarjeta system, check parent subseccion
+    var sub = el.closest('.subseccion');
+    if (sub && sub.dataset.cat) return sub.dataset.cat;
+    return '';
+  }
+
+  function isTrafico(el) {
+    return el.classList.contains('trafico') || el.classList.contains('est') || el.classList.contains('circ') || el.classList.contains('alc') || el.classList.contains('vmp') || el.classList.contains('cond');
+  }
+
+  function aplicar() {
+    var termino = norm(document.getElementById('buscador').value.trim());
+    var visible = 0;
+    var allCards = document.querySelectorAll('.tarjeta, .card:not(.card-footer):not(.card-desc)');
+    // use a more specific selector
+    document.querySelectorAll('.contenido .tarjeta, .contenido .card').forEach(function(el) {
+      // skip non-card divs
+      if (!el.classList.contains('tarjeta') && !el.classList.contains('card')) return;
+      // skip inner elements
+      if (el.closest('.tarjeta') && !el.classList.contains('tarjeta')) return;
+      if (el.closest('.card') && !el.classList.contains('card')) return;
+
+      // Filtro categoría
+      var pasaCat = true;
+      if (catActiva !== 'todas') {
+        if (catActiva === 'trafico') {
+          pasaCat = isTrafico(el);
         } else {
-            c.style.display = c.classList.contains(cat) ? 'block' : 'none';
+          var sub = el.closest('.subseccion');
+          pasaCat = sub && sub.dataset.cat === catActiva;
         }
-    });
-    actualizarSecciones();
-    document.getElementById('empty').style.display = 'none';
-    document.getElementById('search').value = '';
-    document.getElementById('count').innerHTML = '';
-}
+      }
 
-function actualizarSecciones() {
-    document.querySelectorAll('.section-label').forEach(function(label) {
-        var sec = label.getAttribute('data-sec');
-        var hayAlguno = false;
-        document.querySelectorAll('.card.' + sec).forEach(function(c) {
-            if (c.style.display !== 'none') hayAlguno = true;
-        });
-        label.style.display = hayAlguno ? 'block' : 'none';
+      // Filtro gravedad
+      var pasaGrav = true;
+      if (gravActiva !== 'all') {
+        pasaGrav = getGravClass(el) === gravActiva;
+      }
+
+      // Filtro búsqueda
+      var pasaBusq = true;
+      if (termino) {
+        var txt = norm((el.dataset.k || '') + ' ' + (el.dataset.texto || '') + ' ' + el.textContent);
+        pasaBusq = txt.indexOf(termino) >= 0;
+      }
+
+      if (pasaCat && pasaGrav && pasaBusq) {
+        el.style.display = '';
+        visible++;
+      } else {
+        el.style.display = 'none';
+      }
     });
-}
+
+    // Mostrar/ocultar subsecciones y labels
+    document.querySelectorAll('.contenido .subseccion').forEach(function(sub) {
+      var hay = Array.from(sub.querySelectorAll('.tarjeta, .card')).some(function(c) {
+        return c.style.display !== 'none' && (c.classList.contains('tarjeta') || (c.classList.contains('card') && !c.classList.contains('card-footer')));
+      });
+      sub.style.display = hay ? '' : 'none';
+    });
+
+    // Mostrar/ocultar ley-titulo y section-label-trafico
+    document.querySelectorAll('.ley-titulo, .section-label-trafico').forEach(function(lt) {
+      var nxt = lt.nextElementSibling;
+      var hay = false;
+      while (nxt && !nxt.classList.contains('ley-titulo') && !nxt.classList.contains('section-label-trafico') && !nxt.classList.contains('subseccion-titulo')) {
+        if ((nxt.classList.contains('card') || nxt.classList.contains('tarjeta')) && nxt.style.display !== 'none') { hay = true; break; }
+        nxt = nxt.nextElementSibling;
+      }
+      lt.style.display = hay ? '' : 'none';
+    });
+
+    // Mostrar/ocultar subseccion-titulo (section headers de tráfico)
+    document.querySelectorAll('.subseccion-titulo[data-cat="trafico"]').forEach(function(st) {
+      var sub = st.nextElementSibling;
+      if (sub && sub.classList.contains('subseccion')) {
+        st.style.display = sub.style.display === 'none' ? 'none' : '';
+      }
+    });
+
+    var sin = document.getElementById('sinResultados');
+    sin.classList.toggle('visible', visible === 0 && (termino.length > 0 || gravActiva !== 'all'));
+    var cnt = document.getElementById('count');
+    cnt.innerHTML = (termino || gravActiva !== 'all') ? '<b>' + visible + '</b> resultado' + (visible !== 1 ? 's' : '') : '';
+  }
+
+  // Pestañas
+  document.querySelectorAll('.tab').forEach(function(tab) {
+    tab.addEventListener('click', function() {
+      document.querySelectorAll('.tab').forEach(function(t) { t.classList.remove('activo'); });
+      tab.classList.add('activo');
+      catActiva = tab.dataset.tab;
+      document.getElementById('buscador').value = '';
+      aplicar();
+    });
+  });
+
+  // Filtros gravedad
+  document.querySelectorAll('.gf').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.gf').forEach(function(b) { b.classList.remove('activo'); });
+      btn.classList.add('activo');
+      gravActiva = btn.dataset.grav;
+      aplicar();
+    });
+  });
+
+  // Expandir tarjetas (sistema nuevo)
+  document.querySelectorAll('.tarjeta').forEach(function(t) {
+    t.addEventListener('click', function() { t.classList.toggle('expandida'); });
+  });
+
+  // Buscador
+  document.getElementById('buscador').addEventListener('input', aplicar);
+
+  // Inicializar
+  aplicar();
 </script>
 </body>
 </html>
