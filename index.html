@@ -169,6 +169,9 @@ if ('serviceWorker' in navigator) {
     <div class="tab" data-tab="espectaculos">🎭 ESPECTÁCULOS</div>
     <div class="tab" data-tab="consumo">🛒 CONSUMO</div>
     <div class="tab" data-tab="seguridad">🔒 SEG. CIUDADANA</div>
+    <div class="tab" data-tab="civica">🏙️ ORD. CÍVICA</div>
+    <div class="tab" data-tab="limpieza">🧹 LIMPIEZA</div>
+    <div class="tab" data-tab="animales">🐾 ANIMALES</div>
   </div>
 </div>
 
@@ -1735,7 +1738,416 @@ if ('serviceWorker' in navigator) {
       </div>
     </div>
 
-  </div><!-- fin sec-todas -->
+
+    <!-- ===================== ORDENANZA CÍVICA ===================== -->
+    <div class="subseccion" data-cat="civica">
+      <div class="subseccion-titulo">🏙️ ORDENANZA MUNICIPAL DE CONVIVENCIA CÍVICA</div>
+      <div style="font-size:10px;color:#546e7a;padding:2px 10px 8px;font-style:italic;">Leves: 200–750€ · Graves: 750–1.500€ · Muy Graves: 1.501–3.000€</div>
+
+      <div class="ley-titulo">CAP. I — DIGNIDAD DE LAS PERSONAS</div>
+      <div class="tarjeta grave civica" data-texto="desprecio dignidad discriminacion espacio publico conducta">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">🚫 Conductas de desprecio a la dignidad de las personas o comportamiento discriminatorio en el espacio público</div><div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 12.1</span></div></div>
+      </div>
+      <div class="tarjeta muy-grave civica" data-texto="desprecio dignidad mayores menores discapacidad espacio publico">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">🚫 Conductas de desprecio a la dignidad dirigidas contra personas mayores, menores o con discapacidad</div><div class="badges"><span class="badge badge-muy-grave">MUY GRAVE</span><span class="badge badge-art">Art. 12.2</span></div></div>
+      </div>
+      <div class="tarjeta grave civica" data-texto="agresion asedio menores grupos espacio urbano">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">👊 Agresión o asedio a menores realizado por grupos de personas en el espacio urbano</div><div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 12.3</span></div></div>
+      </div>
+      <div class="tarjeta leve civica" data-texto="organizadores acto publico no velar conductas dignidad">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">📋 Organizadores de actos públicos que no velan para evitar conductas contra la dignidad de las personas</div><div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 12.4</span></div></div>
+      </div>
+
+      <div class="ley-titulo">CAP. II — GRAFITIS Y PINTADAS</div>
+      <div class="tarjeta muy-grave civica" data-texto="grafiti pintada mancha garabato espacio publico equipamiento infraestructura servicio publico">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">🎨 Realizar grafiti, pintada, mancha, garabato, inscripción o rayado en cualquier elemento del espacio público o equipamientos e infraestructuras públicas</div><div class="badges"><span class="badge badge-muy-grave">MUY GRAVE</span><span class="badge badge-art">Art. 16.1</span></div></div>
+        <div class="tarjeta-nota">Si la conducta es cometida por un menor, aplicar art. 106 de la Ordenanza. El Ayuntamiento puede limpiar subsidiariamente con cargo al infractor.</div>
+      </div>
+      <div class="tarjeta muy-grave civica" data-texto="pintada grafiti bienes privados ordenanza">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">🎨 Pintadas o grafitis en bienes privados que atenten contra la Ordenanza</div><div class="badges"><span class="badge badge-muy-grave">MUY GRAVE</span><span class="badge badge-art">Art. 16.2</span></div></div>
+      </div>
+
+      <div class="ley-titulo">CAP. II — PANCARTAS, CARTELES Y FOLLETOS</div>
+      <div class="tarjeta grave civica" data-texto="carteles pancartas publicitarias edificios municipales espacio publico mobiliario urbano sin autorizacion">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">📌 Colocar carteles o pancartas publicitarias en edificios municipales, espacio público o mobiliario urbano sin autorización del Ayuntamiento</div><div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 19.1</span></div></div>
+      </div>
+      <div class="tarjeta grave civica" data-texto="publicidad exterior vidrios vehiculos folletos papeles via publica esparcir echar">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">📄 Colocar publicidad en vidrios de vehículos o esparcir folletos/papeles publicitarios en la vía pública</div><div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 19.5</span></div></div>
+      </div>
+      <div class="tarjeta grave civica" data-texto="propaganda domiciliaria fuera recinto porteria edificios">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">📬 Repartidor de publicidad domiciliaria deja propaganda fuera del recinto de la portería de los edificios</div><div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 19.6</span></div></div>
+      </div>
+
+      <div class="ley-titulo">CAP. III — JUEGOS Y APUESTAS</div>
+      <div class="tarjeta grave civica" data-texto="juegos apuestas dinero bienes espacio publico sin autorizacion ofrecimiento">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">🎲 Ofrecer juegos que impliquen apuestas con dinero o bienes en el espacio público sin autorización</div><div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 24.1.a</span></div></div>
+      </div>
+      <div class="tarjeta grave civica" data-texto="colaborar juego apuestas vigilar alertar depositar material gancho">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">🎲 Colaborar con juegos ilegales: vigilar, alertar, depositar material o actuar de gancho</div><div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 24.1.b</span></div></div>
+      </div>
+      <div class="tarjeta muy-grave civica" data-texto="trile ofrecimiento juego">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">🃏 Ofrecimiento de trile</div><div class="badges"><span class="badge badge-muy-grave">MUY GRAVE</span><span class="badge badge-art">Art. 24.2</span></div></div>
+      </div>
+
+      <div class="ley-titulo">CAP. IV — USO INADECUADO ESPACIO PÚBLICO PARA JUEGOS</div>
+      <div class="tarjeta leve civica" data-texto="juegos pelota monopatin similares espacio publico peligro bienes seguridad tranquilidad">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">⚽ Práctica de juegos de pelota, monopatín o similares en el espacio público sin respetar la seguridad y tranquilidad</div><div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 27.1</span></div></div>
+      </div>
+      <div class="tarjeta leve civica" data-texto="competiciones deportivas daños arboles bancos elementos urbanos dificultar paso personas circulacion">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">🏃 Competiciones deportivas que causen daños a árboles/mobiliario urbano, dificulten el paso o interrumpan la circulación</div><div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 27.2</span></div></div>
+      </div>
+
+      <div class="ley-titulo">CAP. V — VMP / PATINES / PATINETES</div>
+      <div class="tarjeta leve civica" data-texto="VMP patinete patines circulacion aceras andenes paseos zonas dominio publico">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">🛴 VMP/patines: circular por aceras, andenes, paseos y otras zonas de uso público</div><div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 31.1</span></div></div>
+      </div>
+      <div class="tarjeta leve civica" data-texto="VMP aferrarse agarrarse vehiculos arrastre locomocion indebido">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">🛴 VMP: aferrarse o agarrarse a vehículos como medio de locomoción mediante arrastre</div><div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 31.2</span></div></div>
+      </div>
+      <div class="tarjeta leve civica" data-texto="VMP no precauciones lesionar golpear molestar peatones">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">🛴 VMP: no tomar las precauciones necesarias para no lesionar, golpear o molestar a los peatones</div><div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 31.3</span></div></div>
+      </div>
+      <div class="tarjeta leve civica" data-texto="VMP requisitos tecnicos certificacion homologacion circular">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">🛴 VMP: circular sin cumplir los requisitos técnicos de certificación u homologación</div><div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 31.4</span></div></div>
+      </div>
+      <div class="tarjeta leve civica" data-texto="VMP señales circulacion obligacion prohibicion no obedecer">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">🛴 VMP: no obedecer señales de circulación que establecen una obligación o prohibición</div><div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 31.5</span></div></div>
+      </div>
+      <div class="tarjeta leve civica" data-texto="VMP circulacion aceras plazas parques jardines prohibido">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">🛴 VMP: circular por aceras, plazas, parques y jardines</div><div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 31.6</span></div></div>
+      </div>
+      <div class="tarjeta leve civica" data-texto="VMP edad minima 16 años conducir carnet AM 15 años">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">🛴 VMP: conducir siendo menor de 16 años (o menor de 15 sin carnet AM)</div><div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 31.7</span></div></div>
+      </div>
+      <div class="tarjeta leve civica" data-texto="VMP diligencia precaucion daños propios ajenos peligro usuarios via">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">🛴 VMP: conducir sin la diligencia y precaución necesarias para evitar daños o poner en peligro a otros usuarios</div><div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 31.8</span></div></div>
+      </div>
+      <div class="tarjeta leve civica" data-texto="VMP auriculares dispositivos moviles circular prohibido">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">🛴 VMP: circular con auriculares o utilizando dispositivos móviles</div><div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 31.10</span></div></div>
+      </div>
+      <div class="tarjeta leve civica" data-texto="VMP chaleco reflector homologado noche baja visibilidad">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">🛴 VMP: no llevar chaleco reflector homologado de noche o en condiciones de baja visibilidad</div><div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 31.11</span></div></div>
+      </div>
+      <div class="tarjeta leve civica" data-texto="VMP tuneles urbanos travesias circular prohibido">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">🛴 VMP: circular por túneles urbanos y travesías</div><div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 31.12</span></div></div>
+      </div>
+      <div class="tarjeta leve civica" data-texto="VMP casco bicicleta homologado correctamente abrochado">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">🛴 VMP: no hacer uso de casco de bicicleta homologado correctamente abrochado</div><div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 31.14</span></div></div>
+      </div>
+
+      <div class="ley-titulo">CAP. VI — MENDICIDAD Y SERVICIOS NO AUTORIZADOS</div>
+      <div class="tarjeta leve civica" data-texto="mendicidad coactiva acoso obstruccion trafico ciudadanos espacio publico">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">🤲 Mendicidad coactiva o que obstaculiza el tránsito libre de ciudadanos en el espacio público</div><div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 35.1</span></div></div>
+      </div>
+      <div class="tarjeta leve civica" data-texto="limpiar parabrisas semaforos ofrecer objetos vigilancia vehiculos aparcamiento sin autorizacion beneficio economico">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">🚗 Limpiar parabrisas en semáforos, ofrecer objetos o vigilar vehículos sin autorización con intención de obtener beneficio económico</div><div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 35.2</span></div></div>
+        <div class="tarjeta-nota">Si obstruye o pone en peligro la seguridad de las personas puede ser GRAVE.</div>
+      </div>
+      <div class="tarjeta muy-grave civica" data-texto="mendicidad menores directa indirectamente personas mayores discapacidad">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">🚫 Mendicidad ejercida por menores o que se lleva a cabo con menores, personas mayores o con discapacidad</div><div class="badges"><span class="badge badge-muy-grave">MUY GRAVE</span><span class="badge badge-art">Art. 35.3</span></div></div>
+      </div>
+      <div class="tarjeta muy-grave civica" data-texto="solicitar servicios sexuales retribuidos espacio publico degradacion">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">🚫 Solicitar servicios sexuales retribuidos en el espacio público cuando contravengan el uso común y produzcan degradación evidente</div><div class="badges"><span class="badge badge-muy-grave">MUY GRAVE</span><span class="badge badge-art">Art. 39</span></div></div>
+      </div>
+
+      <div class="ley-titulo">CAP. VII — ACTUACIONES EN VÍA PÚBLICA (MÚSICA, MIMOS...)</div>
+      <div class="tarjeta leve civica" data-texto="instrumentos percusion sonido estridente molesto tambores timbales trompetas actuacion via publica">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">🥁 Usar instrumentos de percusión o de sonido estridente molesto para el vecindario (tambores, timbales, trompetas…)</div><div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 43.a</span></div></div>
+      </div>
+      <div class="tarjeta leve civica" data-texto="superar limite sonoro previsto legalmente actuacion musical via publica">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">🔊 Superar el límite sonoro previsto legalmente en actuaciones musicales en la vía pública</div><div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 43.b</span></div></div>
+      </div>
+      <div class="tarjeta leve civica" data-texto="actuacion musical calzada interferir trafico peatones rodado actividades autorizadas">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">🎵 Actuación musical: situarse en la calzada o interferir en el tráfico de peatones o rodado</div><div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 43.e/f</span></div></div>
+      </div>
+      <div class="tarjeta leve civica" data-texto="actuacion musical menores 16 años incorporar">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">🎵 Actuación musical: incorporar menores de 16 años a las actuaciones</div><div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 43.g</span></div></div>
+      </div>
+      <div class="tarjeta leve civica" data-texto="charangas despedidas solteros celebraciones privadas via publica">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">🎺 Uso de charangas u otras bandas musicales para despedidas de solteros u otras celebraciones privadas en vía pública</div><div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 43.l</span></div></div>
+      </div>
+      <div class="tarjeta leve civica" data-texto="mimo payaso malabarista estatua calzada circulacion rodada via publica">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">🎭 Mimos, payasos, malabaristas: situarse en la calzada donde hay circulación rodada</div><div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 47.b</span></div></div>
+      </div>
+      <div class="tarjeta leve civica" data-texto="mimo payaso fuego liquidos inflamables sables antorchas peligrosos instrumentos materiales">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">🔥 Mimos/payasos/malabaristas: usar materiales o instrumentos potencialmente peligrosos (líquidos inflamables, sables, antorchas...)</div><div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 47.g</span></div></div>
+      </div>
+
+      <div class="ley-titulo">CAP. VIII — NECESIDADES FISIOLÓGICAS Y SUCIEDAD</div>
+      <div class="tarjeta muy-grave civica" data-texto="defecar orinar escupir espacio publico via publica necesidades fisiologicas">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">🚽 Defecar, orinar o escupir en el espacio público salvo en instalaciones destinadas a ello</div><div class="badges"><span class="badge badge-muy-grave">MUY GRAVE</span><span class="badge badge-art">Art. 51.a</span></div></div>
+      </div>
+      <div class="tarjeta muy-grave civica" data-texto="defecar orinar escupir zona afluencia personas menores monumentos edificios catalogados">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">🚽 Defecar/orinar en zonas de gran afluencia de personas, frecuentadas por menores, o en monumentos/edificios catalogados</div><div class="badges"><span class="badge badge-muy-grave">MUY GRAVE</span><span class="badge badge-art">Art. 51.b</span></div></div>
+      </div>
+      <div class="tarjeta grave civica" data-texto="basura residuos tirar espacio publico colillas chicles plasticos latas botellas">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">🗑️ Echar a vías y espacios públicos basuras o residuos: colillas, chicles, cáscaras, plásticos, latas, botellas...</div><div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 51.c</span></div></div>
+      </div>
+      <div class="tarjeta grave civica" data-texto="alfombras ropa manteles balcones fachadas limpiar encima calles via publica basura residuos liquido">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">🪣 Limpiar alfombras, ropa o manteles desde balcones o fachadas sobre la vía pública, o echar cualquier tipo de basura o residuo</div><div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 51.d</span></div></div>
+      </div>
+
+      <div class="ley-titulo">CAP. IX — CONSUMO DE ALCOHOL Y DROGAS</div>
+      <div class="tarjeta leve civica" data-texto="consumo bebidas alcoholicas alterar convivencia ciudadana espacio publico masivo grupos">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">🍺 Consumo de bebidas alcohólicas en el espacio público cuando pueda alterar gravemente la convivencia ciudadana (concentración masiva, zonas de menores…)</div><div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 54.1</span></div></div>
+        <div class="tarjeta-nota">Leve, salvo que los hechos constituyan una infracción grave o muy grave.</div>
+      </div>
+      <div class="tarjeta leve civica" data-texto="incitar menores alcohol suministrar proporcionar vender menores edad facilitar consumo">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">🍺 Incitar a menores a consumir alcohol, suministrar, proporcionar o vender alcohol a menores de edad</div><div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 54.2.a</span></div></div>
+      </div>
+      <div class="tarjeta leve civica" data-texto="venta dispensacion suministro bebidas alcoholicas menores via publica establecimientos lucro">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">🍺 Venta, dispensación o suministro de bebidas alcohólicas a menores en vías/espacios públicos o establecimientos</div><div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 54.2.b</span></div></div>
+      </div>
+      <div class="tarjeta leve civica" data-texto="tirar suelo latas botellas vasos recipientes bebida via publica contenedores">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">🍾 Tirar al suelo o depositar en la vía pública recipientes de bebidas (latas, botellas, vasos…) en lugar de en los contenedores</div><div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 54.5</span></div></div>
+      </div>
+
+      <div class="ley-titulo">CAP. X — CONCENTRACIONES QUE ALTERAN LA CONVIVENCIA</div>
+      <div class="tarjeta leve civica" data-texto="concentracion orden publico convivencia ciudadana molestias descanso menos 10 personas">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">👥 Concentración que altera la convivencia/orden público causando molestias al descanso (menos de 10 personas → LEVE)</div><div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 58.1/2</span></div></div>
+        <div class="tarjeta-nota">3-9 personas → LEVE. 10 o más personas → GRAVE.</div>
+      </div>
+      <div class="tarjeta grave civica" data-texto="concentracion botellon ludicoa deportiva 10 personas o mas alterar convivencia insalubridad deterioro espacio publico">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">👥 Concentración lúdica/botellón con 10 o más personas que altera la convivencia, provoca insalubridad o deteriora el espacio público</div><div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 58.2</span></div></div>
+      </div>
+      <div class="tarjeta grave civica" data-texto="faltas respeto consideracion policia local utebo ejercicio funciones proteccion seguridad">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">👮 Faltas de respeto y consideración dirigidas a un miembro de la Policía Local de Utebo en el ejercicio de sus funciones</div><div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 58.2.g</span></div></div>
+      </div>
+
+      <div class="ley-titulo">CAP. XI — VENTA AMBULANTE NO AUTORIZADA</div>
+      <div class="tarjeta grave civica" data-texto="venta ambulante espacio publico alimentos bebidas productos sin autorizacion licencia">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">🛒 Venta ambulante en el espacio público de alimentos, bebidas u otros productos sin autorización</div><div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 61.1</span></div></div>
+      </div>
+      <div class="tarjeta grave civica" data-texto="colaborar vendedores ambulantes no autorizados facilitar genero vigilar alertar">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">🛒 Colaborar con vendedores ambulantes no autorizados: facilitar género, vigilar o alertar</div><div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 61.2</span></div></div>
+      </div>
+      <div class="tarjeta leve civica" data-texto="comprar espacio publico articulos venta ambulante no autorizada">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">🛒 Comprar en el espacio público artículos procedentes de venta ambulante no autorizada</div><div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 61.3</span></div></div>
+      </div>
+
+      <div class="ley-titulo">CAP. XIII — USO IMPROPIO DEL ESPACIO PÚBLICO</div>
+      <div class="tarjeta leve civica" data-texto="acampar via publica dormir dia noche espacios publicos">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">⛺ Acampar en vías y espacios públicos o dormir de día o por la noche en estos espacios</div><div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 69.a</span></div></div>
+      </div>
+      <div class="tarjeta leve civica" data-texto="lavarse banarse fuentes estancos similares lavar ropa via publica">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">🚿 Lavarse o bañarse en fuentes o estanques, o lavar ropa en fuentes o duchas públicas</div><div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 69.c/d</span></div></div>
+      </div>
+      <div class="tarjeta leve civica" data-texto="aparcacoches sin autorizacion actividad via publica">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">🚗 Llevar a cabo la actividad de aparcacoches sin autorización</div><div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 69.e</span></div></div>
+      </div>
+      <div class="tarjeta leve civica" data-texto="relaciones sexuales vias espacios libres publicos">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">🚫 Mantener relaciones sexuales en vías y espacios libres públicos</div><div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 69.f</span></div></div>
+      </div>
+      <div class="tarjeta leve civica" data-texto="fuego portar mechas encendidas petardos cohetes bengalas pirotecnicos espacios uso publico">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">🔥 Encender fuego, portar mechas encendidas o usar petardos, cohetes, bengalas u otros artículos pirotécnicos en espacios públicos</div><div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 69.h</span></div></div>
+      </div>
+      <div class="tarjeta grave civica" data-texto="quema vegetacion restos vegetales zona urbana">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">🌿 Quema de vegetación y/o restos vegetales en zona urbana</div><div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 69.i</span></div></div>
+      </div>
+
+      <div class="ley-titulo">CAP. XIV — CARAVANAS Y AUTOCARAVANAS</div>
+      <div class="tarjeta leve civica" data-texto="caravana autocaravana acampar termino municipal zonas no habilitadas estacionar mas 3 dias motor marcha patas estabilizadoras">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">🚐 Caravanas/autocaravanas: acampar fuera de zonas habilitadas, superar 3 días en el mismo lugar, motor en marcha, usar patas estabilizadoras, desplegar elementos o emitir fluidos/ruidos</div><div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 73.1</span></div></div>
+        <div class="tarjeta-nota">Personas en exclusión social: NO HAY SANCIÓN → aplicar art. 92 medidas de carácter social.</div>
+      </div>
+
+      <div class="ley-titulo">CAP. XV — VANDALISMO Y MOBILIARIO URBANO</div>
+      <div class="tarjeta muy-grave civica" data-texto="conductas vandalicas agresivas negligentes mobiliario urbano riesgo peligro salud integridad personas bienes">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">💥 Conductas vandálicas, agresivas o negligentes en el uso del mobiliario urbano que generen riesgo para la salud o integridad física de personas o bienes</div><div class="badges"><span class="badge badge-muy-grave">MUY GRAVE</span><span class="badge badge-art">Art. 77.1</span></div></div>
+      </div>
+      <div class="tarjeta grave civica" data-texto="deterioro grave muebles inmuebles alteracion seguridad ciudadana">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">💥 Actos de deterioro grave de bienes muebles o inmuebles derivados de alteraciones de la seguridad ciudadana</div><div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 77.2</span></div></div>
+      </div>
+
+      <div class="ley-titulo">CAP. XVI/XVII/XVIII — NUDISMO / SONIDO / LÁSER</div>
+      <div class="tarjeta leve civica" data-texto="nudismo desnudo via publica transitar espacios publicos ropa superior">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">🚫 Ir desnudo/a por la vía pública o transitar por espacios públicos sin ropa en la parte superior (fuera de piscinas)</div><div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 81.1/2</span></div></div>
+      </div>
+      <div class="tarjeta leve civica" data-texto="dispositivo laser molestias letreros luminosos alta intensidad similares">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">🔦 Ocasionar molestias usando dispositivos láser, letreros luminosos de alta intensidad o similares</div><div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 86</span></div></div>
+      </div>
+
+      <div class="ley-titulo">CAP. I TÍTULO III — OBSTRUCCIÓN A LA AUTORIDAD</div>
+      <div class="tarjeta grave civica" data-texto="negarse resistirse tareas inspeccion control ayuntamiento funcionarios obstruccion">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">🚫 Negarse o resistirse a las tareas de inspección o control del Ayuntamiento</div><div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 89.1.a</span></div></div>
+      </div>
+      <div class="tarjeta grave civica" data-texto="negarse suministrar datos facilitar informacion funcionarios inspeccion control sancion">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">🚫 Negarse a suministrar datos o facilitar la información requerida por los funcionarios en cumplimiento de sus funciones</div><div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 89.1.b</span></div></div>
+      </div>
+      <div class="tarjeta grave civica" data-texto="informacion documentacion falsa inexacta incompleta funcionarios inspeccion control">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">📋 Suministrar a los funcionarios información o documentación falsa, inexacta o incompleta en tareas de inspección</div><div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 89.1.c</span></div></div>
+      </div>
+      <div class="tarjeta grave civica" data-texto="incumplir ordenes requerimientos autoridades municipales agentes">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">🚫 Incumplir las órdenes o requerimientos formulados por las autoridades municipales o sus agentes</div><div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 89.1.d</span></div></div>
+      </div>
+      <div class="tarjeta grave civica" data-texto="despreciar actuacion agentes autoridad obstaculizar tarea inspectora">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">👮 Despreciar la actuación de los agentes de la autoridad u obstaculizar la tarea inspectora</div><div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 89.1.e/4</span></div></div>
+      </div>
+    </div>
+
+    <!-- ===================== ORDENANZA LIMPIEZA ===================== -->
+    <div class="subseccion" data-cat="limpieza">
+      <div class="subseccion-titulo">🧹 ORDENANZA MUNICIPAL DE LIMPIEZA Y GESTIÓN DE RESIDUOS</div>
+      <div style="font-size:10px;color:#546e7a;padding:2px 10px 8px;font-style:italic;">Leves: hasta 150,25€ · Graves: 150,26€ – 901,52€</div>
+
+      <div class="ley-titulo">RESIDUOS — LEVES</div>
+      <div class="tarjeta leve limpieza" data-texto="depositar residuos diferentes contenedor tipo contenedor incorrecto basura">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">🗑️ Depositar residuos en el contenedor incorrecto (tipo de residuo no correspondiente)</div><div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 75.1.a</span></div></div>
+      </div>
+      <div class="tarjeta leve limpieza" data-texto="depositar residuos fuera contenedores via publica">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">🗑️ Depositar residuos fuera de los contenedores</div><div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 75.1.c</span></div></div>
+      </div>
+      <div class="tarjeta leve limpieza" data-texto="depositar contenedores domiciliarios residuos prohibidos">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">🗑️ Depositar en contenedores domiciliarios residuos prohibidos</div><div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 75.1.d</span></div></div>
+      </div>
+      <div class="tarjeta leve limpieza" data-texto="deteriorar contenedores mal uso mover trasladar contenedores emplazamientos">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">🗑️ Deteriorar los contenedores por mal uso o moverlos/trasladarlos de su emplazamiento</div><div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 75.1.f/g</span></div></div>
+      </div>
+      <div class="tarjeta leve limpieza" data-texto="horario deposicion contenedores verano invierno incumplimiento">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">🕐 Incumplimiento de horarios de deposición de residuos (Verano: hasta 21h / Invierno: hasta 20h)</div><div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 75.1.q</span></div></div>
+        <div class="tarjeta-nota">Retirada contenedores privados diurnos: antes de las 13h. Nocturnos: antes de las 9:30h.</div>
+      </div>
+      <div class="tarjeta leve limpieza" data-texto="almacenar via publica material construccion fuera valla protectora obras">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">🏗️ Almacenar en la vía pública material de construcción fuera de los límites de la valla protectora de obras</div><div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 75.1.r</span></div></div>
+      </div>
+
+      <div class="ley-titulo">RESIDUOS — GRAVES</div>
+      <div class="tarjeta grave limpieza" data-texto="evacuar residuos no autorizado alcantarillado red saneamiento">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">🚰 Evacuar cualquier tipo de residuo no autorizado por la red de alcantarillado</div><div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 75.2.a</span></div></div>
+      </div>
+      <div class="tarjeta grave limpieza" data-texto="instalar trituradores evacuan productos red saneamiento incineradores domesticos residuos">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">⚙️ Instalar trituradores que evacúen productos a la red de saneamiento o incineradores domésticos de residuos</div><div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 75.2.b/c</span></div></div>
+      </div>
+      <div class="tarjeta grave limpieza" data-texto="reiteracion faltas leves tercera comision residuos">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">⚠️ Reiteración de faltas leves en materia de residuos (desde la tercera comisión)</div><div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 75.2.e</span></div></div>
+      </div>
+
+      <div class="ley-titulo">LIMPIEZA — LEVES</div>
+      <div class="tarjeta leve limpieza" data-texto="manipulacion papeleras deterioro inutilizacion uso destinado">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">🗑️ Manipulación de papeleras o cualquier acto que las deteriore o inutilice</div><div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 76.1.b</span></div></div>
+      </div>
+      <div class="tarjeta leve limpieza" data-texto="lavar limpiar vehiculos via publica manipular residuos sacudir prendas alfombras balcones regar plantas fuera horario tender ropa visible via publica">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">🚗 Lavar vehículos en la vía pública, sacudir alfombras/ropa desde balcones, regar plantas fuera de horario o tender ropa visible desde la vía pública</div><div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 76.1.c</span></div></div>
+        <div class="tarjeta-nota">Riego permitido: verano 24h–7h / invierno 22h–8h. Tender ropa: prohibido si es visible desde la vía pública.</div>
+      </div>
+      <div class="tarjeta leve limpieza" data-texto="residuos escaparates toldos puertas establecimientos dejar via publica limpieza">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">🏪 Dejar en la vía pública residuos procedentes de la limpieza de escaparates, toldos o puertas de establecimientos</div><div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 76.1.f</span></div></div>
+      </div>
+
+      <div class="ley-titulo">LIMPIEZA — GRAVES</div>
+      <div class="tarjeta grave limpieza" data-texto="no recoger deyecciones perros animales via publica limpiar">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">💩 No recoger las deyecciones de perros u otros animales en la vía pública</div><div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 76.2.a</span></div></div>
+      </div>
+      <div class="tarjeta grave limpieza" data-texto="cambiar aceite liquidos vehiculos via espacio publico">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">🔧 Cambiar el aceite u otros líquidos a los vehículos en la vía o espacios públicos</div><div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 76.2.b</span></div></div>
+      </div>
+      <div class="tarjeta grave limpieza" data-texto="propaganda actos ensucien espacios publicos pintadas carteles lugares no permitidos inscripciones">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">📋 Realizar actos de propaganda que ensucien espacios públicos o colocar carteles en lugares no permitidos</div><div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 76.2.c/f</span></div></div>
+      </div>
+      <div class="tarjeta grave limpieza" data-texto="carga descarga vehiculos no limpiar aceras calzadas suciedad operacion">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">🚚 No limpiar aceras y calzadas ensuciadas durante operaciones de carga o descarga de vehículos</div><div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 76.2.d</span></div></div>
+      </div>
+      <div class="tarjeta grave limpieza" data-texto="escombros tierras materiales pulverulentos transporte cubrir ruedas bajos vehiculos obras">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">🏗️ Transporte de tierras, escombros o materiales pulverulentos sin cubrirlos o sin lavar bajos y ruedas al salir de obras</div><div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 76.2.e</span></div></div>
+      </div>
+      <div class="tarjeta grave limpieza" data-texto="reiteracion faltas leves limpieza tercera comision">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">⚠️ Reiteración de faltas leves en materia de limpieza (desde la tercera comisión)</div><div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 76.2.g</span></div></div>
+      </div>
+    </div>
+
+    <!-- ===================== ORDENANZA ANIMALES ===================== -->
+    <div class="subseccion" data-cat="animales">
+      <div class="subseccion-titulo">🐾 ORDENANZA MUNICIPAL DE PROTECCIÓN Y TENENCIA RESPONSABLE DE ANIMALES</div>
+      <div style="font-size:10px;color:#546e7a;padding:2px 10px 8px;font-style:italic;">Leves: 500–10.000€ (o apercibimiento) · Graves: 10.001–50.000€ · Muy Graves: 50.001–200.000€</div>
+
+      <div class="ley-titulo">INFRACCIONES LEVES</div>
+      <div class="tarjeta leve animales" data-texto="tenencia animales compañia condiciones alojamiento numero riesgos higienicos sanitarios molestias peligro vigilancia">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">🐾 Tenencia de animales de compañía con condiciones de alojamiento que impliquen riesgos higiénicos, molestias o peligro</div><div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 45.3.b</span></div></div>
+      </div>
+      <div class="tarjeta leve animales" data-texto="animal suelto zonas no acotadas condiciones establecidas ordenanza">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">🐕 Permanencia de animales sueltos en zonas no acotadas para tal fin o fuera de las condiciones establecidas</div><div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 45.3.d</span></div></div>
+      </div>
+      <div class="tarjeta leve animales" data-texto="animales zonas recreo infantil zonas no autorizadas medidas impedir entrada">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">🐾 No adoptar medidas para evitar la entrada de animales en zonas de recreo infantil o en otras no autorizadas</div><div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 45.3.e</span></div></div>
+      </div>
+      <div class="tarjeta leve animales" data-texto="suministrar alimentos animales vagabundos abandonados molestias danos insalubridad">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">🐾 Suministrar alimentos a animales vagabundos o abandonados cuando puedan derivarse molestias, daños o focos de insalubridad</div><div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 45.3.g</span></div></div>
+      </div>
+      <div class="tarjeta leve animales" data-texto="bano animales fuentes ornamentales estanques similares consentido">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">🐾 Baño consentido de animales en fuentes ornamentales, estanques y similares</div><div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 45.3.i</span></div></div>
+      </div>
+      <div class="tarjeta leve animales" data-texto="no tener documentacion obligatoria animales autoridad competente">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">📋 No tener a disposición de la autoridad la documentación obligatoria del animal</div><div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 45.3.j</span></div></div>
+      </div>
+      <div class="tarjeta leve animales" data-texto="ladridos aullidos maullidos molestias animales ruidos vecindario ordenanza ruidos vibraciones">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">🔊 No adoptar medidas para evitar las molestias que los animales causen con ladridos, aullidos, maullidos, etc.</div><div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 45.3.k</span></div></div>
+      </div>
+      <div class="tarjeta leve animales" data-texto="alimentar animales ajenos via publica">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">🐾 Alimentar a animales ajenos en la vía pública</div><div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 45.3.l</span></div></div>
+      </div>
+      <div class="tarjeta leve animales" data-texto="negativa propietarios facilitar datos identificacion animales microchip servicios municipales">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">📋 Negativa de propietarios a facilitar a los servicios municipales los datos de identificación del animal (microchip)</div><div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 45.3.n</span></div></div>
+      </div>
+      <div class="tarjeta leve animales" data-texto="no recoger deyecciones limpiar micciones animales via espacios publicos 500 euros">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">💩 No recoger las deyecciones o limpiar las micciones de los animales en la vía o espacios públicos — 500€</div><div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 45.3.o</span></div></div>
+        <div class="tarjeta-nota">Esta infracción tiene cuantía fija de 500 euros.</div>
+      </div>
+      <div class="tarjeta leve animales" data-texto="permanencia animales interior vehiculos mas una hora">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">🚗 Permanencia de animales durante más de una hora en el interior de vehículos</div><div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 45.3.p</span></div></div>
+      </div>
+      <div class="tarjeta leve animales" data-texto="utilizacion explotacion animales mendicidad practica encubierta">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">🐾 Utilización o explotación de animales para la práctica de la mendicidad, incluso cuando sea encubierta</div><div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 45.3.q</span></div></div>
+      </div>
+      <div class="tarjeta leve animales" data-texto="venta ambulante animales via publica">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">🐾 Venta ambulante de animales</div><div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">Art. 45.3.r</span></div></div>
+      </div>
+
+      <div class="ley-titulo">INFRACCIONES GRAVES</div>
+      <div class="tarjeta grave animales" data-texto="incumplimiento ordenanza animales riesgos seguridad salubridad tranquilidad convivencia daño sufrimiento animal sin muerte">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">🐾 Incumplimiento de la Ordenanza con riesgos evidentes para la seguridad/salubridad pública o que impliquen daño o sufrimiento al animal (sin causarle la muerte)</div><div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 45.4.a</span></div></div>
+      </div>
+      <div class="tarjeta grave animales" data-texto="incitar animales atacar entre si lanzarse personas animales vehiculos ostentacion agresividad">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">🐕 Incitar a los animales a que se ataquen entre sí o se lancen contra personas, vehículos, o hacer ostentación de su agresividad</div><div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 45.4.b</span></div></div>
+      </div>
+      <div class="tarjeta grave animales" data-texto="trampas sustancias toxicas venenosas animales espacios publicos privados">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">☠️ Colocar trampas o sustancias tóxicas/venenosas para animales en espacios públicos o privados</div><div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 45.4.e</span></div></div>
+      </div>
+      <div class="tarjeta grave animales" data-texto="abandono animal animales condiciones riesgo no recoger residencias establecimientos">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">🐾 Abandono de uno o más animales, o no recoger el animal de residencias/establecimientos donde fue depositado</div><div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 45.4.f</span></div></div>
+        <div class="tarjeta-nota">No se considera falta grave (sino leve) la falta de comunicación de la pérdida o sustracción.</div>
+      </div>
+      <div class="tarjeta grave animales" data-texto="robo hurto apropiacion indebida animal">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">🐾 Robo, hurto o apropiación indebida de un animal</div><div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 45.4.g</span></div></div>
+      </div>
+      <div class="tarjeta grave animales" data-texto="mantener perros gatos terrazas balcones azoteas trasteros sotanos patios vehiculos permanente">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">🐾 Mantener de forma permanente perros o gatos en terrazas, balcones, azoteas, trasteros, sótanos, patios o vehículos</div><div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">Art. 45.4.j</span></div></div>
+      </div>
+
+      <div class="ley-titulo">INFRACCIONES MUY GRAVES</div>
+      <div class="tarjeta muy-grave animales" data-texto="muerte animal sacrificio no autorizado perjuicio muy grave irreversible seguridad salubridad">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">🐾 Incumplimiento de la Ordenanza cuando se produzca la muerte del animal o sacrificio no autorizado (sin constituir delito)</div><div class="badges"><span class="badge badge-muy-grave">MUY GRAVE</span><span class="badge badge-art">Art. 45.5.a</span></div></div>
+      </div>
+      <div class="tarjeta muy-grave animales" data-texto="no mantener condiciones minimas bienestar animal">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">🐾 No mantener las condiciones mínimas necesarias para el bienestar del animal</div><div class="badges"><span class="badge badge-muy-grave">MUY GRAVE</span><span class="badge badge-art">Art. 45.5.b</span></div></div>
+      </div>
+      <div class="tarjeta muy-grave animales" data-texto="organizar espectaculos no regulados legalmente daño sufrimiento degradacion animales publicitar celebrar">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">🎪 Publicitar, organizar o celebrar espectáculos no regulados legalmente que supongan daño, sufrimiento o degradación para los animales</div><div class="badges"><span class="badge badge-muy-grave">MUY GRAVE</span><span class="badge badge-art">Art. 45.5.c</span></div></div>
+      </div>
+      <div class="tarjeta muy-grave animales" data-texto="adiestramiento uso animales peleas rinas otros animales">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">🐕 Adiestramiento y uso de animales para peleas y riñas con otros animales</div><div class="badges"><span class="badge badge-muy-grave">MUY GRAVE</span><span class="badge badge-art">Art. 45.5.d</span></div></div>
+      </div>
+      <div class="tarjeta muy-grave animales" data-texto="uso animales compania consumo humano">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">🐾 Uso de animales de compañía para el consumo humano</div><div class="badges"><span class="badge badge-muy-grave">MUY GRAVE</span><span class="badge badge-art">Art. 45.5.e</span></div></div>
+      </div>
+      <div class="tarjeta muy-grave animales" data-texto="dar muerte gatos comunitarios fuera casos autorizados">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">🐈 Dar muerte a gatos comunitarios fuera de los casos autorizados</div><div class="badges"><span class="badge badge-muy-grave">MUY GRAVE</span><span class="badge badge-art">Art. 45.5.f</span></div></div>
+      </div>
+      <div class="tarjeta muy-grave animales" data-texto="uso animales actividades prohibidas culturales festivas atracciones mecanicas carruseles fauna silvestre espectaculos circenses">
+        <div class="tarjeta-cabecera"><div class="tarjeta-descripcion">🎡 Uso de animales en actividades prohibidas: culturales/festivas, atracciones mecánicas, carruseles o fauna silvestre en espectáculos circenses</div><div class="badges"><span class="badge badge-muy-grave">MUY GRAVE</span><span class="badge badge-art">Art. 45.5.g</span></div></div>
+      </div>
+    </div>
+
+    </div><!-- fin sec-todas -->
 
   <!-- Secciones filtradas (vacías — se rellenan dinámicamente) -->
 
