@@ -96,28 +96,6 @@ header img { width:58px; height:auto; flex-shrink:0; border-radius:4px; }
 .cod { font-size:12px; font-weight:800; margin-left:auto; background:#dce8f8; color:#1a3a6a; padding:3px 9px; border-radius:5px; border:1px solid #a8c4e8; }
 .pts { background:#e1f5fe; color:#0277bd; padding:3px 8px; border-radius:5px; font-size:11px; font-weight:800; }
 .eur { background:#fce4ec; color:#c62828; padding:3px 8px; border-radius:5px; font-size:11px; font-weight:800; }
-.badge.AT { background:#fdd8d8; color:#8b0000; border:1px solid #ef9a9a; }
-.badge.NU { background:#eceff1; color:#37474f; border:1px solid #b0bec5; }
-.badge.DP { background:#dce8f8; color:#1a3a6a; border:1px solid #a8c4e8; }
-.badge.EX { background:#fff3e0; color:#9a3d00; border:1px solid #f8c88a; }
-.card.AT { border-left-color:#e57373; background:#fff9f9; }
-.card.EX { border-left-color:#ffb74d; background:#fffcf5; }
-.card.DP { border-left-color:#90caf9; background:#f8fbff; }
-.card.NU { border-left-color:#b0bec5; background:#f9fafb; }
-.tarjeta.pjudicial { border-left-color:#7986cb; background:#f8f9ff; }
-.pj-tabla { display:flex; flex-direction:column; gap:5px; margin-top:4px; }
-.pj-fila { display:flex; align-items:flex-start; gap:8px; padding:6px 8px; border-radius:6px; font-size:12px; line-height:1.4; }
-.pj-fila.at { background:#fff0f0; border-left:3px solid #e57373; }
-.pj-fila.ex { background:#fffbf0; border-left:3px solid #ffb74d; }
-.pj-fila.nu { background:#f5f5f5; border-left:3px solid #b0bec5; }
-.pj-fila.dp { background:#f0f4ff; border-left:3px solid #90caf9; }
-.pj-conducta { flex:1; color:#263238; }
-.pj-verdict { font-weight:800; font-size:10px; text-align:center; padding:3px 6px; border-radius:4px; min-width:76px; }
-.pj-fila.at .pj-verdict { color:#8b0000; background:#fdd8d8; }
-.pj-fila.ex .pj-verdict { color:#9a3d00; background:#ffe0b2; }
-.pj-fila.nu .pj-verdict { color:#37474f; background:#eceff1; }
-.pj-fila.dp .pj-verdict { color:#1a3a6a; background:#dce8f8; }
-.pj-grupo-titulo { font-size:11px; font-weight:800; color:#455a64; text-transform:uppercase; padding:6px 0 3px; letter-spacing:.04em; }
 
 /* SIN RESULTADOS */
 .sin-resultados { display:none; text-align:center; padding:40px 20px; color:var(--sub); font-size:14px; }
@@ -196,8 +174,6 @@ if ('serviceWorker' in navigator) {
     <div class="tab" data-tab="limpieza">🧹 LIMPIEZA</div>
     <div class="tab" data-tab="animales">🐾 ANIMALES</div>
     <div class="tab" data-tab="vmp2026" style="color:#7b1fa2;font-weight:900;">🆕 VMP ABR.2026</div>
-    <div class="tab" data-tab="conductores">🪪 CONDUCTORES</div>
-    <div class="tab" data-tab="pjudicial">⚖️ POL. JUDICIAL</div>
   </div>
 </div>
 
@@ -275,6 +251,96 @@ if ('serviceWorker' in navigator) {
     <div class="card vmp MG trafico vmp2026" data-k="vmp seguro soa responsabilidad civil propietario 800"><div class="card-desc">📋 Circular el VMP sin que conste que su propietario tenga suscrito y mantenga en vigor un contrato de seguro de RC</div><div class="card-footer"><span class="badge MG">M.GRAVE</span><span class="eur">800 EUR</span><span class="cod">02-1-5N / SOA</span></div></div>
     <div class="card vmp MG trafico vmp2026" data-k="vmp seguro soa incumplir obligacion propietario 610"><div class="card-desc">📋 Incumplir el propietario del VMP la obligación de mantener en vigor un contrato de seguro de RC</div><div class="card-footer"><span class="badge MG">M.GRAVE</span><span class="eur">610 EUR</span><span class="cod">2-1-5O / SOA</span></div></div>
     <div class="card vmp G trafico" data-k="vmp placa registro etiqueta identificativa inscripciones reglamentarias"><div class="card-desc">🏷️ Circular con VMP que no lleve las placas o inscripciones reglamentarias — sin placa de registro o etiqueta identificativa</div><div class="card-footer"><span class="badge G">GRAVE</span><span class="eur">200 EUR</span><span class="cod">8-1-5A / RGVEH</span></div></div>
+
+    <!-- ADELANTAMIENTOS -->
+    <div class="section-label-trafico" style="font-size:.75em;font-weight:800;color:#1a237e;padding:6px 10px 3px;border-left:3px solid #7986cb;background:#e8eaf6;border-radius:0 4px 4px 0;margin:8px 0 4px;text-transform:uppercase;letter-spacing:.05em;">↔️ Adelantamientos (ARCI 2026)</div>
+    <div class="card circ G trafico" data-k="adelantar izquierda via ambos sentidos tranvia zona central"><div class="card-desc">🚗 Adelantar por la izquierda en vía con circulación en ambos sentidos, a un tranvía que marche por la zona central</div><div class="card-footer"><span class="badge G">GRAVE</span><span class="eur">200 EUR</span><span class="cod">CIR 082.2.5B</span></div></div>
+    <div class="card circ G trafico" data-k="adelantar izquierda conductor indicando proposito desplazarse lateralmente"><div class="card-desc">🚗 Adelantar por la izquierda a un vehículo cuyo conductor está indicando claramente su propósito de desplazarse lateralmente</div><div class="card-footer"><span class="badge G">GRAVE</span><span class="eur">200 EUR</span><span class="cod">CIR 082.2.5C</span></div></div>
+    <div class="card circ G trafico" data-k="adelantar derecha poblado calzada varios carriles mismo sentido peligro"><div class="card-desc">🚗 Adelantar por la derecha dentro de poblado en calzada de varios carriles en el mismo sentido, con peligro para otros usuarios</div><div class="card-footer"><span class="badge G">GRAVE</span><span class="eur">200 EUR</span><span class="cod">CIR 082.3.5A</span></div></div>
+    <div class="card circ G trafico" data-k="adelantar sin advertir señal antelacion suficiente"><div class="card-desc">🚗 Iniciar un adelantamiento sin advertirlo con la suficiente antelación (sin usar el indicador de dirección)</div><div class="card-footer"><span class="badge G">GRAVE</span><span class="eur">200 EUR</span><span class="cod">CIR 084.1.5A</span></div></div>
+    <div class="card circ G trafico" data-k="adelantar sin espacio libre suficiente peligro sentido contrario"><div class="card-desc">🚗 Iniciar un adelantamiento sin que exista espacio libre suficiente, con peligro para quienes circulan en sentido contrario</div><div class="card-footer"><span class="badge G">GRAVE</span><span class="pts">4 PTOS</span><span class="eur">200 EUR</span><span class="cod">CIR 084.1.5B</span></div></div>
+    <div class="card circ G trafico" data-k="adelantar sin separacion lateral suficiente seguridad maniobra"><div class="card-desc">🚗 Adelantar a otro vehículo sin dejar entre ambos una separación lateral suficiente para realizar con seguridad dicha maniobra</div><div class="card-footer"><span class="badge G">GRAVE</span><span class="eur">200 EUR</span><span class="cod">CIR 085.1.5B</span></div></div>
+    <div class="card circ G trafico" data-k="adelantar fuera poblado peatones ciclistas 2 ruedas separacion inferior 1.5 metros"><div class="card-desc">🚗 Adelantar fuera de poblado a peatones, ciclistas o vehículos de 2 ruedas dejando una separación inferior a 1,50 metros o sin utilizar el carril contiguo</div><div class="card-footer"><span class="badge G">GRAVE</span><span class="eur">200 EUR</span><span class="cod">CIR 085.4.5A</span></div></div>
+    <div class="card circ G trafico" data-k="adelantar poniendo peligro ciclistas sentido contrario 1.5 metros LSV 35.4"><div class="card-desc">🚲 Adelantar poniendo en peligro o entorpeciendo a ciclistas que circulen en sentido contrario — Art. 35.4 LTSV</div><div class="card-footer"><span class="badge G">GRAVE</span><span class="pts">6 PTOS</span><span class="eur">200 EUR</span><span class="cod">LSV 035.4.5A</span></div></div>
+    <div class="card circ G trafico" data-k="adelantar ciclo conjunto carriles no cambiar carril completo"><div class="card-desc">🚲 Adelantar a un ciclo o conjunto de ellos sin cambiar completamente de carril, existiendo en la calzada más de un carril por sentido</div><div class="card-footer"><span class="badge G">GRAVE</span><span class="eur">200 EUR</span><span class="cod">LSV 035.4.5B</span></div></div>
+    <div class="card circ G trafico" data-k="adelantar curva visibilidad reducida invadiendo zona sentido contrario"><div class="card-desc">🚗 Adelantar en curva de visibilidad reducida invadiendo la zona reservada al sentido contrario</div><div class="card-footer"><span class="badge G">GRAVE</span><span class="pts">4 PTOS</span><span class="eur">200 EUR</span><span class="cod">CIR 087.1A.5A</span></div></div>
+    <div class="card circ G trafico" data-k="adelantar cambio rasante visibilidad reducida invadiendo zona sentido contrario"><div class="card-desc">🚗 Adelantar en cambio de rasante de visibilidad reducida invadiendo la zona reservada al sentido contrario</div><div class="card-footer"><span class="badge G">GRAVE</span><span class="pts">4 PTOS</span><span class="eur">200 EUR</span><span class="cod">CIR 087.1A.5B</span></div></div>
+    <div class="card circ G trafico" data-k="adelantar paso peatones señalizado vehiculo mas dos ruedas sin señales acusticas"><div class="card-desc">🦓 Adelantar en un paso para peatones señalizado a un vehículo de más de dos ruedas sin utilizar las señales acústicas u ópticas oportunas</div><div class="card-footer"><span class="badge G">GRAVE</span><span class="eur">200 EUR</span><span class="cod">CIR 087.1B.5A</span></div></div>
+    <div class="card circ G trafico" data-k="adelantar interseccion via ciclistas"><div class="card-desc">🚲 Adelantar en una intersección con vía para ciclistas</div><div class="card-footer"><span class="badge G">GRAVE</span><span class="eur">200 EUR</span><span class="cod">CIR 087.1B.5F</span></div></div>
+    <div class="card circ G trafico" data-k="adelantar tunel paso inferior un carril sentido circulacion"><div class="card-desc">🚇 Adelantar en túnel o paso inferior en el que sólo se disponga de un carril para el sentido de circulación</div><div class="card-footer"><span class="badge G">GRAVE</span><span class="pts">4 PTOS</span><span class="eur">200 EUR</span><span class="cod">CIR 087.1D.5H</span></div></div>
+
+    <!-- SEMÁFOROS -->
+    <div class="section-label-trafico" style="font-size:.75em;font-weight:800;color:#b71c1c;padding:6px 10px 3px;border-left:3px solid #ef9a9a;background:#ffebee;border-radius:0 4px 4px 0;margin:8px 0 4px;text-transform:uppercase;letter-spacing:.05em;">🔴 Semáforos</div>
+    <div class="card circ MG trafico" data-k="semaforo rojo conductor vehiculo no respetar luz roja"><div class="card-desc">🔴 No respetar el conductor de un vehículo la luz ROJA no intermitente de un semáforo</div><div class="card-footer"><span class="badge MG">M.GRAVE</span><span class="pts">4 PTOS</span><span class="eur">200 EUR</span><span class="cod">CIR 143.1B.5A</span></div></div>
+    <div class="card circ L trafico" data-k="semaforo rojo peaton no respetar luz roja"><div class="card-desc">🔴 No respetar el PEATÓN la luz roja de un semáforo</div><div class="card-footer"><span class="badge L">LEVE</span><span class="eur">80 EUR</span><span class="cod">CIR 143.1A.5A</span></div></div>
+    <div class="card circ G trafico" data-k="semaforo carril aspa roja ocupacion carril detenerse"><div class="card-desc">🔴 Circular por un carril incumpliendo la obligación de detenerse ante la luz roja de un semáforo de ocupación de carril (aspa roja)</div><div class="card-footer"><span class="badge G">GRAVE</span><span class="pts">4 PTOS</span><span class="eur">200 EUR</span><span class="cod">CIR 143.1C.5A</span></div></div>
+    <div class="card circ G trafico" data-k="ceda el paso señal horizontal no ceder vehiculos"><div class="card-desc">🚦 No ceder el paso a otros vehículos en el lugar prescrito por una señal horizontal de CEDA EL PASO</div><div class="card-footer"><span class="badge G">GRAVE</span><span class="pts">4 PTOS</span><span class="eur">200 EUR</span><span class="cod">CIR 147.2E.5A</span></div></div>
+    <div class="card circ G trafico" data-k="stop señal horizontal detención obligatoria no detenerse marca vial"><div class="card-desc">🛑 No detenerse en el lugar prescrito por una señal horizontal de detención obligatoria o STOP (marca vial)</div><div class="card-footer"><span class="badge G">GRAVE</span><span class="pts">4 PTOS</span><span class="eur">200 EUR</span><span class="cod">CIR 147.2E.5B</span></div></div>
+    <div class="card circ G trafico" data-k="marca longitudinal continua linea continua invadir sin causa justificada"><div class="card-desc">⚠️ No respetar una marca longitudinal continua sin causa justificada (invadir línea continua)</div><div class="card-footer"><span class="badge G">GRAVE</span><span class="eur">200 EUR</span><span class="cod">CIR 147.2A.5A</span></div></div>
+    <div class="card circ G trafico" data-k="señales ordenes agentes autoridad regulacion trafico no respetar"><div class="card-desc">👮 No respetar las señales y órdenes de los agentes de la autoridad encargados de la regulación del tráfico</div><div class="card-footer"><span class="badge G">GRAVE</span><span class="pts">4 PTOS</span><span class="eur">200 EUR</span><span class="cod">CIR 141.1.5A</span></div></div>
+
+    <!-- PARADA/ESTACIONAMIENTO NUEVOS -->
+    <div class="section-label-trafico" style="font-size:.75em;font-weight:800;color:#283593;padding:6px 10px 3px;border-left:3px solid #9fa8da;background:#eef0fb;border-radius:0 4px 4px 0;margin:8px 0 4px;text-transform:uppercase;letter-spacing:.05em;">🅿️ Parada y Estacionamiento (ARCI 2026)</div>
+    <div class="card est G trafico" data-k="parar vehiculo obstaculizando circulacion creando peligro otros usuarios"><div class="card-desc">🛑 Parar el vehículo obstaculizando la circulación o creando peligro para otros usuarios</div><div class="card-footer"><span class="badge G">GRAVE</span><span class="eur">200 EUR</span><span class="cod">CIR 091.1.5C</span></div></div>
+    <div class="card est G trafico" data-k="parar impidiendo incorporacion circulacion otro vehiculo parado estacionado vado"><div class="card-desc">🚗 Parar un vehículo obstaculizando el uso normal del paso de salida o acceso a un inmueble en vado señalizado correctamente</div><div class="card-footer"><span class="badge G">GRAVE</span><span class="eur">200 EUR</span><span class="cod">CIR 091.2.5B</span></div></div>
+    <div class="card est G trafico" data-k="parar obstaculizando pasos rebajados discapacitados fisicos movilidad reducida"><div class="card-desc">♿ Parar un vehículo obstaculizando los pasos rebajados para personas con discapacidad / movilidad reducida</div><div class="card-footer"><span class="badge G">GRAVE</span><span class="eur">200 EUR</span><span class="cod">CIR 091.2.5D</span></div></div>
+    <div class="card est G trafico" data-k="estacionar parada transporte publico señalizada delimitada autobus"><div class="card-desc">🚌 Estacionar en parada de transporte público señalizada y delimitada</div><div class="card-footer"><span class="badge G">GRAVE</span><span class="eur">200 EUR</span><span class="cod">CIR 091.2.5I</span></div></div>
+    <div class="card est G trafico" data-k="estacionar peligro obstaculo grave trafico peatones vehiculos animales"><div class="card-desc">⚠️ Estacionar el vehículo constituyendo peligro u obstaculizando gravemente el tráfico de peatones, vehículos o animales</div><div class="card-footer"><span class="badge G">GRAVE</span><span class="eur">200 EUR</span><span class="cod">CIR 091.2.5J</span></div></div>
+    <div class="card est G trafico" data-k="parar cruce visibilidad reducida proximidades"><div class="card-desc">⚠️ Parar en un cruce de visibilidad reducida o en sus proximidades</div><div class="card-footer"><span class="badge G">GRAVE</span><span class="eur">200 EUR</span><span class="cod">CIR 094.1A.5A</span></div></div>
+    <div class="card est G trafico" data-k="parar paso peatones peligroso obstaculiza circulacion riesgo"><div class="card-desc">🦓 Parar en un paso para peatones en lugar peligroso o que obstaculice gravemente la circulación</div><div class="card-footer"><span class="badge G">GRAVE</span><span class="eur">200 EUR</span><span class="cod">CIR 094.1B.5G</span></div></div>
+    <div class="card est G trafico" data-k="parar autovia autopista zona no habilitada"><div class="card-desc">🛣️ Parar en autovía o autopista no siendo zona habilitada al efecto</div><div class="card-footer"><span class="badge G">GRAVE</span><span class="eur">200 EUR</span><span class="cod">CIR 094.1G.5N</span></div></div>
+    <div class="card est G trafico" data-k="estacionar cruce visibilidad reducida proximidades"><div class="card-desc">⚠️ Estacionar en un cruce de visibilidad reducida o en sus proximidades</div><div class="card-footer"><span class="badge G">GRAVE</span><span class="eur">200 EUR</span><span class="cod">CIR 094.2A.5A</span></div></div>
+    <div class="card est L trafico" data-k="ORA zona azul limitacion horaria duracion estacionamiento ordenanza municipal"><div class="card-desc">⏱️ Vulnerar el régimen de parada y estacionamiento en vía urbana regulado por ordenanza municipal incumpliendo las limitaciones horarias de duración (ORA/zona azul)</div><div class="card-footer"><span class="badge L">LEVE</span><span class="eur">60 EUR</span><span class="cod">CIR 093.1.5A</span></div></div>
+
+    <!-- ALUMBRADO -->
+    <div class="section-label-trafico" style="font-size:.75em;font-weight:800;color:#4a148c;padding:6px 10px 3px;border-left:3px solid #ce93d8;background:#f3e5f5;border-radius:0 4px 4px 0;margin:8px 0 4px;text-transform:uppercase;letter-spacing:.05em;">💡 Alumbrado</div>
+    <div class="card circ G trafico" data-k="circular ocaso salida sol emitiendo luz solo proyector"><div class="card-desc">💡 Circular entre el ocaso y la salida del sol emitiendo luz un solo proyector del vehículo</div><div class="card-footer"><span class="badge G">GRAVE</span><span class="eur">200 EUR</span><span class="cod">CIR 098.1.5A</span></div></div>
+    <div class="card circ G trafico" data-k="circular ocaso salida sol sin luces posicion encendidas"><div class="card-desc">💡 Circular entre el ocaso y la salida del sol sin llevar encendidas las luces de posición</div><div class="card-footer"><span class="badge G">GRAVE</span><span class="eur">200 EUR</span><span class="cod">CIR 099.1.5A</span></div></div>
+    <div class="card circ G trafico" data-k="circular alumbrado largo alcance carretera deslumbramiento usuarios via"><div class="card-desc">🔦 Circular llevando encendido el alumbrado de largo alcance o carretera produciendo deslumbramiento a los demás usuarios</div><div class="card-footer"><span class="badge G">GRAVE</span><span class="eur">200 EUR</span><span class="cod">CIR 100.4.5A</span></div></div>
+    <div class="card circ G trafico" data-k="circular dia motocicleta sin alumbrado corto alcance cruce encendido"><div class="card-desc">🏍️ Circular durante el día con una motocicleta sin llevar encendido el alumbrado de corto alcance o cruce</div><div class="card-footer"><span class="badge G">GRAVE</span><span class="eur">200 EUR</span><span class="cod">CIR 104.1.5A</span></div></div>
+
+    <!-- COMPORTAMIENTO VEHÍCULO -->
+    <div class="section-label-trafico" style="font-size:.75em;font-weight:800;color:#004d40;padding:6px 10px 3px;border-left:3px solid #80cbc4;background:#e0f7f4;border-radius:0 4px 4px 0;margin:8px 0 4px;text-transform:uppercase;letter-spacing:.05em;">🚗 Comportamiento Indebido</div>
+    <div class="card circ L trafico" data-k="abrir puertas vehiculo apearse cerciorar peligro entorpecimiento otros usuarios"><div class="card-desc">🚪 Abrir las puertas del vehículo o apearse sin haberse cerciorado de que no implica peligro para otros usuarios</div><div class="card-footer"><span class="badge L">LEVE</span><span class="eur">60 EUR</span><span class="cod">CIR 114.1.5C</span></div></div>
+    <div class="card circ L trafico" data-k="no señalizar antelacion suficiente iniciacion maniobra indicador direccion"><div class="card-desc">↩️ No señalizar con antelación suficiente la iniciación de una maniobra (no usar el intermitente con tiempo)</div><div class="card-footer"><span class="badge L">LEVE</span><span class="eur">60 EUR</span><span class="cod">CIR 109.1.5A</span></div></div>
+    <div class="card circ L trafico" data-k="señales acusticas bocina sin motivo reglamentario admitido"><div class="card-desc">📣 Emplear señales acústicas (bocina) sin motivo reglamentariamente admitido</div><div class="card-footer"><span class="badge L">LEVE</span><span class="eur">60 EUR</span><span class="cod">CIR 110.2.5A</span></div></div>
+    <div class="card circ G trafico" data-k="no facilitar identidad colaborar autoridad agentes accidente circulacion"><div class="card-desc">🚨 No facilitar la identidad y colaborar con la autoridad o sus agentes estando implicado en un accidente de circulación</div><div class="card-footer"><span class="badge G">GRAVE</span><span class="eur">200 EUR</span><span class="cod">CIR 129.2.5B</span></div></div>
+    <div class="card circ L trafico" data-k="no señalizar obstaculo calzada accidente averia vehiculo triangulo"><div class="card-desc">⚠️ No señalizar convenientemente el obstáculo creado en la calzada en caso de accidente o avería del vehículo</div><div class="card-footer"><span class="badge L">LEVE</span><span class="eur">60 EUR</span><span class="cod">CIR 130.1.5A</span></div></div>
+
+    <!-- PEATONES -->
+    <div class="section-label-trafico" style="font-size:.75em;font-weight:800;color:#37474f;padding:6px 10px 3px;border-left:3px solid #90a4ae;background:#eceff1;border-radius:0 4px 4px 0;margin:8px 0 4px;text-transform:uppercase;letter-spacing:.05em;">🚶 Peatones</div>
+    <div class="card circ L trafico" data-k="peaton transitar arcen zona peatonal practicable existente"><div class="card-desc">🚶 Peatón transitando por el arcén existiendo zona peatonal practicable</div><div class="card-footer"><span class="badge L">LEVE</span><span class="eur">60 EUR</span><span class="cod">CIR 121.1.5A</span></div></div>
+    <div class="card circ L trafico" data-k="peaton transitar calzada zona peatonal practicable existente"><div class="card-desc">🚶 Peatón transitando por la calzada existiendo zona peatonal practicable</div><div class="card-footer"><span class="badge L">LEVE</span><span class="eur">60 EUR</span><span class="cod">CIR 121.1.5B</span></div></div>
+    <div class="card circ L trafico" data-k="peaton atravesar calzada fuera paso peatones existente"><div class="card-desc">🦓 Peatón atravesando la calzada fuera del paso de peatones existente</div><div class="card-footer"><span class="badge L">LEVE</span><span class="eur">60 EUR</span><span class="cod">CIR 124.1.5A</span></div></div>
+    <div class="card circ L trafico" data-k="peaton atravesar paso peatones semaforo verde vehiculos luz permite circulacion"><div class="card-desc">🔴 Peatón atravesando la calzada a través de un paso de peatones cuando las luces del semáforo permiten la circulación de vehículos</div><div class="card-footer"><span class="badge L">LEVE</span><span class="eur">60 EUR</span><span class="cod">CIR 124.1.5B</span></div></div>
+
+    <!-- DOCUMENTACIÓN/CONDUCTOR NUEVOS -->
+    <div class="section-label-trafico" style="font-size:.75em;font-weight:800;color:#f57f17;padding:6px 10px 3px;border-left:3px solid #ffe082;background:#fff8e1;border-radius:0 4px 4px 0;margin:8px 0 4px;text-transform:uppercase;letter-spacing:.05em;">📋 Documentación y Condición Técnica (ARCI 2026)</div>
+    <div class="card cond L trafico" data-k="conducir sin llevar permiso conducir circulacion tarjeta ITV certificado caracteristicas documentacion"><div class="card-desc">📋 Conducir sin llevar consigo el permiso de conducir, permiso de circulación y tarjeta ITV o certificado de características del vehículo — 60€</div><div class="card-footer"><span class="badge L">LEVE</span><span class="eur">60 EUR</span><span class="cod">LSV 059.2.5A</span></div></div>
+    <div class="card cond MG trafico" data-k="conducir sin permiso sin autorizacion administrativa sin licencia conduccion 500 6 puntos"><div class="card-desc">🪪 Conducir el vehículo careciendo de la autorización administrativa correspondiente (SIN permiso de conducir) — 500€ · 6 puntos</div><div class="card-footer"><span class="badge MG">M.GRAVE</span><span class="pts">6 PTOS</span><span class="eur">500 EUR</span><span class="cod">CON 001.1.5A</span></div></div>
+    <div class="card cond G trafico" data-k="conducir permiso extranjero susceptible canje sin canjear autorizacion valida españa"><div class="card-desc">🪪 Conducir careciendo de autorización administrativa válida en España, siendo titular de un permiso extranjero susceptible de ser canjeado — 200€</div><div class="card-footer"><span class="badge G">GRAVE</span><span class="eur">200 EUR</span><span class="cod">CON 001.1.5B</span></div></div>
+    <div class="card cond MG trafico" data-k="conducir permiso licencia no habilita vehiculo clase permiso incorrecto 500"><div class="card-desc">🪪 Conducir con un permiso o licencia que no le habilita para el tipo de vehículo que conduce — 500€ · 4 puntos</div><div class="card-footer"><span class="badge MG">M.GRAVE</span><span class="pts">4 PTOS</span><span class="eur">500 EUR</span><span class="cod">CON 001.1.5C</span></div></div>
+    <div class="card cond G trafico" data-k="reforma importancia vehiculo sin regularizar organo competente industria"><div class="card-desc">🔧 Efectuar una reforma de importancia en el vehículo sin haberla regularizado ante el órgano competente en materia de industria</div><div class="card-footer"><span class="badge G">GRAVE</span><span class="eur">200 EUR</span><span class="cod">VEH 007.2.5B</span></div></div>
+    <div class="card cond G trafico" data-k="neumaticos sin dibujo ranuras principales banda rodamiento mal estado"><div class="card-desc">🛞 Circular con vehículo cuyos neumáticos no presentan dibujo en las ranuras principales de la banda de rodamiento</div><div class="card-footer"><span class="badge G">GRAVE</span><span class="eur">200 EUR</span><span class="cod">VEH 012.5-1.5A</span></div></div>
+    <div class="card cond G trafico" data-k="vehiculo ruidos escape libre silenciador explosiones ineficaz emision sonora"><div class="card-desc">💨 Circular con el vehículo sin ajustarse a las disposiciones sobre ruidos (escape libre, sin silenciador o con silenciador ineficaz)</div><div class="card-footer"><span class="badge G">GRAVE</span><span class="eur">200 EUR</span><span class="cod">VEH 011.5W</span></div></div>
+    <div class="card cond G trafico" data-k="vehiculo humos gases contaminantes emision dificulta visibilidad nocivos"><div class="card-desc">💨 Circular con el vehículo emitiendo humos y gases contaminantes que dificultan la visibilidad a otros conductores o resultan nocivos</div><div class="card-footer"><span class="badge G">GRAVE</span><span class="eur">200 EUR</span><span class="cod">VEH 011.5X</span></div></div>
+    <div class="card cond G trafico" data-k="placas matricula no corresponden tipo homologado dimensiones caracteres distintos"><div class="card-desc">🔢 Poner en circulación un vehículo sin llevar las placas de matrícula en la forma establecida reglamentariamente o no correspondientes al tipo homologado</div><div class="card-footer"><span class="badge G">GRAVE</span><span class="eur">200 EUR</span><span class="cod">VEH 025.1.5A / VEH 049.1.5A</span></div></div>
+
+    <!-- INHIBIDOR RADAR / MÓVIL NUEVOS LSV -->
+    <div class="section-label-trafico" style="font-size:.75em;font-weight:800;color:#880e4f;padding:6px 10px 3px;border-left:3px solid #f48fb1;background:#fce4ec;border-radius:0 4px 4px 0;margin:8px 0 4px;text-transform:uppercase;letter-spacing:.05em;">📱 Móvil / Inhibidor Radar (LSV 2026)</div>
+    <div class="card circ G trafico" data-k="movil telefono sujetando mano conducir dispositivo LSV 76 6 puntos"><div class="card-desc">📱 Utilizar sujetándolo con la mano un dispositivo de telefonía móvil mientras conduce — 6 PUNTOS (LSV Art. 76)</div><div class="card-footer"><span class="badge G">GRAVE</span><span class="pts">6 PTOS</span><span class="eur">200 EUR</span><span class="cod">LSV 076.5A</span></div></div>
+    <div class="card circ G trafico" data-k="movil telefono ajustado casco cabeza conducir dispositivo LSV 76 3 puntos"><div class="card-desc">📱 Utilizar manteniéndolo ajustado entre el casco y la cabeza un dispositivo de telefonía móvil mientras conduce — 3 PUNTOS (LSV Art. 76)</div><div class="card-footer"><span class="badge G">GRAVE</span><span class="pts">3 PTOS</span><span class="eur">200 EUR</span><span class="cod">LSV 076.5B</span></div></div>
+    <div class="card circ G trafico" data-k="detector radar cinemometro llevar vehiculo mecanismo deteccion 3 puntos LSV 13"><div class="card-desc">🔦 Conducir el vehículo llevando en el mismo mecanismos de detección de radares o cinemómetros — 3 puntos</div><div class="card-footer"><span class="badge G">GRAVE</span><span class="pts">3 PTOS</span><span class="eur">200 EUR</span><span class="cod">LSV 013.6.5C</span></div></div>
+    <div class="card circ MG trafico" data-k="inhibidor radar instalado vehiculo interferir sistemas vigilancia trafico 6000 6 puntos LSV 77"><div class="card-desc">🚫 Conducir el vehículo llevando instalado un inhibidor de radar o mecanismos que interfieran los sistemas de vigilancia del tráfico — 6.000€ · 6 puntos · SIN reducción</div><div class="card-footer"><span class="badge MG">M.GRAVE</span><span class="pts">6 PTOS</span><span class="eur">6.000 EUR</span><span class="cod">LSV 077.5A</span></div></div>
+
+    <!-- SEGURO NUEVAS CUANTÍAS -->
+    <div class="section-label-trafico" style="font-size:.75em;font-weight:800;color:#1a3a6a;padding:6px 10px 3px;border-left:3px solid #a8c4e8;background:#dce8f8;border-radius:0 4px 4px 0;margin:8px 0 4px;text-transform:uppercase;letter-spacing:.05em;">🛡️ Seguros — Nuevas cuantías ARCI 2026</div>
+    <div class="card cond MG trafico" data-k="ciclomotor seguro responsabilidad civil circular propietario 1000 SOA"><div class="card-desc">📋 Circular CICLOMOTOR sin que conste que su propietario tenga suscrito y mantenga en vigor un contrato de seguro de RC — 1.000€</div><div class="card-footer"><span class="badge MG">M.GRAVE</span><span class="eur">1.000 EUR</span><span class="cod">SOA 002.1.5F</span></div></div>
+    <div class="card cond MG trafico" data-k="motocicleta seguro responsabilidad civil circular propietario 1250 SOA"><div class="card-desc">📋 Circular MOTOCICLETA sin que conste que su propietario tenga suscrito y mantenga en vigor un contrato de seguro de RC — 1.250€</div><div class="card-footer"><span class="badge MG">M.GRAVE</span><span class="eur">1.250 EUR</span><span class="cod">SOA 002.1.5G</span></div></div>
+    <div class="card cond MG trafico" data-k="drogas presencia organismo circular 1000 nueva cuantia LSV 14"><div class="card-desc">💊 Circular con presencia de DROGAS en el organismo — 1.000€ · 6 puntos (nueva cuantía LSV 2026)</div><div class="card-footer"><span class="badge MG">M.GRAVE</span><span class="pts">6 PTOS</span><span class="eur">1.000 EUR</span><span class="cod">LSV 014.1.5A</span></div></div>
+    <div class="card cond MG trafico" data-k="no someterse pruebas drogas deteccion organismo negativa 1000"><div class="card-desc">💊 No someterse a las pruebas de detección de drogas en el organismo — 1.000€ · 6 puntos</div><div class="card-footer"><span class="badge MG">M.GRAVE</span><span class="pts">6 PTOS</span><span class="eur">1.000 EUR</span><span class="cod">LSV 014.2.5A</span></div></div>
+    <div class="card circ MG trafico" data-k="no someterse pruebas alcohol negativa resistencia 1000"><div class="card-desc">🍺 No someterse a las pruebas de detección de alcohol (negativa a soplar) — 1.000€ · 6 puntos</div><div class="card-footer"><span class="badge MG">M.GRAVE</span><span class="pts">6 PTOS</span><span class="eur">1.000 EUR</span><span class="cod">LSV 014.2.5B</span></div></div>
+    <div class="card circ G trafico" data-k="menor edad tasa alcohol superior 0 circular conducir"><div class="card-desc">🍷 Circular siendo menor de edad con cualquier tasa de alcohol en sangre (superior a 0 g/l) — 500€ · 6 puntos</div><div class="card-footer"><span class="badge G">GRAVE</span><span class="pts">6 PTOS</span><span class="eur">500 EUR</span><span class="cod">LSV 014.1.5B</span></div></div>
 
     <!-- CONDUCTORES Y VEHÍCULOS -->
     <div class="section-label-trafico" style="font-size:.75em;font-weight:800;color:#e65100;padding:6px 10px 3px;border-left:3px solid #ffcc80;background:#fff3e0;border-radius:0 4px 4px 0;margin:8px 0 4px;text-transform:uppercase;letter-spacing:.05em;">👮 Conductores y Vehículos</div>
@@ -1776,7 +1842,7 @@ if ('serviceWorker' in navigator) {
       <div class="tarjeta muy-grave vmp2026" data-texto="vmp requisitos tecnicos anexo XXI seguridad vial gravemente manipulacion velocidad modificacion estructural">
         <div class="tarjeta-cabecera">
           <div class="tarjeta-descripcion">⚠️ VMP que no cumple los requisitos técnicos del Anexo XXI afectando GRAVEMENTE a la seguridad vial (manipulación del control de velocidad, modificación estructural...)</div>
-          <div class="badges"><span class="badge badge-muy-grave">MUY GRAVE</span><span class="badge badge-art">VEH 22 · B-2 · 1 · 5D</span><span class="badge badge-art">LSV 67 · 1 · 5D · 500€</span></div>
+          <div class="badges"><span class="badge badge-muy-grave">MUY GRAVE</span><span class="badge badge-art">VEH · 22 · B-2 · 5D</span><span class="badge badge-art" style="background:#fce4ec;color:#c62828;border:1px solid #f4a0a0;">500€</span><span class="badge badge-art">LSV · 67 · 1</span></div>
         </div>
         <div class="tarjeta-nota">Especificar el requisito técnico incumplido del Anexo XXI. Incluye VMP con certificado o inscritos en el Registro Nacional de Vehículos. Pronto pago: 250€. Responsable: Titular.</div>
       </div>
@@ -1784,7 +1850,7 @@ if ('serviceWorker' in navigator) {
       <div class="tarjeta grave vmp2026" data-texto="vmp certificado circulacion no disponer requisitos tecnicos exigibles condiciones tecnicas">
         <div class="tarjeta-cabecera">
           <div class="tarjeta-descripcion">📋 VMP sin certificado de circulación que garantice el cumplimiento de los requisitos técnicos exigibles</div>
-          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">VEH 22 · B-2 · 1 · 5A</span><span class="badge badge-art">LSV 67 · 1 · 5A · 200€</span></div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">VEH · 22 · B-2 · 5A</span><span class="badge badge-art" style="background:#fce4ec;color:#c62828;border:1px solid #f4a0a0;">200€</span><span class="badge badge-art">LSV · 67 · 1</span></div>
         </div>
         <div class="tarjeta-nota">Especificar los requisitos técnicos del vehículo (peso, velocidad máxima, etc.) y aportar toda documentación posible. No exigible a VMP comercializados antes del 22/01/2024 que pueden circular hasta el 23/01/2027. Pronto pago: 100€. Responsable: Titular/Conductor.</div>
       </div>
@@ -1792,7 +1858,7 @@ if ('serviceWorker' in navigator) {
       <div class="tarjeta grave vmp2026" data-texto="vmp requisitos tecnicos anexo XXI no cumplir iluminacion ruedas modificacion deterioro componente grave">
         <div class="tarjeta-cabecera">
           <div class="tarjeta-descripcion">🔧 VMP que no cumple los requisitos técnicos del Anexo XXI sin afectación grave a la seguridad vial (iluminación, ruedas deterioradas...)</div>
-          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">VEH 22 · B-2 · 1 · 5E</span><span class="badge badge-art">LSV 67 · 1 · 5E · 200€</span></div>
+          <div class="badges"><span class="badge badge-grave">GRAVE</span><span class="badge badge-art">VEH · 22 · B-2 · 5E</span><span class="badge badge-art" style="background:#fce4ec;color:#c62828;border:1px solid #f4a0a0;">200€</span><span class="badge badge-art">LSV · 67 · 1</span></div>
         </div>
         <div class="tarjeta-nota">Especificar el requisito técnico incumplido del Anexo XXI. Incluye VMP con certificado o inscritos en el Registro Nacional. Pronto pago: 100€. Responsable: Titular.</div>
       </div>
@@ -1800,7 +1866,7 @@ if ('serviceWorker' in navigator) {
       <div class="tarjeta leve vmp2026" data-texto="vmp no inscribir registro nacional vehiculos matricula certificado numero serie marca modelo">
         <div class="tarjeta-cabecera">
           <div class="tarjeta-descripcion">📋 VMP no inscrito en el Registro Nacional de Vehículos</div>
-          <div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">VEH 22 · B-2 · 1 · 5B</span><span class="badge badge-art">LSV 67 · 1 · 5B · 100€</span></div>
+          <div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">VEH · 22 · B-2 · 5B</span><span class="badge badge-art" style="background:#fce4ec;color:#c62828;border:1px solid #f4a0a0;">100€</span><span class="badge badge-art">LSV · 67 · 1</span></div>
         </div>
         <div class="tarjeta-nota">Especificar nº de certificado, nº de serie, marca y modelo del VMP. Para VMP con certificado de circulación o comercializados antes del 22/01/2024. Pronto pago: 50€. Responsable: Titular/Conductor.</div>
       </div>
@@ -1808,7 +1874,7 @@ if ('serviceWorker' in navigator) {
       <div class="tarjeta leve vmp2026" data-texto="vmp etiqueta identificativa placa marcaje fabricante no disponer exhibir">
         <div class="tarjeta-cabecera">
           <div class="tarjeta-descripcion">🏷️ VMP sin etiqueta identificativa o placa de marcaje de fabricante</div>
-          <div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">VEH 22 · B-2 · 1 · 5C</span><span class="badge badge-art">LSV 67 · 1 · 5C · 80€</span></div>
+          <div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">VEH · 22 · B-2 · 5C</span><span class="badge badge-art" style="background:#fce4ec;color:#c62828;border:1px solid #f4a0a0;">80€</span><span class="badge badge-art">LSV · 67 · 1</span></div>
         </div>
         <div class="tarjeta-nota">Especificar si no dispone de etiqueta identificativa, de placa de marcaje, o de ninguna. Para VMP con certificado e inscritos en el Registro Nacional de Vehículos. Pronto pago: 40€. Responsable: Titular.</div>
       </div>
@@ -1816,7 +1882,7 @@ if ('serviceWorker' in navigator) {
       <div class="tarjeta leve vmp2026" data-texto="vmp requisitos tecnicos leves anexo XXI dispositivo sonoro pata cabra modificacion deterioro leve">
         <div class="tarjeta-cabecera">
           <div class="tarjeta-descripcion">🔔 VMP que no cumple requisitos técnicos LEVES del Anexo XXI (dispositivo sonoro, pata de cabra...)</div>
-          <div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">VEH 22 · B-2 · 1 · 5F</span><span class="badge badge-art">LSV 67 · 1 · 5F · 80€</span></div>
+          <div class="badges"><span class="badge badge-leve">LEVE</span><span class="badge badge-art">VEH · 22 · B-2 · 5F</span><span class="badge badge-art" style="background:#fce4ec;color:#c62828;border:1px solid #f4a0a0;">80€</span><span class="badge badge-art">LSV · 67 · 1</span></div>
         </div>
         <div class="tarjeta-nota">Especificar el requisito técnico leve incumplido del Anexo XXI. Pronto pago: 40€. Responsable: Titular.</div>
       </div>
@@ -1826,7 +1892,7 @@ if ('serviceWorker' in navigator) {
       <div class="tarjeta muy-grave vmp2026" data-texto="VPL vehiculo personal ligero seguro responsabilidad civil circular sin seguro propietario 300">
         <div class="tarjeta-cabecera">
           <div class="tarjeta-descripcion">📋 Circular el VPL sin que conste que su propietario tenga suscrito y mantenga en vigor un contrato de seguro de RC</div>
-          <div class="badges"><span class="badge badge-muy-grave">MUY GRAVE</span><span class="badge badge-art">SDA · 1 · 5A</span><span class="badge badge-art">LSV 78 · 300€</span></div>
+          <div class="badges"><span class="badge badge-muy-grave">MUY GRAVE</span><span class="badge badge-art">SDA · 1 · 5A</span><span class="badge badge-art" style="background:#fce4ec;color:#c62828;border:1px solid #f4a0a0;">300€</span><span class="badge badge-art">LSV · 78 · 1</span></div>
         </div>
         <div class="tarjeta-nota">Indicar nº de identificación (M0000BBB) del VPL. Para VPL con certificado de circulación inscritos en el Registro Nacional con nº de identificación. Pronto pago: 150€. Responsable: Titular.</div>
       </div>
@@ -1834,7 +1900,7 @@ if ('serviceWorker' in navigator) {
       <div class="tarjeta muy-grave vmp2026" data-texto="VPL vehiculo personal ligero propietario incumplir obligacion suscribir seguro responsabilidad civil 200">
         <div class="tarjeta-cabecera">
           <div class="tarjeta-descripcion">📋 Incumplir el propietario del VPL la obligación de suscribir y mantener en vigor un contrato de seguro de RC</div>
-          <div class="badges"><span class="badge badge-muy-grave">MUY GRAVE</span><span class="badge badge-art">SDA · 1 · 5B</span><span class="badge badge-art">LSV 78 · 200€</span></div>
+          <div class="badges"><span class="badge badge-muy-grave">MUY GRAVE</span><span class="badge badge-art">SDA · 1 · 5B</span><span class="badge badge-art" style="background:#fce4ec;color:#c62828;border:1px solid #f4a0a0;">200€</span><span class="badge badge-art">LSV · 78 · 1</span></div>
         </div>
         <div class="tarjeta-nota">Indicar nº de identificación (M0000BBB) del VPL. Para VPL con certificado inscritos en el Registro Nacional con nº de identificación. Pronto pago: 100€. Responsable: Titular.</div>
       </div>
@@ -1844,7 +1910,7 @@ if ('serviceWorker' in navigator) {
       <div class="tarjeta muy-grave vmp2026" data-texto="VMP seguro responsabilidad civil circular sin seguro propietario 800 SOA no VPL">
         <div class="tarjeta-cabecera">
           <div class="tarjeta-descripcion">📋 Circular el VMP (más de 25 kg, no es VPL) sin que conste que su propietario tenga suscrito y mantenga en vigor un contrato de seguro de RC</div>
-          <div class="badges"><span class="badge badge-muy-grave">MUY GRAVE</span><span class="badge badge-art">SOA · 2 · 1 · 5N</span><span class="badge badge-art">LSV 78 · 800€</span></div>
+          <div class="badges"><span class="badge badge-muy-grave">MUY GRAVE</span><span class="badge badge-art">SOA · 2 · 1 · 5N</span><span class="badge badge-art" style="background:#fce4ec;color:#c62828;border:1px solid #f4a0a0;">800€</span><span class="badge badge-art">LSV · 78 · 1</span></div>
         </div>
         <div class="tarjeta-nota">Indicar nº de identificación o nº de serie y certificado de la placa de marcaje. Si no tuviera ninguno, especificar requisitos técnicos (peso, velocidad máxima, etc.). Pronto pago: 400€. Responsable: Titular.</div>
       </div>
@@ -1852,7 +1918,7 @@ if ('serviceWorker' in navigator) {
       <div class="tarjeta muy-grave vmp2026" data-texto="VMP propietario incumplir obligacion seguro responsabilidad civil 610 SOA no VPL">
         <div class="tarjeta-cabecera">
           <div class="tarjeta-descripcion">📋 Incumplir el propietario del VMP (más de 25 kg, no es VPL) la obligación de suscribir y mantener en vigor un contrato de seguro de RC</div>
-          <div class="badges"><span class="badge badge-muy-grave">MUY GRAVE</span><span class="badge badge-art">SOA · 2 · 1 · 5O</span><span class="badge badge-art">LSV 78 · 610€</span></div>
+          <div class="badges"><span class="badge badge-muy-grave">MUY GRAVE</span><span class="badge badge-art">SOA · 2 · 1 · 5O</span><span class="badge badge-art" style="background:#fce4ec;color:#c62828;border:1px solid #f4a0a0;">610€</span><span class="badge badge-art">LSV · 78 · 1</span></div>
         </div>
         <div class="tarjeta-nota">Indicar nº de identificación o nº de serie y certificado de la placa de marcaje. Si no tuviera ninguno, especificar requisitos técnicos. Pronto pago: 305€. Responsable: Titular.</div>
       </div>
@@ -2266,240 +2332,7 @@ if ('serviceWorker' in navigator) {
       </div>
     </div>
 
-    <div class="subseccion" data-cat="conductores">
-      <div class="subseccion-titulo">🪪 REGLAMENTO GENERAL DE CONDUCTORES</div>
-      <div style="font-size:10px;color:#546e7a;padding:2px 10px 8px;font-style:italic;">RD 818/2009 — Conducir sin autorización o con autorización inválida · Multa / Importe reducido</div>
-
-      <div class="ley-titulo">OPCIÓN 5D — SIN CURSO DE REEDUCACIÓN VIAL (condena penal &lt;2 años)</div>
-      <div class="card G conductores" data-k="autorizacion validez requisitos administrativos condena penal curso reeducacion vial 5D 200 1 1 RGCOND">
-        <div class="card-desc">📄 Conducir con autorización que carece de validez por no haber cumplido los requisitos administrativos — conducir tras condena penal sin realizar curso de reeducación vial (Art. 73.2 LSV)</div>
-        <div class="card-footer"><span class="badge G">GRAVE</span><span class="eur">200 EUR / 100 EUR</span><span class="cod">1-1-5D / RGCOND</span></div>
-      </div>
-
-      <div class="ley-titulo">OPCIÓN 5A — SIN VIGENCIA ADMINISTRATIVA (500€ / 250€)</div>
-      <div class="card MG conductores" data-k="sin vigencia causa administrativa notificacion edictal 500 5A autorizacion careciendo RGCOND">
-        <div class="card-desc">📄 Conducir careciendo de autorización administrativa — sin vigencia por causa administrativa (notificación al interesado ha sido edictal)</div>
-        <div class="card-footer"><span class="badge MG">M.GRAVE</span><span class="eur">500 EUR / 250 EUR</span><span class="cod">1-1-5A / RGCOND</span></div>
-      </div>
-      <div class="card MG conductores" data-k="sin vigencia retirada puntos plazo alegaciones 500 5A autorizacion careciendo RGCOND">
-        <div class="card-desc">📄 Conducir careciendo de autorización administrativa — pérdida de vigencia por retirada de puntos, dentro del plazo de presentación de alegaciones</div>
-        <div class="card-footer"><span class="badge MG">M.GRAVE</span><span class="eur">500 EUR / 250 EUR</span><span class="cod">1-1-5A / RGCOND</span></div>
-      </div>
-      <div class="card MG conductores" data-k="sin vigencia retirada puntos plazo resolver recurso 500 5A autorizacion careciendo RGCOND">
-        <div class="card-desc">📄 Conducir careciendo de autorización administrativa — pérdida de vigencia por retirada de puntos, dentro del plazo para resolverse el recurso presentado</div>
-        <div class="card-footer"><span class="badge MG">M.GRAVE</span><span class="eur">500 EUR / 250 EUR</span><span class="cod">1-1-5A / RGCOND</span></div>
-      </div>
-
-      <div class="ley-titulo">PERMISO CADUCADO (200€ / 100€)</div>
-      <div class="card G conductores" data-k="permiso licencia caducado vigencia vencida 200 12 4 5A RGCOND">
-        <div class="card-desc">📅 Conducir con permiso o licencia de conducción cuya vigencia ha vencido (caducado)</div>
-        <div class="card-footer"><span class="badge G">GRAVE</span><span class="eur">200 EUR / 100 EUR</span><span class="cod">12-4-5A / RGCOND</span></div>
-      </div>
-    </div>
-
-    <div class="subseccion" data-cat="pjudicial">
-      <div class="subseccion-titulo">⚖️ POLICÍA JUDICIAL DE TRÁFICO — DELITOS E IMPRUDENCIA</div>
-      <div style="font-size:10px;color:#546e7a;padding:2px 10px 8px;font-style:italic;">Código Penal · Toca cada artículo para ver todas las opciones</div>
-
-      <div class="ley-titulo">DELITOS DE SEGURIDAD VIAL (Arts. 379–385 CP)</div>
-
-      <div class="card AT pjudicial" data-k="379 1 velocidad superar 60 km h via urbana 80 interurbana siempre atestado">
-        <div class="card-desc">🚨 Superar velocidad: <strong>60 km/h en vías urbanas</strong> / <strong>80 km/h en vías interurbanas</strong></div>
-        <div class="card-footer"><span class="badge AT">SIEMPRE ATESTADO</span><span class="cod">Art. 379.1</span></div>
-      </div>
-
-      <div class="tarjeta pjudicial" data-texto="379 2 alcohol tasa 0.66 0.45 drogas presencia inferior maximo legal conductor siempre excepcional nunca atestado">
-        <div class="tarjeta-cabecera">
-          <div class="tarjeta-descripcion">🍷 Art. 379.2 — Alcohol / Drogas en el organismo <span style="font-size:10px;color:#7986cb;">(toca para ver casos)</span></div>
-          <div class="badges"><span class="badge badge-art">379.2 ▾</span></div>
-        </div>
-        <div class="tarjeta-nota">
-          <div class="pj-tabla">
-            <div class="pj-fila at"><div class="pj-conducta">Tasa de alcohol <strong>igual o superior a 0,66 mg/l</strong></div><div class="pj-verdict">SIEMPRE ATESTADO</div></div>
-            <div class="pj-fila ex"><div class="pj-conducta">Tasa de alcohol <strong>superior a 0,45 mg/l</strong> o <strong>presencia de drogas</strong></div><div class="pj-verdict">SÓLO CUANDO EXISTA INFRACCIÓN CUYA CAUSA SEA LA TASA O LA PRESENCIA DE DROGAS</div></div>
-            <div class="pj-fila ex"><div class="pj-conducta">Tasa <strong>inferior a 0,45 mg/l</strong></div><div class="pj-verdict">SÓLO EN CIRCUNSTANCIAS MUY EXCEPCIONALES</div></div>
-            <div class="pj-fila nu"><div class="pj-conducta">Tasa inferior al <strong>máximo legal del conductor</strong></div><div class="pj-verdict">NUNCA</div></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="card AT pjudicial" data-k="380 1 temeridad manifiesta peligro concreto vida integridad personas siempre atestado">
-        <div class="card-desc">⚠️ Conducción con <strong>temeridad manifiesta</strong> poniendo en <strong>concreto peligro la vida o integridad</strong> de las personas</div>
-        <div class="card-footer"><span class="badge AT">SIEMPRE ATESTADO</span><span class="cod">Art. 380.1</span></div>
-      </div>
-
-      <div class="card AT pjudicial" data-k="380 2 velocidad delito tasas alcohol superar combinado siempre atestado">
-        <div class="card-desc">⚡ <strong>Superar velocidad (delito)</strong> + <strong>superar tasas de alcohol (delito)</strong></div>
-        <div class="card-footer"><span class="badge AT">SIEMPRE ATESTADO</span><span class="cod">Art. 380.2</span></div>
-      </div>
-
-      <div class="card AT pjudicial" data-k="381 1 temeridad manifiesta desprecio vida peligro concreto integridad personas siempre atestado">
-        <div class="card-desc">💀 Temeridad manifiesta + <strong>manifiesto desprecio por la vida</strong> de los demás + <strong>poniendo en concreto peligro</strong> la vida o integridad</div>
-        <div class="card-footer"><span class="badge AT">SIEMPRE ATESTADO</span><span class="cod">Art. 381.1</span></div>
-      </div>
-
-      <div class="card AT pjudicial" data-k="381 2 temeridad manifiesta desprecio vida sin peligro concreto siempre atestado">
-        <div class="card-desc">💀 Temeridad manifiesta + <strong>manifiesto desprecio por la vida</strong> de los demás + <strong>SIN poner en concreto peligro</strong> la vida o integridad</div>
-        <div class="card-footer"><span class="badge AT">SIEMPRE ATESTADO</span><span class="cod">Art. 381.2</span></div>
-      </div>
-
-      <div class="tarjeta pjudicial" data-texto="382 abandono lugar accidente heridos graves fallecidos riesgo propio asistencia sanitaria ocupantes terceros siempre atestado">
-        <div class="tarjeta-cabecera">
-          <div class="tarjeta-descripcion">🚗💨 Art. 382 — Abandono del lugar del accidente <span style="font-size:10px;color:#7986cb;">(toca para ver casos)</span></div>
-          <div class="badges"><span class="badge badge-art">382 ▾</span></div>
-        </div>
-        <div class="tarjeta-nota">
-          <div class="pj-tabla">
-            <div class="pj-fila at"><div class="pj-conducta">Abandono del lugar con <strong>heridos graves o fallecidos</strong> sin riesgo propio</div><div class="pj-verdict">SIEMPRE ATESTADO</div></div>
-            <div class="pj-fila at"><div class="pj-conducta">Abandono con heridos graves o fallecidos sin riesgo propio <strong>aunque solicite asistencia sanitaria</strong></div><div class="pj-verdict">SIEMPRE ATESTADO</div></div>
-            <div class="pj-fila at"><div class="pj-conducta"><strong>Ocupantes del vehículo o terceros</strong> que ayuden al conductor a abandonar el lugar del accidente en los casos anteriores</div><div class="pj-verdict">SIEMPRE ATESTADO</div></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="card AT pjudicial" data-k="383 negarse pruebas alcohol drogas someterse rehusa siempre atestado">
-        <div class="card-desc">❌ Negarse a someterse a las <strong>pruebas de alcohol o drogas</strong></div>
-        <div class="card-footer"><span class="badge AT">SIEMPRE ATESTADO</span><span class="cod">Art. 383</span></div>
-      </div>
-
-      <div class="tarjeta pjudicial" data-texto="384 1 perdida vigencia notificada personalmente JPT infracciones periodo edictal recurso nunca administrativa siempre atestado">
-        <div class="tarjeta-cabecera">
-          <div class="tarjeta-descripcion">🪪 Art. 384.1 — Pérdida de vigencia por infracciones JPT (puntos) <span style="font-size:10px;color:#7986cb;">(toca para ver casos)</span></div>
-          <div class="badges"><span class="badge badge-art">384.1 ▾</span></div>
-        </div>
-        <div class="tarjeta-nota">
-          <div class="pj-grupo-titulo">📬 Notificada PERSONALMENTE</div>
-          <div class="pj-tabla">
-            <div class="pj-fila at"><div class="pj-conducta">Durante el <strong>periodo de pérdida de vigencia</strong></div><div class="pj-verdict">SIEMPRE ATESTADO</div></div>
-            <div class="pj-fila at"><div class="pj-conducta">Pasado el periodo de pérdida de vigencia <strong>sin haber realizado el curso</strong></div><div class="pj-verdict">SIEMPRE ATESTADO</div></div>
-          </div>
-          <div class="pj-grupo-titulo" style="margin-top:8px;">📮 SIN notificar personalmente (notificación edictal)</div>
-          <div class="pj-tabla">
-            <div class="pj-fila nu"><div class="pj-conducta">Durante el periodo (edictal) · Plazo presentación recurso · Pendiente resolución recurso · Pasado el periodo sin curso</div><div class="pj-verdict">NUNCA — VÍA ADMINISTRATIVA (opción 5A)</div></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="tarjeta pjudicial" data-texto="384 2 nunca obtenido permiso licencia LCM LVA movilidad reducida agricolas privacion judicial condena 2 anos puntos siempre nunca administrativa">
-        <div class="tarjeta-cabecera">
-          <div class="tarjeta-descripcion">🪪 Art. 384.2 — Sin permiso / Privación judicial <span style="font-size:10px;color:#7986cb;">(toca para ver casos)</span></div>
-          <div class="badges"><span class="badge badge-art">384.2 ▾</span></div>
-        </div>
-        <div class="tarjeta-nota">
-          <div class="pj-grupo-titulo">🚫 No haber obtenido NUNCA permiso o licencia</div>
-          <div class="pj-tabla">
-            <div class="pj-fila at"><div class="pj-conducta">Conducir vehículo que requiere permiso <strong>sin ningún tipo de permiso o licencia</strong></div><div class="pj-verdict">SIEMPRE ATESTADO</div></div>
-            <div class="pj-fila at"><div class="pj-conducta">Conducir con licencia tipo <strong>LCM</strong> (movilidad reducida) o <strong>LVA</strong> (agrícolas)</div><div class="pj-verdict">SIEMPRE ATESTADO</div></div>
-          </div>
-          <div class="pj-grupo-titulo" style="margin-top:8px;">⚖️ Privación judicial — 2 años o menos (no se pierden puntos)</div>
-          <div class="pj-tabla">
-            <div class="pj-fila at"><div class="pj-conducta">Durante la condena</div><div class="pj-verdict">SIEMPRE ATESTADO</div></div>
-            <div class="pj-fila nu"><div class="pj-conducta">Pasada la condena <strong>sin realizar el curso</strong></div><div class="pj-verdict">NUNCA — VÍA ADMINISTRATIVA (opción 5D)</div></div>
-          </div>
-          <div class="pj-grupo-titulo" style="margin-top:8px;">⚖️ Privación judicial — más de 2 años</div>
-          <div class="pj-tabla">
-            <div class="pj-fila at"><div class="pj-conducta">Durante la condena</div><div class="pj-verdict">SIEMPRE ATESTADO</div></div>
-            <div class="pj-fila nu"><div class="pj-conducta">Pasada la condena <strong>sin realizar el curso</strong></div><div class="pj-verdict">NUNCA — VÍA ADMINISTRATIVA (opción 5A)</div></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="card AT pjudicial" data-k="385 obstaculos imprevisibles via derramar sustancias deslizantes inflamables senalizacion mutar sustraer anular siempre atestado">
-        <div class="card-desc">🚧 Colocar obstáculos imprevisibles en la vía, derramar sustancias deslizantes o inflamables, o <strong>mutar/sustraer/anular la señalización</strong></div>
-        <div class="card-footer"><span class="badge AT">SIEMPRE ATESTADO</span><span class="cod">Art. 385</span></div>
-      </div>
-
-      <div class="card AT pjudicial" data-k="385 2 no restablecer seguridad via obligacion siempre atestado">
-        <div class="card-desc">🛣️ No restablecer la seguridad de la vía cuando haya <strong>obligación de hacerlo</strong></div>
-        <div class="card-footer"><span class="badge AT">SIEMPRE ATESTADO</span><span class="cod">Art. 385.2</span></div>
-      </div>
-
-      <div class="ley-titulo">LESIONES POR IMPRUDENCIA (Arts. 142, 147, 149, 150 CP)</div>
-
-      <div class="tarjeta pjudicial" data-texto="imprudencia grave menos grave criterios velocidad alcohol drogas RGC 76 77 detener abogado">
-        <div class="tarjeta-cabecera">
-          <div class="tarjeta-descripcion">ℹ️ Criterios: Imprudencia Grave vs. Menos Grave <span style="font-size:10px;color:#7986cb;">(toca para ver)</span></div>
-          <div class="badges"><span class="badge badge-art">INFO ▾</span></div>
-        </div>
-        <div class="tarjeta-nota">
-          <div class="pj-grupo-titulo">🔴 IMPRUDENCIA GRAVE</div>
-          <div style="font-size:12px;line-height:1.7;padding:3px 0 6px;">— Vulneración de las más elementales normas de previsión y cuidado<br>— Infracciones penales relacionadas con velocidad, alcohol y drogas<br>— Infracciones <strong>muy graves</strong> al Reglamento General de Circulación (art. 77)</div>
-          <div class="pj-grupo-titulo">🟠 IMPRUDENCIA MENOS GRAVE</div>
-          <div style="font-size:12px;line-height:1.7;padding:3px 0 6px;">— Vulneración de deberes relevantes de cuidado<br>— Infracciones <strong>graves</strong> al Reglamento General de Circulación (art. 76)</div>
-          <div style="font-size:11px;color:#8b0000;font-weight:700;padding:6px 0 0;border-top:1px dashed rgba(0,0,0,.12);margin-top:4px;">⚠️ Imprudencia grave: DETENER, SIEMPRE ABOGADO. Delito de lesiones + delitos de seguridad vial que correspondan.</div>
-        </div>
-      </div>
-
-      <div class="tarjeta pjudicial" data-texto="142 fallecido muerte imprudencia grave menos grave homicidio atestado prision multa privacion permiso">
-        <div class="tarjeta-cabecera">
-          <div class="tarjeta-descripcion">⚰️ Art. 142 — Causar la muerte (homicidio imprudente) <span style="font-size:10px;color:#7986cb;">(toca para ver)</span></div>
-          <div class="badges"><span class="badge badge-art">142 ▾</span></div>
-        </div>
-        <div class="tarjeta-nota">
-          <div class="pj-tabla">
-            <div class="pj-fila at"><div class="pj-conducta"><strong>Imprudencia GRAVE</strong> — Pena: prisión 1 a 4 años + privación permiso 1 a 6 años</div><div class="pj-verdict">ATESTADO</div></div>
-            <div class="pj-fila at"><div class="pj-conducta"><strong>Imprudencia MENOS GRAVE</strong> — Pena: multa 3 a 18 meses + privación permiso 3 a 18 meses</div><div class="pj-verdict">ATESTADO</div></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="tarjeta pjudicial" data-texto="147 1 lesion grave tratamiento medico quirurgico primera asistencia facultativa imprudencia grave atestado menos grave denuncia previa">
-        <div class="tarjeta-cabecera">
-          <div class="tarjeta-descripcion">🏥 Art. 147.1 — Lesión grave (requiere tratamiento médico/quirúrgico) <span style="font-size:10px;color:#7986cb;">(toca para ver)</span></div>
-          <div class="badges"><span class="badge badge-art">147.1 ▾</span></div>
-        </div>
-        <div class="tarjeta-nota">
-          <div style="font-size:11px;color:#546e7a;padding-bottom:6px;line-height:1.5;">La lesión requiera, además de una primera asistencia facultativa, tratamiento médico o quirúrgico. La simple vigilancia o seguimiento facultativo del curso de la lesión <strong>NO</strong> se considera tratamiento médico.</div>
-          <div class="pj-tabla">
-            <div class="pj-fila at"><div class="pj-conducta"><strong>Imprudencia GRAVE</strong></div><div class="pj-verdict">ATESTADO</div></div>
-            <div class="pj-fila dp"><div class="pj-conducta"><strong>Imprudencia MENOS GRAVE</strong></div><div class="pj-verdict">DENUNCIA PREVIA O ATESTADO</div></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="tarjeta pjudicial" data-texto="149 lesion grave organo miembro principal sentido impotencia esterilidad grave deformidad enfermedad somatica psiquica siempre atestado">
-        <div class="tarjeta-cabecera">
-          <div class="tarjeta-descripcion">🏥 Art. 149 — Pérdida de órgano/miembro principal, sentido, grave deformidad <span style="font-size:10px;color:#7986cb;">(toca para ver)</span></div>
-          <div class="badges"><span class="badge badge-art">149 ▾</span></div>
-        </div>
-        <div class="tarjeta-nota">
-          <div style="font-size:11px;color:#546e7a;padding-bottom:6px;line-height:1.5;">Pérdida o inutilidad de órgano o miembro principal, sentido, impotencia, esterilidad, grave deformidad, o grave enfermedad somática o psíquica.</div>
-          <div class="pj-tabla">
-            <div class="pj-fila at"><div class="pj-conducta"><strong>Imprudencia GRAVE</strong></div><div class="pj-verdict">ATESTADO</div></div>
-            <div class="pj-fila at"><div class="pj-conducta"><strong>Imprudencia MENOS GRAVE</strong></div><div class="pj-verdict">ATESTADO</div></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="tarjeta pjudicial" data-texto="150 lesion grave organo miembro no principal deformidad imprudencia grave atestado menos grave denuncia previa">
-        <div class="tarjeta-cabecera">
-          <div class="tarjeta-descripcion">🏥 Art. 150 — Pérdida de órgano/miembro no principal o deformidad <span style="font-size:10px;color:#7986cb;">(toca para ver)</span></div>
-          <div class="badges"><span class="badge badge-art">150 ▾</span></div>
-        </div>
-        <div class="tarjeta-nota">
-          <div style="font-size:11px;color:#546e7a;padding-bottom:6px;line-height:1.5;">Pérdida o inutilidad de órgano o miembro no principal, o la deformidad.</div>
-          <div class="pj-tabla">
-            <div class="pj-fila at"><div class="pj-conducta"><strong>Imprudencia GRAVE</strong></div><div class="pj-verdict">ATESTADO</div></div>
-            <div class="pj-fila dp"><div class="pj-conducta"><strong>Imprudencia MENOS GRAVE</strong></div><div class="pj-verdict">DENUNCIA PREVIA O ATESTADO</div></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="tarjeta pjudicial" data-texto="147 2 lesion leve multa denuncia previa atestado imprudencia grave menos grave">
-        <div class="tarjeta-cabecera">
-          <div class="tarjeta-descripcion">🩹 Art. 147.2 — Lesión leve (no incluida en apartados anteriores) <span style="font-size:10px;color:#7986cb;">(toca para ver)</span></div>
-          <div class="badges"><span class="badge badge-art">147.2 ▾</span></div>
-        </div>
-        <div class="tarjeta-nota">
-          <div style="font-size:11px;color:#546e7a;padding-bottom:6px;line-height:1.5;">Lesión no incluida en los apartados anteriores. Pena: multa de 1 a 3 meses.</div>
-          <div class="pj-tabla">
-            <div class="pj-fila dp"><div class="pj-conducta"><strong>Imprudencia GRAVE</strong></div><div class="pj-verdict">DENUNCIA PREVIA O ATESTADO</div></div>
-            <div class="pj-fila dp"><div class="pj-conducta"><strong>Imprudencia MENOS GRAVE</strong></div><div class="pj-verdict">DENUNCIA PREVIA O ATESTADO</div></div>
-          </div>
-        </div>
-      </div>
-
-    </div>
+    </div><!-- fin sec-todas -->
 
   <!-- Secciones filtradas (vacías — se rellenan dinámicamente) -->
 
